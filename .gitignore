@@ -1,0 +1,34 @@
+# Android Studio and Gradle
+.gradle/
+.idea/
+*.iml
+local.properties
+build/
+**/build/
+.kotlin/
+
+# Signing and secrets
+*.jks
+*.keystore
+keystore.properties
+secrets.properties
+*.env
+
+# Native and generated output
+.cxx/
+captures/
+*.apk
+*.aab
+
+# OS and editors
+.DS_Store
+Thumbs.db
+*.swp
+
+# Codex analysis intermediates
+.codex-work/
+
+# Local source material containing personal contact information
+超干货总结.docx
+渝安青澜.docx
+渝安青澜——重庆花、林、江生态殡葬创新.pdf
