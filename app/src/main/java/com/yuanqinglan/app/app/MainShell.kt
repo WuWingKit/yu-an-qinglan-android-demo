@@ -7,7 +7,7 @@
 package com.yuanqinglan.app.app
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -25,9 +26,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -37,27 +38,32 @@ import androidx.navigation.compose.rememberNavController
 import com.yuanqinglan.app.core.designsystem.AppBackground
 import com.yuanqinglan.app.core.designsystem.AppDimensions
 import com.yuanqinglan.app.core.designsystem.SurfaceCard
-import com.yuanqinglan.app.navigation.AppRoute
-import com.yuanqinglan.app.navigation.TopLevelDestination
+import com.yuanqinglan.app.data.local.AppContainer
 import com.yuanqinglan.app.feature.burial.burialNavGraph
 import com.yuanqinglan.app.feature.home.homeNavGraph
+import com.yuanqinglan.app.feature.memorial.memorialNavGraph
 import com.yuanqinglan.app.feature.policy.policyNavGraph
+import com.yuanqinglan.app.feature.profile.profileNavGraph
+import com.yuanqinglan.app.feature.treehole.treeholeNavGraph
+import com.yuanqinglan.app.navigation.AppRoute
+import com.yuanqinglan.app.navigation.TopLevelDestination
 
 /**
  * 主外壳：Scaffold + 底部 5 Tab + NavHost。
  * Tab 各自保留回退栈（saveState / restoreState / launchSingleTop）。
  *
  * NavHost 集成（扩展函数契约由主 Agent 冻结，各 feature 位于自身目录内实现）：
- * - 第一批（本次接入）：home/policy/burial
- * - 第二批（待接入，当前保留占位路由，5 个 Tab 根路由始终可到达）：
- *   TODO(foundation): memorial/treehole/profile 的 NavGraph 扩展落地后，
- *   以 memorialNavGraph / treeholeNavGraph / profileNavGraph 替换下方三个 composable 占位。
+ * 五个一级 Tab 根分别由 home / burial / memorial / treehole / profile 的 NavGraph
+ * 扩展注册；树洞总开关关闭时，树洞 Tab 显示"已关闭"状态且内容不可达。
  */
 @Composable
 fun MainShell() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
+
+    val treeholeEnabled by AppContainer.settings.treeholeEnabled
+        .collectAsStateWithLifecycle(initialValue = true)
 
     Scaffold(
         containerColor = AppBackground,
@@ -98,27 +104,37 @@ fun MainShell() {
             homeNavGraph(navController)
             policyNavGraph(navController)
             burialNavGraph(navController)
+            memorialNavGraph(navController)
+            profileNavGraph(navController)
 
-            // TODO(foundation): 第二批 feature 接入点（见上方 KDoc），落地前以占位保证 5 Tab 可达。
-            composable(AppRoute.MEMORIAL_HOME.route) {
-                ModulePlaceholder("云端追忆", "保存生命故事与私人纪念空间")
-            }
-            composable(AppRoute.TREEHOLE_SELECT.route) {
-                ModulePlaceholder("心灵树洞", "人间与生灵内容池相互隔离")
-            }
-            composable(AppRoute.PROFILE.route) {
-                ModulePlaceholder("我的", "管理设置、隐私与适老模式")
+            // 树洞总开关联动（SettingsRepository.treeholeEnabled）：
+            // 关闭时仅注册"已关闭"占位路由，双内容池路由不可达。
+            if (treeholeEnabled) {
+                treeholeNavGraph(navController)
+            } else {
+                composable(AppRoute.TREEHOLE_SELECT.route) {
+                    TreeholeDisabledScreen(
+                        onGoSettings = {
+                            navController.navigate(AppRoute.PROFILE.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                    )
+                }
             }
         }
     }
 }
 
 /**
- * 第二批模块占位页：仅用于尚未接入的 Tab 根路由，保证 5 个一级 Tab 可到达。
- * feature 落地后由对应 NavGraph 扩展替换。
+ * 树洞总开关关闭时的占位页：说明功能已关闭，并提供前往设置的入口。
  */
 @Composable
-private fun ModulePlaceholder(title: String, description: String) {
+private fun TreeholeDisabledScreen(onGoSettings: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -126,9 +142,9 @@ private fun ModulePlaceholder(title: String, description: String) {
             .padding(AppDimensions.PageHorizontal),
     ) {
         Spacer(Modifier.height(18.dp))
-        Text(title, style = MaterialTheme.typography.headlineMedium)
+        Text("心灵树洞", style = MaterialTheme.typography.headlineMedium)
         Text(
-            text = description,
+            text = "心灵树洞当前已关闭。",
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(top = 6.dp),
@@ -141,15 +157,24 @@ private fun ModulePlaceholder(title: String, description: String) {
                 .fillMaxWidth()
                 .padding(top = 20.dp),
         ) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(AppDimensions.CardPadding),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Text(
-                    text = "模块内容正在完善中，敬请期待。",
-                    modifier = Modifier.padding(AppDimensions.CardPadding),
+                    text = "如需使用，可前往「我的」中的树洞设置重新开启。",
                     style = MaterialTheme.typography.bodyMedium,
                 )
+                Button(
+                    onClick = onGoSettings,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(AppDimensions.MinimumTouchTarget),
+                ) {
+                    Text("前往设置开启")
+                }
             }
         }
     }
