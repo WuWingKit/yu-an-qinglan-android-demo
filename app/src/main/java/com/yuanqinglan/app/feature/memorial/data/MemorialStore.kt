@@ -27,6 +27,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -70,28 +72,38 @@ abstract class MemorialTrackStore<T : MemorialLike>(
     /** 替换名称/关系/简介的不可变钩子。 */
     protected abstract fun withMeta(base: T, name: String, relation: String, intro: String): T
 
-    /** 纪念空间列表（按创建时间倒序）。 */
-    fun spaces(): Flow<DemoState<List<T>>> = state.map { current ->
-        when (current) {
-            DemoState.Loading -> DemoState.Loading
-            is DemoState.Error -> current
-            is DemoState.Success -> DemoState.Success(
-                current.value.values.sortedByDescending { it.createdAtMillis },
-            )
-            DemoState.Empty -> DemoState.Success(emptyList())
-        }
-    }.distinctUntilChanged()
+    /** 纪念空间列表（按创建时间倒序）。收集时先触发初始化（种子/快照载入）。 */
+    fun spaces(): Flow<DemoState<List<T>>> = flow {
+        ensureInitialized()
+        emitAll(
+            state.map { current ->
+                when (current) {
+                    DemoState.Loading -> DemoState.Loading
+                    is DemoState.Error -> current
+                    is DemoState.Success -> DemoState.Success(
+                        current.value.values.sortedByDescending { it.createdAtMillis },
+                    )
+                    DemoState.Empty -> DemoState.Success(emptyList())
+                }
+            }.distinctUntilChanged(),
+        )
+    }
 
-    /** 按 ID 观察单个纪念空间。 */
-    fun observe(memorialId: String): Flow<DemoState<T>> = state.map { current ->
-        when (current) {
-            DemoState.Loading -> DemoState.Loading
-            is DemoState.Error -> current
-            is DemoState.Success -> current.value[memorialId]?.let { DemoState.Success(it) }
-                ?: DemoState.Empty
-            DemoState.Empty -> DemoState.Empty
-        }
-    }.distinctUntilChanged()
+    /** 按 ID 观察单个纪念空间。收集时先触发初始化。 */
+    fun observe(memorialId: String): Flow<DemoState<T>> = flow {
+        ensureInitialized()
+        emitAll(
+            state.map { current ->
+                when (current) {
+                    DemoState.Loading -> DemoState.Loading
+                    is DemoState.Error -> current
+                    is DemoState.Success -> current.value[memorialId]?.let { DemoState.Success(it) }
+                        ?: DemoState.Empty
+                    DemoState.Empty -> DemoState.Empty
+                }
+            }.distinctUntilChanged(),
+        )
+    }
 
     /** 取单个纪念空间（未找到返回 null）。 */
     suspend fun space(memorialId: String): T? = locked {
@@ -288,6 +300,13 @@ abstract class MemorialTrackStore<T : MemorialLike>(
     protected suspend fun <R> locked(block: suspend () -> R): R = mutex.withLock {
         if (!initialized) loadLocked()
         block()
+    }
+
+    /** 锁外初始化入口（供 spaces/observe 冷流在收集时触发，避免与 locked 互斥重入）。 */
+    private suspend fun ensureInitialized() {
+        mutex.withLock {
+            if (!initialized) loadLocked()
+        }
     }
 
     protected fun successMap(): Map<String, T> =
