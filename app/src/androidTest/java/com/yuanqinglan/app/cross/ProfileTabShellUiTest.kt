@@ -25,10 +25,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasScrollAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToNode
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -133,7 +136,10 @@ class ProfileTabShellUiTest {
         composeRule.onNodeWithText("首页").assertIsDisplayed()
         composeRule.onNodeWithText("我的").performClick()
         composeRule.onNodeWithText("老年模式").assertIsDisplayed()
+        // 意见反馈/恢复默认设置位于个人中心折叠线以下，需先滚动到目标。
+        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("意见反馈"))
         composeRule.onNodeWithText("意见反馈").assertIsDisplayed()
+        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("恢复默认设置"))
         composeRule.onNodeWithText("恢复默认设置").assertIsDisplayed()
     }
 
@@ -157,6 +163,7 @@ class ProfileTabShellUiTest {
         composeRule.onNodeWithText("开启后的变化").assertIsDisplayed()
         // 点击返回图标返回我的根
         composeRule.onNodeWithContentDescription("返回").performClick()
+        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("意见反馈"))
         composeRule.onNodeWithText("意见反馈").assertIsDisplayed()
     }
 

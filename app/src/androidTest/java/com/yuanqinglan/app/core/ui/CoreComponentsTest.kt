@@ -13,6 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
@@ -87,29 +88,29 @@ class CoreComponentsTest {
     fun confirmDangerDialog_confirmAndDismissCallbacks() {
         var confirmed = false
         var dismissed = false
+        var showDialog by mutableStateOf(true)
+        // 单次 setContent，对话框显示与否由状态驱动（避免对已设置内容的 Activity 重复 setContent）。
         setContent {
-            ConfirmDangerDialog(
-                title = "确认删除",
-                message = "删除后无法恢复。",
-                confirmLabel = "删除",
-                onConfirm = { confirmed = true },
-                onDismiss = { dismissed = true },
-            )
+            if (showDialog) {
+                ConfirmDangerDialog(
+                    title = "确认删除",
+                    message = "删除后无法恢复。",
+                    confirmLabel = "删除",
+                    onConfirm = { confirmed = true; showDialog = false },
+                    onDismiss = { dismissed = true; showDialog = false },
+                )
+            }
         }
         composeRule.onNodeWithText("确认删除").assertIsDisplayed()
         composeRule.onNodeWithText("取消").performClick()
         assertTrue(dismissed)
         assertFalse(confirmed)
 
+        // 重新显示对话框，验证确认路径（同一组合内状态切换）。
         dismissed = false
-        setContent {
-            ConfirmDangerDialog(
-                title = "确认删除",
-                message = "删除后无法恢复。",
-                confirmLabel = "删除",
-                onConfirm = { confirmed = true },
-                onDismiss = { dismissed = true },
-            )
+        composeRule.runOnUiThread { showDialog = true }
+        composeRule.waitUntil(timeoutMillis = 3_000) {
+            composeRule.onAllNodesWithText("删除").fetchSemanticsNodes().isNotEmpty()
         }
         composeRule.onNodeWithText("删除").performClick()
         assertTrue(confirmed)

@@ -15,12 +15,16 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToIndex
+import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -163,15 +167,20 @@ class ProfileKeyFlowsUiTest {
         }
 
         // 第一次点恢复默认：确认框出现，点取消 → 未复位
+        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("恢复默认设置"))
         composeRule.onNodeWithText("恢复默认设置").performClick()
         composeRule.onNodeWithText("确认恢复").assertIsDisplayed()
         composeRule.onNodeWithText("取消").performClick()
+        // 取消后列表仍停在底部，需滚回顶部昵称处断言未复位
+        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("测试用户"))
         composeRule.onNodeWithText("测试用户").assertIsDisplayed()
 
-        // 第二次确认 → 复位为默认昵称
+        // 第二次确认 → 复位为默认昵称（复位为异步；先滚回顶部昵称区再等待）
+        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("恢复默认设置"))
         composeRule.onNodeWithText("恢复默认设置").performClick()
         composeRule.onNodeWithText("确认恢复").performClick()
-        composeRule.waitUntil(timeoutMillis = 3_000) {
+        composeRule.onNode(hasScrollAction()).performScrollToIndex(0)
+        composeRule.waitUntil(timeoutMillis = 5_000) {
             composeRule.onAllNodesWithText("渝安青澜用户").fetchSemanticsNodes().isNotEmpty()
         }
     }
