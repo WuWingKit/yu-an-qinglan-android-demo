@@ -44,6 +44,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.yuanqinglan.app.core.designsystem.AppBackground
 import com.yuanqinglan.app.core.designsystem.AppDimensions
@@ -52,6 +54,7 @@ import com.yuanqinglan.app.core.designsystem.SurfaceCard
 import com.yuanqinglan.app.core.designsystem.TextPrimary
 import com.yuanqinglan.app.core.designsystem.TextSecondary
 import com.yuanqinglan.app.core.ui.ReferenceNote
+import com.yuanqinglan.app.data.local.AppContainer
 import com.yuanqinglan.app.feature.treehole.model.TreeholePoolType
 import com.yuanqinglan.app.navigation.AppRoute
 
@@ -59,9 +62,15 @@ import com.yuanqinglan.app.navigation.AppRoute
  * 树洞入口页（一级 Tab 根页，不带标题栏壳）：心灵树洞大标题 + 人间/生灵
  * 两张入口卡。点击入口先检查本会话"游客确认"：未确认弹本地对话框说明，
  * 确认后允许进入对应内容池；两个池的确认互不影响。
+ *
+ * 受 [AppContainer.settings] 的心灵树洞总开关控制：关闭时展示"已关闭"状态，
+ * 并提示前往「我的」重新开启；开启时正常展示双池入口。
  */
 @Composable
 fun TreeholeSelectScreen(navController: NavHostController) {
+    val treeholeEnabled by AppContainer.settings.treeholeEnabled
+        .collectAsStateWithLifecycle(initialValue = true)
+
     // 游客确认仅记录本会话，两池分别独立。
     var humanAcknowledged by rememberSaveable { mutableStateOf(false) }
     var petAcknowledged by rememberSaveable { mutableStateOf(false) }
@@ -88,6 +97,16 @@ fun TreeholeSelectScreen(navController: NavHostController) {
         }
     }
 
+    fun goToSettings() {
+        navController.navigate(AppRoute.PROFILE.route) {
+            popUpTo(navController.graph.findStartDestination().id) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -108,23 +127,31 @@ fun TreeholeSelectScreen(navController: NavHostController) {
         )
         Spacer(Modifier.height(20.dp))
 
-        TreeholeEntryCard(
-            icon = Icons.Outlined.Person,
-            title = TreeholePoolType.HUMAN_POOL.poolLabel,
-            subtitle = "给家人、朋友或陌生人一句心里话",
-            onClick = { requestEnter(TreeholePoolType.HUMAN_POOL) },
-        )
-        Spacer(Modifier.height(14.dp))
-        TreeholeEntryCard(
-            icon = Icons.Outlined.Pets,
-            title = TreeholePoolType.PET_POOL.poolLabel,
-            subtitle = "给离开或远方的伙伴写信",
-            onClick = { requestEnter(TreeholePoolType.PET_POOL) },
-        )
+        if (treeholeEnabled) {
+            TreeholeEntryCard(
+                icon = Icons.Outlined.Person,
+                title = TreeholePoolType.HUMAN_POOL.poolLabel,
+                subtitle = "给家人、朋友或陌生人一句心里话",
+                onClick = { requestEnter(TreeholePoolType.HUMAN_POOL) },
+            )
+            Spacer(Modifier.height(14.dp))
+            TreeholeEntryCard(
+                icon = Icons.Outlined.Pets,
+                title = TreeholePoolType.PET_POOL.poolLabel,
+                subtitle = "给离开或远方的伙伴写信",
+                onClick = { requestEnter(TreeholePoolType.PET_POOL) },
+            )
+        } else {
+            TreeholeDisabledCard(onGoSettings = ::goToSettings)
+        }
 
         Spacer(Modifier.weight(1f))
         ReferenceNote(
-            text = "本应用不连接外部社区；信件、回应与举报均为本地状态，不对外发布。",
+            text = if (treeholeEnabled) {
+                "本应用不连接外部社区；信件、回应与举报均为本地状态，不对外发布。"
+            } else {
+                "心灵树洞已关闭，可在「我的」中重新开启。"
+            },
         )
         Spacer(Modifier.height(16.dp))
     }
@@ -143,6 +170,40 @@ fun TreeholeSelectScreen(navController: NavHostController) {
             onConfirm = confirmAndEnter,
             onDismiss = { gatePool = null },
         )
+    }
+}
+
+/** 心灵树洞总开关关闭时的占位卡片（含前往设置的入口）。 */
+@Composable
+private fun TreeholeDisabledCard(onGoSettings: () -> Unit) {
+    val shape = RoundedCornerShape(AppDimensions.CardRadius)
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape)
+            .background(SurfaceCard)
+            .padding(AppDimensions.CardPadding),
+    ) {
+        Text(
+            text = "心灵树洞当前已关闭",
+            style = MaterialTheme.typography.titleMedium,
+            color = TextPrimary,
+        )
+        Spacer(Modifier.height(6.dp))
+        Text(
+            text = "如需使用树洞，可前往「我的」中的树洞设置重新开启。",
+            style = MaterialTheme.typography.bodyMedium,
+            color = TextSecondary,
+        )
+        Spacer(Modifier.height(14.dp))
+        Button(
+            onClick = onGoSettings,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(AppDimensions.MinimumTouchTarget),
+        ) {
+            Text("前往设置开启")
+        }
     }
 }
 
