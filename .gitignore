@@ -36,3 +36,10 @@ Thumbs.db
 # JVM crash dumps
 hs_err_pid*.log
 replay_pid*.log
+
+# Tool byproducts dumped at repo root
+/AndroidManifest.xml
+/R.txt
+/public.txt
+/classes.jar
+/res/
