@@ -12,6 +12,22 @@
 | `generated/memorial_human_portrait.webp` | 人类云端纪念馆演示头像 | 虚构重庆老年男性家庭肖像 |
 | `generated/memorial_pet_portrait.webp` | 宠物纪念空间演示头像 | 虚构金色小型犬家庭肖像 |
 
+## Demo v11 补充素材
+
+| 分类 | 文件 | 规格 | 主要落位 |
+| --- | --- | --- | --- |
+| 首页 | `generated/v11/home/home_carousel_tree.webp` | `1774 x 887`，2:1 | 首页树葬轮播，左侧叠 Compose 文案 |
+| 首页 | `generated/v11/home/home_carousel_flower.webp` | `1774 x 887`，2:1 | 首页花葬轮播，左侧叠 Compose 文案 |
+| 首页 | `generated/v11/home/home_carousel_lawn.webp` | `1774 x 887`，2:1 | 首页草坪葬轮播，中央低细节区叠短文案 |
+| 活动 | `generated/v11/activities/activity_collective_memorial.webp` | `1448 x 1086`，4:3 | 集体纪念活动卡、资讯头图 |
+| 活动 | `generated/v11/activities/activity_life_education.webp` | `1448 x 1086`，4:3 | 生命教育活动卡或详情头图 |
+| 纪念 | `generated/v11/memorial/memorial_gallery_family_tea.webp` | `1448 x 1086`，4:3 | 人类纪念空间相册格 |
+| 纪念 | `generated/v11/memorial/memorial_gallery_pet_park.webp` | `1448 x 1086`，4:3 | 宠物纪念空间相册格 |
+| 工具 | `generated/v11/utility/park_overview_map.webp` | `1536 x 1024`，3:2 | 园区导航底图，上层叠 Compose 点位 |
+| 工具 | `generated/v11/utility/ai_restore_sample_faded.webp` | `1122 x 1402`，4:5 | AI 修复选择器与修复前预览 |
+
+详细落位、裁切、无障碍和 Agent 分工见 [`docs/agent-handoff.md`](../docs/agent-handoff.md)，本批提示词见 [`prompts-v11.md`](prompts-v11.md)。
+
 ## 使用约束
 
 - 图片只用于当前演示项目，不应暗示真实陵园、人物或宠物案例。
@@ -19,6 +35,7 @@
 - 启动页文字和按钮使用 Compose 绘制，确保可访问、可适配和可本地化。
 - 详情页使用中心裁切时应检查公共纪念设施和主要树木没有被截断。
 - 发布 APK 前应再次检查 WebP 解码、深色遮罩下对比度和适老字号布局。
+- 补充素材已经统一转换为 WebP，建议放入 `drawable-nodpi` 并保持文件名不变。
 
 ## 生成提示词
 
@@ -125,4 +142,3 @@ Lighting/mood: soft natural daylight, affectionate, calm, dignified
 Color palette: warm golden fur, muted green, teal accent, ivory highlights
 Constraints: fictional animal, no text, no logos, no watermark, no costume, no funeral objects, no exaggerated sadness, no cartoon style
 ```
-

@@ -23,7 +23,9 @@
 - AI 追忆仅展示私人、授权、可销毁的流程，不模拟逝者实时对话。
 - 不展示重庆内河江葬服务，不进行忌日强提醒或思念行为量化。
 
-详细范围见 [产品基线](docs/product-baseline.md)，同款视觉和 v11 增量见 [Demo v11 对齐规范](docs/demo-v11-alignment.md)，技术决策见 [技术方案](docs/technical-plan.md)，实施拆分见 [路线图](docs/roadmap.md)。
+详细范围见 [产品基线](docs/product-baseline.md)，同款视觉和 v11 增量见 [Demo v11 对齐规范](docs/demo-v11-alignment.md)，技术决策见 [技术方案](docs/technical-plan.md)，实施拆分见 [路线图](docs/roadmap.md)。供其他开发 Agent 直接接手的目录边界、合并顺序、素材落位和验收清单见 [开发交接](docs/agent-handoff.md)。
+
+设计交接文件：<https://www.figma.com/design/kadmc6qv1AbxxzUMoTh15m>。已验收的 17 张 Demo v11 截图保存在 [`docs/reference/demo-v11/`](docs/reference/demo-v11/)，新增素材目录和生成提示词见 [`assets/README.md`](assets/README.md)。
 
 ## 开发环境
 
