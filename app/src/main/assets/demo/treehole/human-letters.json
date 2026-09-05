@@ -1,0 +1,49 @@
+{
+  "letters": [
+    {
+      "id": "tlh-001",
+      "title": "想对你说句晚安",
+      "body": "今天下班很晚，路过我们常去的那家面馆，灯还亮着。坐下来吃面的时候，忽然很想和你说声晚安。愿你那边也有热汤和好梦。",
+      "category": "思念",
+      "paper": "PLAIN",
+      "createdAtMillis": 1748900000000,
+      "state": "PUBLISHED"
+    },
+    {
+      "id": "tlh-002",
+      "title": "谢谢你的陪伴",
+      "body": "认识你之后，我慢慢学会把话好好说出来。谢谢你在我最慌张的那段时间，一直稳稳地接住我。虽然我们已许久未见，这份感谢一直都在。",
+      "category": "感恩",
+      "paper": "GREEN",
+      "createdAtMillis": 1749000000000,
+      "state": "PUBLISHED"
+    },
+    {
+      "id": "tlh-003",
+      "title": "慢慢来，也来得及",
+      "body": "如果你也在为某件事焦虑，我想告诉你：慢慢来，也来得及。人生不是赛跑，那些绕过的路，最后都会成为风景。",
+      "category": "倾诉",
+      "paper": "WARM",
+      "createdAtMillis": 1749100000000,
+      "state": "PUBLISHED"
+    },
+    {
+      "id": "tlh-004",
+      "title": "那些没说出口的话",
+      "body": "有些话当时没说，后来就再也没有机会说了。我把它们放在这里，愿读到的人都能鼓起勇气，把想说的话说给重要的人听。",
+      "category": "遗憾",
+      "paper": "PLAIN",
+      "createdAtMillis": 1749200000000,
+      "state": "PUBLISHED"
+    },
+    {
+      "id": "tlh-005",
+      "title": "愿今天的你被温柔以待",
+      "body": "不知道你正在经历什么，只愿你今天能喝到一口热水，睡一个安稳的觉，被这个世界温柔以待。",
+      "category": "祝福",
+      "paper": "GREEN",
+      "createdAtMillis": 1749300000000,
+      "state": "PUBLISHED"
+    }
+  ]
+}

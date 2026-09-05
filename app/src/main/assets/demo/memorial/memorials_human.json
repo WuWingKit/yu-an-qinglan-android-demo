@@ -1,0 +1,121 @@
+{
+  "memorials": [
+    {
+      "id": "hm-001",
+      "name": "陈永昌",
+      "portrait": "memorial_human_portrait",
+      "relation": "外公",
+      "intro": "一辈子与土地打交道的老人，院子里的四季花一年年开。他走后，我们把想念收进这座空间。",
+      "createdAtMillis": 1735689600000,
+      "gallery": [
+        {
+          "id": "hm-001-photo-1",
+          "kind": "DRAWABLE",
+          "value": "memorial_gallery_family_tea",
+          "name": "家人围坐的老照片"
+        },
+        {
+          "id": "hm-001-photo-2",
+          "kind": "DRAWABLE",
+          "value": "memorial_gallery_family_tea",
+          "name": "院子里的午后"
+        }
+      ],
+      "messages": [
+        {
+          "id": "hm-001-msg-1",
+          "author": "我",
+          "text": "院子里的石榴又开花了，还是和您在的时候一样红。",
+          "createdAtMillis": 1737590400000
+        },
+        {
+          "id": "hm-001-msg-2",
+          "author": "家人",
+          "text": "外公做的米糕味道，我一直没忘。",
+          "createdAtMillis": 1740000000000
+        }
+      ],
+      "stories": [
+        {
+          "id": "hm-001-story-1",
+          "title": "院子里的第一棵石榴树",
+          "dateMillis": 820454400000,
+          "dateText": "1996年2月",
+          "body": "那年春天，外公在院子东南角种下第一棵石榴树。他说，石榴多子，寓意家人团圆，年年结果，年年都能等到家人回来。",
+          "image": null
+        },
+        {
+          "id": "hm-001-story-2",
+          "title": "教我认节气",
+          "dateMillis": 1030752000000,
+          "dateText": "2002年9月",
+          "body": "白露那天，外公带着我在田埂上走，教我听露水的声音。他说，人也要像庄稼一样，顺着时节，把日子过踏实。",
+          "image": null
+        }
+      ],
+      "letters": [
+        {
+          "id": "hm-001-letter-1",
+          "memorialId": "hm-001",
+          "title": "想念您的时候",
+          "body": "外公：\n\n今天路过菜市场，看到有人卖您常买的青李子，鼻子一下就酸了。\n\n家里一切都好，院子里的花我都有好好照看。您教我的那些事，我一直记在心里。\n\n想念您。",
+          "paper": "PLAIN",
+          "createdAtMillis": 1742400000000
+        }
+      ],
+      "jisiRecords": [
+        {
+          "id": "hm-001-jisi-1",
+          "dateMillis": 1712304000000,
+          "dateText": "2024年4月4日",
+          "place": "生态纪念园",
+          "message": "清明，家人在纪念树下放了一束白菊。"
+        }
+      ]
+    },
+    {
+      "id": "hm-002",
+      "name": "林静萱",
+      "portrait": "memorial_human_portrait",
+      "relation": "母亲",
+      "intro": "爱听戏、爱种茉莉的妈妈。她总说生活要慢慢来，花开了，人也就回来了。",
+      "createdAtMillis": 1746000000000,
+      "gallery": [
+        {
+          "id": "hm-002-photo-1",
+          "kind": "DRAWABLE",
+          "value": "memorial_gallery_family_tea",
+          "name": "阳台茉莉花旁的旧照"
+        }
+      ],
+      "messages": [
+        {
+          "id": "hm-002-msg-1",
+          "author": "我",
+          "text": "阳台的茉莉今年开了第三茬，香得和从前一样。",
+          "createdAtMillis": 1750000000000
+        }
+      ],
+      "stories": [
+        {
+          "id": "hm-002-story-1",
+          "title": "茉莉花茶的下午",
+          "dateMillis": 1483200000000,
+          "dateText": "2017年1月",
+          "body": "每年腊月，妈妈都会泡一壶茉莉花茶，坐在阳台晒太阳。她说冬天冷，心里要有花香，日子才有盼头。",
+          "image": null
+        }
+      ],
+      "letters": [],
+      "jisiRecords": [
+        {
+          "id": "hm-002-jisi-1",
+          "dateMillis": 1746201600000,
+          "dateText": "2025年5月3日",
+          "place": "家中阳台",
+          "message": "泡了一壶茉莉花茶，陪您坐了一会儿。"
+        }
+      ]
+    }
+  ]
+}
