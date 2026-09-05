@@ -16,4 +16,7 @@ object AppDimensions {
     val CompactRadius = 10.dp
     val SceneRadius = 22.dp
     val MinimumTouchTarget = 48.dp
+
+    /** 老年模式下的最小点击热区（普通模式 48dp）。 */
+    val ElderMinimumTouchTarget = 52.dp
 }

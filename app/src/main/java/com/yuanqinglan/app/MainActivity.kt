@@ -11,16 +11,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.yuanqinglan.app.app.YuanQingLanApp
-import com.yuanqinglan.app.core.designsystem.YuanQingLanTheme
+import com.yuanqinglan.app.data.local.AppContainer
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        AppContainer.init(applicationContext)
         setContent {
-            YuanQingLanTheme {
-                YuanQingLanApp()
-            }
+            YuanQingLanApp()
         }
     }
 }

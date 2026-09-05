@@ -9,6 +9,7 @@ package com.yuanqinglan.app.core.designsystem
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 
 val YuanQingLanTypography = Typography(
@@ -31,3 +32,39 @@ val YuanQingLanTypography = Typography(
     bodyMedium = TextStyle(fontSize = 13.sp, lineHeight = 20.sp),
     labelMedium = TextStyle(fontSize = 12.sp, lineHeight = 18.sp),
 )
+
+private fun TextStyle.scaleFont(factor: Float): TextStyle {
+    fun scaleTextUnit(value: TextUnit): TextUnit =
+        if (value == TextUnit.Unspecified) value else value * factor
+    return copy(
+        fontSize = scaleTextUnit(fontSize),
+        lineHeight = scaleTextUnit(lineHeight),
+        letterSpacing = scaleTextUnit(letterSpacing),
+    )
+}
+
+/**
+ * 老年模式排版：在 [YuanQingLanTypography] 基础上按 [ElderFontScale] 等比放大
+ * 全部字号与行高（未指定的槽位保持系统默认值）。令牌结构与普通模式完全一致。
+ */
+val ElderYuanQingLanTypography: Typography = run {
+    val base = YuanQingLanTypography
+    fun scale(style: TextStyle): TextStyle = style.scaleFont(ElderFontScale)
+    Typography(
+        displayLarge = scale(base.displayLarge),
+        displayMedium = scale(base.displayMedium),
+        displaySmall = scale(base.displaySmall),
+        headlineLarge = scale(base.headlineLarge),
+        headlineMedium = scale(base.headlineMedium),
+        headlineSmall = scale(base.headlineSmall),
+        titleLarge = scale(base.titleLarge),
+        titleMedium = scale(base.titleMedium),
+        titleSmall = scale(base.titleSmall),
+        bodyLarge = scale(base.bodyLarge),
+        bodyMedium = scale(base.bodyMedium),
+        bodySmall = scale(base.bodySmall),
+        labelLarge = scale(base.labelLarge),
+        labelMedium = scale(base.labelMedium),
+        labelSmall = scale(base.labelSmall),
+    )
+}

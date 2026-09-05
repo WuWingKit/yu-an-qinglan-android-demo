@@ -21,3 +21,9 @@ val TextPrimary = Color(0xFF2B3330)
 val TextSecondary = Color(0xFF5A6562)
 val OutlineWarm = Color(0xFFE2DACA)
 val Warning = Color(0xFFB7522D)
+
+/** 老年模式下的次文本色：比普通次文本更深，满足更高对比度要求。 */
+val TextSecondaryElder = Color(0xFF414D48)
+
+/** 老年模式下的分隔/描边色：比普通描边更深，便于弱视识别结构。 */
+val OutlineWarmElder = Color(0xFFCFC3AC)
