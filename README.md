@@ -6,7 +6,7 @@
 
 当前仓库处于需求与素材准备阶段，尚未开始 APP 功能开发。已完成的准备内容包括：
 
-- 汇总本地 Word、PDF 和参考 Demo v11，确定最新产品基线与 46 个演示路由。
+- 汇总本地 Word、PDF 和参考 Demo v11，确定最新产品基线与 45 个演示路由。
 - 确定 Kotlin、Jetpack Compose、Material 3 技术方向。
 - 建立人类与宠物双轨、5 个底部一级导航的页面范围。
 - 准备视觉素材清单与工程实施路线图。
@@ -23,9 +23,9 @@
 - AI 追忆仅展示私人、授权、可销毁的流程，不模拟逝者实时对话。
 - 不展示重庆内河江葬服务，不进行忌日强提醒或思念行为量化。
 
-详细范围见 [产品基线](docs/product-baseline.md)，同款视觉和 v11 增量见 [Demo v11 对齐规范](docs/demo-v11-alignment.md)，技术决策见 [技术方案](docs/technical-plan.md)，实施拆分见 [路线图](docs/roadmap.md)。供其他开发 Agent 直接接手的目录边界、合并顺序、素材落位和验收清单见 [开发交接](docs/agent-handoff.md)。
+详细范围见 [产品基线](docs/product-baseline.md)，最新 Word 与在线 Demo 的权威顺序和冲突处理见 [2026.09.05 迭代对齐](docs/iteration-2026-09-05-alignment.md)，同款视觉见 [Demo v11 对齐规范](docs/demo-v11-alignment.md)，技术决策见 [技术方案](docs/technical-plan.md)，实施拆分见 [路线图](docs/roadmap.md)。供其他开发 Agent 直接接手的目录边界、合并顺序、素材落位和验收清单见 [开发交接](docs/agent-handoff.md)。
 
-设计交接文件：<https://www.figma.com/design/kadmc6qv1AbxxzUMoTh15m>。已验收的 17 张 Demo v11 截图保存在 [`docs/reference/demo-v11/`](docs/reference/demo-v11/)，新增素材目录和生成提示词见 [`assets/README.md`](assets/README.md)。
+设计交接文件：<https://www.figma.com/design/kadmc6qv1AbxxzUMoTh15m>。45 个路由与桌面总览的全量截图保存在 [`docs/reference/demo-v11-full/`](docs/reference/demo-v11-full/)，快速回归子集保存在 [`docs/reference/demo-v11/`](docs/reference/demo-v11/)，新增素材目录和生成提示词见 [`assets/README.md`](assets/README.md)。
 
 ## 开发环境
 

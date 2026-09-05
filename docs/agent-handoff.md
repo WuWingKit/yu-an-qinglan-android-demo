@@ -12,7 +12,7 @@
 | 素材清单 | `assets/README.md` |
 | 当前基线提交 | 以 `main` 最新提交为准；提交身份必须是 `WuWingKit <hurongjie@qianban.online>` |
 
-Figma 文件已经建立并写入 `00 交接总览`。Starter 方案触发 MCP 调用上限后，参考界面、素材落位和分工细节改由本仓库的可版本化文档承载；不要把 Figma 当前只有封面误判为产品范围缺失。17 张验收截图位于 `docs/reference/demo-v11/`，是开发和视觉回归的直接证据。
+Figma 文件已经建立并写入 `00 交接总览`。Starter 方案触发 MCP 调用上限后，参考界面、素材落位和分工细节改由本仓库的可版本化文档承载；不要把 Figma 当前只有封面误判为产品范围缺失。封面是在全量复核前生成的，仍显示旧的 `46 路由 / 17 截图 / 15+ 素材`，正确数字是 `45 路由 / 46 张截图 / 22 张素材`。开发不得以 Figma 封面旧数字为准。全量截图位于 `docs/reference/demo-v11-full/`，快速回归子集位于 `docs/reference/demo-v11/`。功能冲突以 `docs/iteration-2026-09-05-alignment.md` 为准。
 
 ## 2. 不可变产品边界
 
@@ -45,6 +45,8 @@ Figma 文件已经建立并写入 `00 交接总览`。Starter 方案触发 MCP �
 | `assets/generated/v11/home/home_carousel_tree.webp` | `home` 首页轮播：树葬 | `2:1`；文字放左侧低细节区；焦点保留右侧树群 |
 | `assets/generated/v11/home/home_carousel_flower.webp` | `home` 首页轮播：花葬 | `2:1`；左侧叠标题；避免将花园裁成私人墓位观感 |
 | `assets/generated/v11/home/home_carousel_lawn.webp` | `home` 首页轮播：草坪葬 | `2:1`；中央草坪允许叠短文案；保留右侧路径 |
+| `assets/generated/v11/home/home_carousel_chongqing.webp` | `home` 首页轮播：重庆山城 | `2:1`；左侧叠资讯标签、标题和时间 |
+| `assets/generated/v11/home/home_carousel_pet.webp` | `home` 首页轮播：宠物草地 | `2:1`；左侧叠文案；右侧爪印木牌只作场景元素 |
 
 ### 活动与生命教育
 
@@ -61,6 +63,8 @@ Figma 文件已经建立并写入 `00 交接总览`。Starter 方案触发 MCP �
 | `assets/generated/burial_flower_garden.webp` | `flower` 详情头图、花葬场景卡 |
 | `assets/generated/burial_lawn.webp` | `grass` 详情头图、草坪葬场景卡 |
 | `assets/generated/burial_pet_tree.webp` | `pet-tree` 与 `pet-park` 场景卡 |
+| `assets/generated/v11/burial/burial_pet_flower.webp` | 宠物花园花葬场景卡与参数化详情头图 |
+| `assets/generated/v11/burial/burial_pet_lawn.webp` | 宠物草坪葬场景卡与参数化详情头图 |
 | `assets/generated/v11/utility/park_overview_map.webp` | `navigate` 园区底图；Compose 在上层绘制点位、图例和路线 |
 
 ### 追忆与 AI 演示
@@ -81,7 +85,7 @@ Android 接入时建议复制到 `app/src/main/res/drawable-nodpi/`，资源名�
 
 | 工作包 | 对应 Issues | 独占目录建议 | 交付内容 |
 | --- | --- | --- | --- |
-| A 基础与设计系统 | #1、#2、#3 | `app/src/main/java/.../core/`、`ui/theme/`、`navigation/`、`data/demo/` | Compose 工程、主题、公共组件、46 路由、强类型本地数据 |
+| A 基础与设计系统 | #1、#2、#3 | `app/src/main/java/.../core/`、`ui/theme/`、`navigation/`、`data/demo/` | Compose 工程、主题、公共组件、45 路由、强类型本地数据 |
 | B 首页与政策 | #4 | `feature/home/`、`feature/policy/` | 启动、首页聚合、生命教育、活动、资讯、政策预审 9 路由 |
 | C 安葬双轨 | #5、#6 | `feature/burial/` | 人类三种生态葬、宠物园区、套餐、预约、订单、园区导航 |
 | D 追忆与树洞 | #7、#8 | `feature/memorial/`、`feature/treehole/` | 人宠纪念空间、故事、信件、AI 伦理与素材、双池树洞 |
@@ -119,7 +123,7 @@ core/ui/
   DemoDataBadge.kt
   ConfirmDangerDialog.kt
 navigation/
-  AppRoute.kt             // 46 个稳定 route key
+  AppRoute.kt             // 45 个稳定 route key
   TopLevelDestination.kt  // 5 个一级 Tab
 data/demo/
   DemoRepository.kt
@@ -148,7 +152,7 @@ data/demo/
 adb -s emulator-5560 install -r app\build\outputs\apk\debug\app-debug.apk
 ```
 
-首轮截图至少覆盖：`splash`、`home`、`life-ed`、`policy`、`presult`、`zangshi`、`tree`、`plan-form`、`memorial-home`、`memorial-detail`、`ai-upload`、`shudong-select`、`shudong-ren`、`me`、`elder`、`privacy`。参考图逐一位于 `docs/reference/demo-v11/`。
+首轮快速截图至少覆盖：`splash`、`home`、`life-ed`、`policy`、`presult`、`zangshi`、`tree`、`plan-form`、`memorial-home`、`memorial-detail`、`ai-upload`、`shudong-select`、`shudong-ren`、`me`、`elder`、`privacy`。参考图位于 `docs/reference/demo-v11/`；里程碑验收使用 `docs/reference/demo-v11-full/` 的 45 路由全量基线。
 
 验收时把同一 `375 x 812dp` 状态的参考图和 APP 截图并排比较，检查背景、卡片尺寸、圆角、间距、标题层级、图片焦点、选中态、系统栏和安全区；“看起来接近”不等于通过。
 

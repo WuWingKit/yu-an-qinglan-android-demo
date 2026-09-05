@@ -63,3 +63,41 @@ Wide 3:2 oblique bird's-eye illustrated map of a fictional Chongqing hillside ec
 ```text
 Vertical 4:5 fictional late-1970s Chinese portrait for an AI restoration demo. One young adult man on a balcony, mild scratches, faded contrast, warm paper discoloration and dust, but an intact crop-safe face. Entirely fictional. No funeral context, text, date stamp, logo, watermark or UI.
 ```
+
+## 2026.09.05 迭代补充
+
+### `home_carousel_chongqing.webp`
+
+```text
+Exact 2:1 Android home carousel banner. A low-saturation hand-painted Chongqing mountain-city ecology scene at dawn with layered hills, two rivers, restrained skyline, native trees and osmanthus. Detail on the right, calm light space on the left for Compose text. No people, cemetery, text, logo, watermark or UI.
+```
+
+### `home_carousel_pet.webp`
+
+```text
+Exact 2:1 Android home carousel banner. A separate Chongqing pet remembrance meadow with grass, one healthy tree, a blank paw-shaped wooden keepsake, muted teal ribbon and ivory flowers. Detail on the right, calm left text area. No animals, people, human cemetery, urn, text, logo, watermark or UI.
+```
+
+### `burial_pet_flower.webp`
+
+```text
+Exact 16:9 Android pet service hero. A separate compliant pet flower remembrance garden in Chongqing with pale flowers, a blank paw-shaped wooden marker, accessible path and low boundary. Believable landscape photography. No animals, people, urns, human cemetery, text, logo, watermark or symbols.
+```
+
+### `burial_pet_lawn.webp`
+
+```text
+Exact 16:9 Android pet service hero. A separate compliant pet memorial lawn in Chongqing with soft grass, flush blank paw-shaped stone markers, a shared flower platform, accessible path and distant hills. No animals, people, upright tombstones, urns, human cemetery, text, logo, watermark or symbols.
+```
+
+### `news_ecoburial_cycle.webp`
+
+```text
+4:3 educational article thumbnail. A hand-painted natural cross-section scene with a healthy memorial tree, biodegradable bamboo-and-linen container below soil, roots and fallen leaves, plus a distant shared remembrance edge. No remains, people, private tombstone, arrows, text, logo, watermark or UI.
+```
+
+### `news_bayu_customs.webp`
+
+```text
+4:3 Bayu folk-culture article thumbnail. A warm hand-painted remembrance table by an open Chongqing window with white flowers, fruit and blank paper; layered roofs, river mist and osmanthus beyond. No people, incense, burning paper, symbols, text, logo, watermark or UI.
+```

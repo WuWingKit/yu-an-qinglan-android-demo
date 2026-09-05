@@ -19,8 +19,14 @@
 | 首页 | `generated/v11/home/home_carousel_tree.webp` | `1774 x 887`，2:1 | 首页树葬轮播，左侧叠 Compose 文案 |
 | 首页 | `generated/v11/home/home_carousel_flower.webp` | `1774 x 887`，2:1 | 首页花葬轮播，左侧叠 Compose 文案 |
 | 首页 | `generated/v11/home/home_carousel_lawn.webp` | `1774 x 887`，2:1 | 首页草坪葬轮播，中央低细节区叠短文案 |
+| 首页 | `generated/v11/home/home_carousel_chongqing.webp` | `1774 x 887`，2:1 | 首页重庆山城轮播，左侧叠资讯信息 |
+| 首页 | `generated/v11/home/home_carousel_pet.webp` | `1774 x 887`，2:1 | 首页宠物草地轮播，左侧叠文案 |
+| 安葬 | `generated/v11/burial/burial_pet_flower.webp` | `1672 x 941`，约 16:9 | 宠物花园花葬卡片与详情头图 |
+| 安葬 | `generated/v11/burial/burial_pet_lawn.webp` | `1672 x 941`，约 16:9 | 宠物草坪葬卡片与详情头图 |
 | 活动 | `generated/v11/activities/activity_collective_memorial.webp` | `1448 x 1086`，4:3 | 集体纪念活动卡、资讯头图 |
 | 活动 | `generated/v11/activities/activity_life_education.webp` | `1448 x 1086`，4:3 | 生命教育活动卡或详情头图 |
+| 资讯 | `generated/v11/news/news_ecoburial_cycle.webp` | `1448 x 1086`，4:3 | 生态葬原理科普卡片 |
+| 资讯 | `generated/v11/news/news_bayu_customs.webp` | `1448 x 1086`，4:3 | 巴渝民俗专栏卡片 |
 | 纪念 | `generated/v11/memorial/memorial_gallery_family_tea.webp` | `1448 x 1086`，4:3 | 人类纪念空间相册格 |
 | 纪念 | `generated/v11/memorial/memorial_gallery_pet_park.webp` | `1448 x 1086`，4:3 | 宠物纪念空间相册格 |
 | 工具 | `generated/v11/utility/park_overview_map.webp` | `1536 x 1024`，3:2 | 园区导航底图，上层叠 Compose 点位 |
