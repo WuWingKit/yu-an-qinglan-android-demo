@@ -7,6 +7,6 @@
 package com.yuanqinglan.app.core.model
 
 data class DemoDisclosure(
-    val label: String = "演示数据",
-    val description: String = "页面内容仅用于产品演示，不代表真实服务承诺。",
+    val label: String = "信息参考",
+    val description: String = "相关信息仅供参考，具体政策、费用与办理结果以主管机构和服务机构最终公布为准。",
 )

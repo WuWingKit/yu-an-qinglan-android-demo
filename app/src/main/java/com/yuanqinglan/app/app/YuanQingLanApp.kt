@@ -115,10 +115,10 @@ private fun SplashScreen(onEnter: () -> Unit) {
                     .padding(top = 28.dp)
                     .height(AppDimensions.MinimumTouchTarget),
             ) {
-                Text("进入演示")
+                Text("开始使用")
             }
             Text(
-                text = "本应用内容均为虚构演示数据",
+                text = "相关信息仅供参考，具体政策、费用与办理结果以主管机构和服务机构最终公布为准。",
                 color = QingLanGreenDark,
                 style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier
@@ -180,7 +180,7 @@ private fun MainShell() {
                 ModulePlaceholder("心灵树洞", "人间与生灵内容池相互隔离")
             }
             composable(AppRoute.PROFILE.route) {
-                ModulePlaceholder("我的", "管理演示订单、隐私与适老设置")
+                ModulePlaceholder("我的", "管理订单、隐私与适老设置")
             }
         }
     }
@@ -215,7 +215,7 @@ private fun HomeScreen() {
                     shape = RoundedCornerShape(AppDimensions.CompactRadius),
                 ) {
                     Text(
-                        text = "演示数据",
+                        text = "信息参考",
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         style = MaterialTheme.typography.labelMedium,
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp),
@@ -239,7 +239,7 @@ private fun HomeScreen() {
         }
         item {
             Text(
-                text = "真实预约、支付、定位与政务办理暂不接入。",
+                text = "页面信息仅供参考，具体政策、费用与办理结果以主管机构和服务机构最终公布为准。",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodyMedium,
             )
@@ -339,7 +339,7 @@ private fun ModulePlaceholder(title: String, description: String) {
                 .padding(top = 20.dp),
         ) {
             Text(
-                text = "工程骨架已就绪，此模块将在对应功能 Issue 中接入本地演示数据。",
+                text = "模块内容正在完善中，敬请期待。",
                 modifier = Modifier.padding(AppDimensions.CardPadding),
                 style = MaterialTheme.typography.bodyMedium,
             )
