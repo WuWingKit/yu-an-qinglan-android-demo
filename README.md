@@ -6,7 +6,7 @@
 
 当前仓库处于需求与素材准备阶段，尚未开始 APP 功能开发。已完成的准备内容包括：
 
-- 汇总本地 Word、PDF 和参考 Demo，确定最新产品基线。
+- 汇总本地 Word、PDF 和参考 Demo v11，确定最新产品基线与 46 个演示路由。
 - 确定 Kotlin、Jetpack Compose、Material 3 技术方向。
 - 建立人类与宠物双轨、5 个底部一级导航的页面范围。
 - 准备视觉素材清单与工程实施路线图。
@@ -23,7 +23,7 @@
 - AI 追忆仅展示私人、授权、可销毁的流程，不模拟逝者实时对话。
 - 不展示重庆内河江葬服务，不进行忌日强提醒或思念行为量化。
 
-详细范围见 [产品基线](docs/product-baseline.md)，技术决策见 [技术方案](docs/technical-plan.md)，实施拆分见 [路线图](docs/roadmap.md)。
+详细范围见 [产品基线](docs/product-baseline.md)，同款视觉和 v11 增量见 [Demo v11 对齐规范](docs/demo-v11-alignment.md)，技术决策见 [技术方案](docs/technical-plan.md)，实施拆分见 [路线图](docs/roadmap.md)。
 
 ## 开发环境
 
@@ -39,6 +39,6 @@
 - 本地 `渝安青澜.docx`：详细功能与 UI 方案。
 - 本地 `超干货总结.docx`：早期产品想法与视觉偏好。
 - 本地 `渝安青澜——重庆花、林、江生态殡葬创新.pdf`：项目背景、调研和商业依据。
-- 参考 Demo：5-Tab、人宠双轨版本，作为最新交互基线。
+- [参考 Demo v11](https://1926e0d2e0b94540aaebdfef3ce96faa.app.workbuddy.link/)：5-Tab、人宠双轨与完整演示流程，作为最新交互和视觉基线。
 
 三份原始文档包含个人联系信息，仅作为本地参考资料使用，已加入 `.gitignore`，不会上传到公开仓库。仓库中的 `docs/` 是去除个人信息后的工程基线。
