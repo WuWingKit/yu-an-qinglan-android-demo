@@ -56,6 +56,7 @@ import com.yuanqinglan.app.feature.burial.model.BurialPlan
 import com.yuanqinglan.app.feature.burial.model.HumanPlanFormInput
 import com.yuanqinglan.app.feature.burial.model.PetPlanFormInput
 import com.yuanqinglan.app.feature.burial.model.planById
+import com.yuanqinglan.app.feature.burial.model.quote
 import com.yuanqinglan.app.feature.burial.model.serviceDisplayName
 import com.yuanqinglan.app.navigation.AppRoute
 import java.time.LocalDate
@@ -98,6 +99,15 @@ class BurialPlanFormViewModel(
     private val _photoPicked = MutableStateFlow(false)
     val photoPicked: StateFlow<Boolean> = _photoPicked.asStateFlow()
 
+    private val _prepaidYears = MutableStateFlow(0)
+    val prepaidYears: StateFlow<Int> = _prepaidYears.asStateFlow()
+
+    private val _selectedAddOnIds = MutableStateFlow<Set<String>>(emptySet())
+    val selectedAddOnIds: StateFlow<Set<String>> = _selectedAddOnIds.asStateFlow()
+
+    private val _applySubsidy = MutableStateFlow(true)
+    val applySubsidy: StateFlow<Boolean> = _applySubsidy.asStateFlow()
+
     private var loadJob: Job? = null
     private var submitJob: Job? = null
 
@@ -128,12 +138,29 @@ class BurialPlanFormViewModel(
         _photoPicked.value = picked
     }
 
+    fun setPrepaidYears(years: Int) {
+        _prepaidYears.value = years
+    }
+
+    fun toggleAddOn(id: String) {
+        _selectedAddOnIds.update { selected ->
+            if (id in selected) selected - id else selected + id
+        }
+    }
+
+    fun setApplySubsidy(apply: Boolean) {
+        _applySubsidy.value = apply
+    }
+
     /** 重新填写：清空当前轨表单与校验结果。 */
     fun resetForm() {
         _humanInput.value = HumanPlanFormInput()
         _petInput.value = PetPlanFormInput()
         _report.value = null
         _photoPicked.value = false
+        _prepaidYears.value = 0
+        _selectedAddOnIds.value = emptySet()
+        _applySubsidy.value = true
     }
 
     // ---------- 提交 ----------
@@ -174,6 +201,8 @@ class BurialPlanFormViewModel(
                 InputPart(input.petNickname, input.contactName, input.phone, input.expectDate)
             }
         }
+        val quote = plan.quote(_prepaidYears.value, _selectedAddOnIds.value, _applySubsidy.value)
+        val hasDetailedPricing = plan.priceYuan != null
         return BurialOrderDraft(
             audience = plan.audience,
             serviceId = plan.serviceId,
@@ -182,6 +211,19 @@ class BurialPlanFormViewModel(
             planId = plan.id,
             planTitle = plan.title,
             amountText = plan.priceText,
+            planPriceYuan = plan.priceYuan,
+            prepaidYears = quote.prepaidYears,
+            prepaidManagementYuan = quote.prepaidManagementYuan,
+            selectedAddOns = quote.addOnSummary(),
+            addOnYuan = quote.addOnYuan,
+            subsidyYuan = quote.subsidyYuan,
+            totalYuan = if (hasDetailedPricing) quote.totalYuan else null,
+            managementExpiresYear = if (hasDetailedPricing) {
+                LocalDate.now().year + plan.includedManagementYears + quote.prepaidYears
+            } else {
+                null
+            },
+            renewalAnnualYuan = plan.renewalAnnualYuan,
             deceasedName = deceasedName,
             contactName = contactName,
             phone = phone,
@@ -287,6 +329,9 @@ private fun PlanFormContent(
     val report by viewModel.report.collectAsStateWithLifecycle()
     val submitting by viewModel.submitting.collectAsStateWithLifecycle()
     val photoPicked by viewModel.photoPicked.collectAsStateWithLifecycle()
+    val prepaidYears by viewModel.prepaidYears.collectAsStateWithLifecycle()
+    val selectedAddOnIds by viewModel.selectedAddOnIds.collectAsStateWithLifecycle()
+    val applySubsidy by viewModel.applySubsidy.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -328,6 +373,16 @@ private fun PlanFormContent(
                 onPhotoPicked = viewModel::setPhotoPicked,
             )
         }
+
+        PlanPricingSelector(
+            plan = plan,
+            prepaidYears = prepaidYears,
+            selectedAddOnIds = selectedAddOnIds,
+            applySubsidy = applySubsidy,
+            onPrepaidYearsChange = viewModel::setPrepaidYears,
+            onToggleAddOn = viewModel::toggleAddOn,
+            onApplySubsidyChange = viewModel::setApplySubsidy,
+        )
 
         Spacer(Modifier.height(10.dp))
         PrimaryButton(

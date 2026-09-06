@@ -16,14 +16,14 @@
         "后续祭扫：凭服务凭证按园区开放时间前往祭扫"
       ],
       "applicable": "适合希望以树代碑、回归山林的家庭。具体办理条件与所需材料以服务机构公布为准。",
-      "defaultPlanId": "plan-human-tree-basic"
+      "defaultPlanId": "plan-human-tree-simple"
     },
     {
       "id": "flower",
       "mode": "FLOWER",
       "name": "花葬",
       "subtitle": "落花成冢，思念归于芬芳",
-      "priceRange": "参考价 4,980 元/位起",
+      "priceRange": "参考价 5,280 元/位起",
       "image": "burial_flower_garden",
       "description": "花葬将骨灰装入可降解安葬容器，安放于园区花田之中，以四季花木作为纪念标记。花田按节气轮作养护，不使用永久墓体，让生命以另一种方式继续绽放。",
       "ecoDescription": "花田区域保持自然种植与养护，不保留硬化墓位。家属可按园区规定于开放时间到访，在花田间寄托思念。",
@@ -34,14 +34,14 @@
         "后续祭扫：凭服务凭证按园区开放时间前往花田"
       ],
       "applicable": "适合喜爱花木、希望以花为伴寄托思念的家庭。具体办理条件与所需材料以服务机构公布为准。",
-      "defaultPlanId": "plan-human-flower-basic"
+      "defaultPlanId": "plan-human-flower-simple"
     },
     {
       "id": "grass",
       "mode": "LAWN",
       "name": "草坪葬",
       "subtitle": "青草如茵，安眠于开阔绿地",
-      "priceRange": "参考价 4,680 元/位起",
+      "priceRange": "参考价 4,580 元/位起",
       "image": "burial_lawn",
       "description": "草坪葬将骨灰装入可降解安葬容器，安放于平整开阔的草坪之下，草坪整体养护、循环使用，不设突出墓体，以统一的地面标记与园区档案协助家属识别纪念位置。",
       "ecoDescription": "草坪区域定期修剪养护，不使用永久硬化设施。家属可在园区登记信息后，按开放时间凭档案信息到访。",
@@ -52,7 +52,7 @@
         "后续祭扫：凭服务凭证与档案信息按开放时间前往"
       ],
       "applicable": "适合希望回归开阔绿地、接受统一区域管理的家庭。具体办理条件与所需材料以服务机构公布为准。",
-      "defaultPlanId": "plan-human-grass-basic"
+      "defaultPlanId": "plan-human-grass-simple"
     }
   ]
 }

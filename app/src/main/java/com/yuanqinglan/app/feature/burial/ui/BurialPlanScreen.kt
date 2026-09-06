@@ -19,9 +19,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -184,6 +187,7 @@ private fun PlanCard(
     plan: BurialPlan,
     onReserve: () -> Unit,
 ) {
+    var expanded by remember(plan.id) { mutableStateOf(false) }
     BurialCard {
         Column {
             Row(
@@ -212,9 +216,34 @@ private fun PlanCard(
                 color = TextPrimary,
             )
             Spacer(Modifier.height(10.dp))
+            if (plan.includedManagementYears > 0) {
+                Text(
+                    text = "含前 ${plan.includedManagementYears} 年管理费 · 第 ${plan.renewalStartYear} 年起 ${yuan(plan.renewalAnnualYuan)} / 年",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = TextSecondary,
+                )
+                Spacer(Modifier.height(4.dp))
+            }
+            if (plan.highlight.isNotBlank()) {
+                Text(plan.highlight, style = MaterialTheme.typography.bodyMedium, color = TextPrimary)
+                Spacer(Modifier.height(4.dp))
+            }
+            if (plan.subsidyYuan > 0) {
+                Text("重庆户籍补贴最高减 ${yuan(plan.subsidyYuan)}", style = MaterialTheme.typography.bodySmall, color = TextSecondary)
+            }
+            if (plan.purchaseLimit.isNotBlank()) {
+                Text(plan.purchaseLimit, style = MaterialTheme.typography.labelSmall, color = TextSecondary)
+            }
+            Spacer(Modifier.height(8.dp))
             BurialCheckList(items = plan.contents, accent = planAccent(plan))
+            if (plan.priceYuan != null) {
+                TextButton(onClick = { expanded = !expanded }) {
+                    Text(if (expanded) "收起费用明细" else "查看费用明细")
+                }
+                if (expanded) PlanPricingDetails(plan)
+            }
             Spacer(Modifier.height(12.dp))
-            PrimaryButton(text = "预约此套餐", onClick = onReserve)
+            PrimaryButton(text = "立即咨询并预约", onClick = onReserve)
         }
     }
 }

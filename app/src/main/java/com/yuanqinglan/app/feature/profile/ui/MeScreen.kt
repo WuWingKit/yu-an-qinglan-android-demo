@@ -414,6 +414,7 @@ private fun MeMainPage(
                 ReferenceNote(
                     text = "个人资料与本地内容仅保存在本机私有目录，不对外传输。相关信息仅供参考，具体以主管机构和服务机构公布为准。",
                 )
+                AuthorizationCopyrightFooter()
                 Spacer(Modifier.size(20.dp))
             }
         }
