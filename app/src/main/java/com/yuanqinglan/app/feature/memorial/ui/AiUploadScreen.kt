@@ -50,6 +50,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -305,6 +306,15 @@ private fun AiUploadContent(
 
     var confirmDestroy by remember { mutableStateOf(false) }
     var importing by remember { mutableStateOf(false) }
+    var creationMode by rememberSaveable(viewModel.memorialId) {
+        mutableStateOf(
+            if (AiMemoryVideoRules.isAvailable(viewModel.memorialId)) {
+                AiCreationMode.MEMORY_VIDEO
+            } else {
+                AiCreationMode.PHOTO_RESTORE
+            },
+        )
+    }
 
     fun importUri(uri: Uri?, imageOnly: Boolean) {
         if (uri == null) return
@@ -390,6 +400,19 @@ private fun AiUploadContent(
                     text = "本会话已确认伦理与授权；素材与生成全程在本机进行。",
                     tone = NoticeTone.INFO,
                 )
+            }
+
+            AiCreationModeSelector(
+                selected = creationMode,
+                onSelected = { creationMode = it },
+            )
+
+            if (creationMode == AiCreationMode.MEMORY_VIDEO) {
+                AiMemoryVideoWorkflow(
+                    memorialId = viewModel.memorialId,
+                    consented = consented,
+                )
+                return@Column
             }
 
             if (destroyed) {
