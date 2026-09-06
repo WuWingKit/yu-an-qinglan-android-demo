@@ -22,6 +22,7 @@ import com.yuanqinglan.app.feature.treehole.ui.kindResponseMessage
 import com.yuanqinglan.app.feature.treehole.ui.lampAlpha
 import com.yuanqinglan.app.feature.treehole.ui.lampScale
 import com.yuanqinglan.app.feature.treehole.ui.leafAlpha
+import com.yuanqinglan.app.feature.treehole.ui.leafScale
 import com.yuanqinglan.app.feature.treehole.ui.leafSpecs
 import com.yuanqinglan.app.feature.treehole.ui.responseAnimationEnabled
 import org.junit.Assert.assertEquals
@@ -183,8 +184,12 @@ class TreeholeResponseFeedbackTest {
         var progress = 0f
         while (progress <= 1f) {
             assertTrue(leafAlpha(progress, 0.9f) in 0f..1f)
+            assertTrue(leafScale(progress) in 0.72f..1f)
             progress += 0.05f
         }
+        assertEquals(0.72f, leafScale(0f), 0.0001f)
+        assertEquals(1f, leafScale(0.5f), 0.0001f)
+        assertEquals(0.72f, leafScale(1f), 0.0001f)
 
         // 固定种子：同一种子两次生成完全一致（截图/测试稳定）
         assertEquals(leafSpecs(LEAF_ANIMATION_SEED), leafSpecs(LEAF_ANIMATION_SEED))

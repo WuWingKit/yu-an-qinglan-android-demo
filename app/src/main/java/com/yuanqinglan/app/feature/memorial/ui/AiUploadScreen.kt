@@ -66,7 +66,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.yuanqinglan.app.R
 import com.yuanqinglan.app.core.designsystem.AppDimensions
 import com.yuanqinglan.app.core.designsystem.QingLanGreenSoft
 import com.yuanqinglan.app.core.designsystem.SurfaceCard
@@ -207,7 +206,7 @@ class AiUploadViewModel(
             val resultBitmap = withContext(Dispatchers.IO) {
                 val source = BitmapFactory.decodeResource(
                     appContext.resources,
-                    R.drawable.ai_restore_sample_faded,
+                    memorialDrawable(aiRestorePreviewToken(memorialId)),
                 ) ?: return@withContext null
                 val baked = source.copy(Bitmap.Config.ARGB_8888, true)
                 Canvas(baked).drawColor(WARM_OVERLAY_ARGB, PorterDuff.Mode.SRC_OVER)
@@ -303,6 +302,7 @@ private fun AiUploadContent(
     val savedCount by viewModel.savedCount.collectAsStateWithLifecycle()
     val destroyed by viewModel.destroyed.collectAsStateWithLifecycle()
     val notice by viewModel.notice.collectAsStateWithLifecycle()
+    val restorePreviewToken = aiRestorePreviewToken(viewModel.memorialId)
 
     var confirmDestroy by remember { mutableStateOf(false) }
     var importing by remember { mutableStateOf(false) }
@@ -484,7 +484,7 @@ private fun AiUploadContent(
                 ) {
                     Column(modifier = Modifier.padding(AppDimensions.CardPadding)) {
                         Image(
-                            painter = painterResource(memorialDrawable(AiRestoreSampleToken)),
+                            painter = painterResource(memorialDrawable(restorePreviewToken)),
                             contentDescription = "修复前素材预览",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
@@ -554,7 +554,7 @@ private fun AiUploadContent(
                             contentAlignment = Alignment.Center,
                         ) {
                             Image(
-                                painter = painterResource(memorialDrawable(AiRestoreSampleToken)),
+                                painter = painterResource(memorialDrawable(restorePreviewToken)),
                                 contentDescription = "修复结果预览",
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier

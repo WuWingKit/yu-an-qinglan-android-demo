@@ -39,16 +39,16 @@ object CopyrightLicense {
     /** 被授权对象。 */
     const val Licensee = "西南大学经济管理学院李芸凤"
 
-    /** 授权用途限定的赛事范围。 */
-    const val Competition = "2026年重庆市大学生新文科实践创新大赛"
+    /** App 内仅展示这一句授权摘要，详细范围以签名授权书为准。 */
+    const val AuthorizationSummary = "本软件使用权已经授权给西南大学经济管理学院李芸凤。"
 
     /** 书面授权联系邮箱。 */
     const val ContactEmail = "hurongjie@qianban.online"
 }
 
 /**
- * 版权及授权详情页：版权所有者、专有 License 边界、被授权对象、授权用途、
- * 修改限制与有效性、联系邮箱，并提供已签名授权书查看器入口。
+ * 版权及授权详情页：完整呈现专有 License 的版权边界；授权情况仅展示
+ * 被授权对象，并提供已签名授权书查看器入口。
  * 页面采用克制排版（标题 + 正文），不使用营销式卡片或突出横幅。
  */
 @Composable
@@ -68,20 +68,24 @@ fun CopyrightAuthorizationScreen(onBack: () -> Unit) {
             )
             LicenseSection(
                 title = "许可边界",
-                body = "本应用为专有软件，未授予许可。未经权利人书面授权，任何个人或组织不得以任何目的使用本应用的全部或任何部分（含商业与非商业）。未经授权禁止运行、复制、修改、改编、翻译、反编译、逆向工程、制作衍生作品、训练模型、部署、托管、传播、发行、再许可、出租、出售或提供服务。",
-            )
-            LicenseSection(title = "被授权对象", body = CopyrightLicense.Licensee)
-            LicenseSection(
-                title = "授权用途",
-                body = "仅限 ${CopyrightLicense.Competition} 的非商业用途；超出该范围的使用须另行取得书面授权。",
+                body = "本仓库公开、可访问或可下载，不构成任何明示或默示许可。未经权利人事先明确的书面授权，任何个人或组织不得以商业、非商业、个人、教育、研究、竞赛、公益、展示或其他目的利用本项目的全部或任何部分。",
             )
             LicenseSection(
-                title = "修改限制",
-                body = "未经书面授权不得二次修改或改编源码；未明确授予的权利仍由权利人保留。",
+                title = "禁止行为",
+                body = "未经授权禁止运行、使用、复制、下载后使用、修改、改编、翻译、反编译、反汇编、逆向工程、摘编、合并、制作衍生作品、训练或评估模型、部署、托管、公开展示、传播、发行、再许可、出租、出售、提供服务，以及据此开发、宣传或交付产品或成果。",
             )
             LicenseSection(
-                title = "有效性与联系",
-                body = "任何授权须由权利人书面文件或官方邮箱明确邮件作出，并载明获授权主体、内容、范围与期限；口头陈述、Issue、Pull Request、评论或未答复的请求均不构成授权。联系邮箱：${CopyrightLicense.ContactEmail}",
+                title = "书面授权与平台权限",
+                body = "授权须由权利人以书面文件或由 ${CopyrightLicense.ContactEmail} 发出的明确邮件作出，并载明获授权主体、内容、范围与期限；未明确授予的权利仍由权利人保留。GitHub 用户仅保有服务条款为浏览、展示和 Fork 所必需的平台权限，不因此取得额外的使用、修改、部署、传播或商业化权利。",
+            )
+            LicenseSection(
+                title = "第三方内容与责任",
+                body = "第三方软件、依赖、字体、图标和素材分别适用其原始许可。任何未经授权的利用均可能构成侵权，权利人有权要求停止使用、删除副本并依法追究责任。本项目按“现状”提供，在法律允许的最大范围内不附带任何明示或默示保证。",
+            )
+
+            LicenseSection(
+                title = "授权情况",
+                body = CopyrightLicense.AuthorizationSummary,
             )
 
             Spacer(Modifier.size(10.dp))
@@ -91,7 +95,7 @@ fun CopyrightAuthorizationScreen(onBack: () -> Unit) {
 
             Spacer(Modifier.size(12.dp))
             ReferenceNote(
-                text = "本页版权与授权信息与仓库根 LICENSE 及 GitHub 授权公告一致，具体授权以书面文件为准。",
+                text = "版权条款沿用仓库根 LICENSE；具体授权以软件使用授权书为准。",
             )
             ProfileBottomSpace()
         }

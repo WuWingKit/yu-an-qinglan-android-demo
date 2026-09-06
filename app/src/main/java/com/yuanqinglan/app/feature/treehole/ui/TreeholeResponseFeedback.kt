@@ -99,6 +99,12 @@ internal fun leafAlpha(progress: Float, peak: Float): Float {
     return (peak.coerceIn(0f, 1f) * fadeIn * fadeOut).coerceIn(0f, 1f)
 }
 
+/** 叶片进入与离开时轻微收放，避免图标在边缘突然出现或消失。 */
+internal fun leafScale(progress: Float): Float {
+    val p = progress.coerceIn(0f, 1f)
+    return 0.72f + 0.28f * sin(PI.toFloat() * p)
+}
+
 /** 单枚叶片的运动参数（以容器宽/高比例为单位的纯数据，不携带计数）。 */
 internal data class LeafSpec(
     val startFraction: Float,

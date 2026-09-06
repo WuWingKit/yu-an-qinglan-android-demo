@@ -7,6 +7,7 @@
 package com.yuanqinglan.app.feature.memorial.ui
 
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -28,5 +29,12 @@ class AiMemoryVideoRulesTest {
         assertTrue(AiMemoryVideoRules.phases.size >= 4)
         assertTrue(AiMemoryVideoRules.phases.first().contains("面部"))
         assertTrue(AiMemoryVideoRules.phases.last().contains("合成"))
+    }
+
+    @Test
+    fun `photo restoration preview stays within memorial track`() {
+        assertEquals(PetPortraitToken, aiRestorePreviewToken("pm-001"))
+        assertEquals(AiRestoreSampleToken, aiRestorePreviewToken("hm-001"))
+        assertEquals(AiRestoreSampleToken, aiRestorePreviewToken(""))
     }
 }
