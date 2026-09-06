@@ -2,7 +2,7 @@
 
 本文件记录渝安青澜 Android APP 的可交付里程碑。提交作者统一为 `WuWingKit <hurongjie@qianban.online>`。
 
-## [Unreleased]
+## [1.2.0] - 2026-09-07
 
 ### 新增
 
