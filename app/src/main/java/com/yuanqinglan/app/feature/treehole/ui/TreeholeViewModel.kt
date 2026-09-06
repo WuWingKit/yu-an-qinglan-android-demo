@@ -334,14 +334,9 @@ class TreeholePoolViewModel(
         _uiState.update { it.copy(currentLetter = target, responseMessage = null) }
     }
 
-    /** 轻回应：只产出一次性本地确认文案，不显示任何计数。 */
+    /** 轻回应：只产出一次性本地确认文案，不显示任何计数（文案见 kindResponseMessage）。 */
     fun respond(kind: KindResponse) {
-        val message = when (kind) {
-            KindResponse.LIGHT -> "已为你点亮一盏灯，愿这份关怀被温柔接住"
-            KindResponse.LEAF -> "已为你寄去一片新叶，愿这份关怀被温柔接住"
-            KindResponse.FLOWER -> "已为你送上一朵小花，愿这份关怀被温柔接住"
-        }
-        _uiState.update { it.copy(responseMessage = message) }
+        _uiState.update { it.copy(responseMessage = kindResponseMessage(kind)) }
     }
 
     /** 举报确认后：本地反馈并换一封；拾信池内容保持不变。 */

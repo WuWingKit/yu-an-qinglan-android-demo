@@ -13,6 +13,10 @@ import kotlinx.serialization.Serializable
 /*
  * assets/demo/treehole 内置信件的强类型 DTO。
  * 人间（human-letters.json）与生灵（pet-letters.json）两套文件与 DTO 完全独立。
+ *
+ * 信件直接使用模型（HumanLetter / PetLetter）反序列化，故作者展示字段
+ * （TreeholeAuthor：虚构昵称/非实名 ID/头像 token）随模型自动纳入 DTO；
+ * 字段可空带默认值，旧 JSON 与本地快照缺字段时正常兼容读取。
  */
 
 @Serializable
