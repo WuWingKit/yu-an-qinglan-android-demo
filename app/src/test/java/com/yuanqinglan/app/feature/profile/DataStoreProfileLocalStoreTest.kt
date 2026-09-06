@@ -7,8 +7,10 @@
 package com.yuanqinglan.app.feature.profile
 
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.okio.OkioStorage
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.PreferencesSerializer
 import com.yuanqinglan.app.feature.profile.data.DataStoreProfileLocalStore
 import com.yuanqinglan.app.feature.profile.logic.ProfileRules
 import com.yuanqinglan.app.feature.profile.model.FeedbackRecord
@@ -22,6 +24,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import okio.Path.Companion.toPath
+import okio.FileSystem
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -43,7 +47,14 @@ class DataStoreProfileLocalStoreTest {
         testFile = File.createTempFile("yuanqinglan_profile_test", ".preferences_pb")
         testFile.delete()
         scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        dataStore = PreferenceDataStoreFactory.create(scope = scope) { testFile }
+        dataStore = PreferenceDataStoreFactory.create(
+            storage = OkioStorage(
+                fileSystem = FileSystem.SYSTEM,
+                serializer = PreferencesSerializer,
+                producePath = { testFile.absolutePath.toPath() },
+            ),
+            scope = scope,
+        )
         store = DataStoreProfileLocalStore(dataStore, delayMillis = 0L)
     }
 

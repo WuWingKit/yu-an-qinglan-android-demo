@@ -7,8 +7,10 @@
 package com.yuanqinglan.app.cross
 
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.okio.OkioStorage
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.PreferencesSerializer
 import com.yuanqinglan.app.data.local.DataStoreSettingsRepository
 import com.yuanqinglan.app.feature.profile.logic.ProfileRules
 import java.io.File
@@ -18,6 +20,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import okio.Path.Companion.toPath
+import okio.FileSystem
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -42,7 +46,14 @@ class ProfileSettingsPersistenceCrossTest {
         testFile = File.createTempFile("yuanqinglan_cross_settings", ".preferences_pb")
         testFile.delete()
         scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        dataStore = PreferenceDataStoreFactory.create(scope = scope) { testFile }
+        dataStore = PreferenceDataStoreFactory.create(
+            storage = OkioStorage(
+                fileSystem = FileSystem.SYSTEM,
+                serializer = PreferencesSerializer,
+                producePath = { testFile.absolutePath.toPath() },
+            ),
+            scope = scope,
+        )
     }
 
     @After
