@@ -166,6 +166,7 @@ fun MeScreen(
     onOpenPhone: () -> Unit,
     onOpenAbout: () -> Unit,
     onOpenFeedback: () -> Unit,
+    onOpenCopyrightAuthorization: () -> Unit,
     vm: MeViewModel? = null,
 ) {
     val context = LocalContext.current
@@ -192,6 +193,7 @@ fun MeScreen(
             onOpenPhone = onOpenPhone,
             onOpenAbout = onOpenAbout,
             onOpenFeedback = onOpenFeedback,
+            onOpenCopyrightAuthorization = onOpenCopyrightAuthorization,
         )
         MeSection.ORDERS -> OrdersEntryView(
             onBack = { section = MeSection.MAIN },
@@ -215,6 +217,7 @@ private fun MeMainPage(
     onOpenPhone: () -> Unit,
     onOpenAbout: () -> Unit,
     onOpenFeedback: () -> Unit,
+    onOpenCopyrightAuthorization: () -> Unit,
 ) {
     val nickname by viewModel.nickname.collectAsStateWithLifecycle()
     val avatarUri by viewModel.avatarUri.collectAsStateWithLifecycle()
@@ -414,7 +417,8 @@ private fun MeMainPage(
                 ReferenceNote(
                     text = "个人资料与本地内容仅保存在本机私有目录，不对外传输。相关信息仅供参考，具体以主管机构和服务机构公布为准。",
                 )
-                AuthorizationCopyrightFooter()
+                Spacer(Modifier.size(8.dp))
+                CopyrightAuthorizationRow(onClick = onOpenCopyrightAuthorization)
                 Spacer(Modifier.size(20.dp))
             }
         }
