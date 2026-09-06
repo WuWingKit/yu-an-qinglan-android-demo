@@ -15,7 +15,7 @@ import kotlinx.serialization.Serializable
  * 并经独立的 [HumanMemorial 仓库入口] 管理，标识以 `hm-` 开头。任何轨道切换
  * 都不会把宠物数据写进本类型或反向混用。
  *
- * [portrait] 为 drawable 资源名（人类肖像 memorial_human_portrait）；用户新增的
+ * [portrait] 为 drawable 资源名；内置外公与母亲使用各自独立肖像，用户新增的
  * 相册/附件以 file:// 私有目录 Uri 形式保存于 [MediaRef]。
  */
 @Serializable
@@ -36,6 +36,7 @@ data class HumanMemorial(
     companion object {
         /** 人类纪念肖像资源名（示意肖像，不作真实人物宣传）。 */
         const val PORTRAIT_DEFAULT = "memorial_human_portrait"
+        const val PORTRAIT_MOTHER = "memorial_mother_portrait"
     }
 }
 

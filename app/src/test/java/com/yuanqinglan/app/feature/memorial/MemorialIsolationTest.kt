@@ -97,6 +97,19 @@ class MemorialIsolationTest {
     }
 
     @Test
+    fun `旧快照中的母亲纪念空间自动迁移为独立女性肖像`() = runTest {
+        val legacyMother = HumanMemorial(
+            id = "hm-002",
+            name = "林静萱",
+            relation = "母亲",
+            portrait = HumanMemorial.PORTRAIT_DEFAULT,
+        )
+        val store = HumanMemorialStore(seedProvider = { listOf(legacyMother) })
+
+        assertEquals(HumanMemorial.PORTRAIT_MOTHER, store.space("hm-002")?.portrait)
+    }
+
+    @Test
     fun `信件写入人类空间不影响宠物轨`() = runTest {
         val humanStore = HumanMemorialStore(seedProvider = { listOf(humanSeed()) })
         val petStore = PetMemorialStore(seedProvider = { listOf(petSeed()) })

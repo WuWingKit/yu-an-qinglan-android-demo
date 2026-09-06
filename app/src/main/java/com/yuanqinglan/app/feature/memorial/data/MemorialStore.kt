@@ -58,6 +58,7 @@ abstract class MemorialTrackStore<T : MemorialLike>(
     private val snapshotIo: MemorialSnapshotIo?,
     private val snapshotName: String,
     private val listSerializer: KSerializer<List<T>>,
+    private val normalizeLoaded: (T) -> T = { it },
 ) {
 
     private val mutex = Mutex()
@@ -342,7 +343,7 @@ abstract class MemorialTrackStore<T : MemorialLike>(
             } else {
                 seedProvider()
             }
-            DemoState.Success(items.associateBy { it.id })
+            DemoState.Success(items.map(normalizeLoaded).associateBy { it.id })
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
@@ -373,6 +374,13 @@ class HumanMemorialStore(
     snapshotIo = snapshotIo,
     snapshotName = snapshotName,
     listSerializer = ListSerializer(HumanMemorial.serializer()),
+    normalizeLoaded = { memorial ->
+        if (memorial.id == MOTHER_MEMORIAL_ID && memorial.portrait == HumanMemorial.PORTRAIT_DEFAULT) {
+            memorial.copy(portrait = HumanMemorial.PORTRAIT_MOTHER)
+        } else {
+            memorial
+        }
+    },
 ) {
 
     internal override fun withParts(base: HumanMemorial, parts: ContentParts): HumanMemorial = base.copy(
@@ -423,6 +431,7 @@ class HumanMemorialStore(
 
     private companion object {
         const val SNAPSHOT_HUMAN = "human_memorials.json"
+        const val MOTHER_MEMORIAL_ID = "hm-002"
     }
 }
 

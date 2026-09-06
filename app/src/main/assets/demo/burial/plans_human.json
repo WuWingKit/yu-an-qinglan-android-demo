@@ -5,7 +5,7 @@
       "serviceId": "tree",
       "tier": "basic",
       "title": "树葬基础安葬套餐",
-      "priceText": "1,680 元/位",
+      "priceText": "4,980 元/位",
       "contents": [
         "安葬意向咨询与办理材料确认",
         "可降解安葬容器与树葬安放服务",
@@ -18,7 +18,7 @@
       "serviceId": "tree",
       "tier": "upgrade",
       "title": "树葬纪念养护套餐",
-      "priceText": "3,680 元/位",
+      "priceText": "22,800 元/位",
       "contents": [
         "包含树葬基础套餐全部服务",
         "纪念树长期养护档案",
@@ -31,7 +31,7 @@
       "serviceId": "flower",
       "tier": "basic",
       "title": "花葬基础安葬套餐",
-      "priceText": "1,880 元/位",
+      "priceText": "4,980 元/位",
       "contents": [
         "安葬意向咨询与办理材料确认",
         "可降解安葬容器与花葬安放服务",
@@ -44,7 +44,7 @@
       "serviceId": "flower",
       "tier": "upgrade",
       "title": "花葬纪念养护套餐",
-      "priceText": "3,980 元/位",
+      "priceText": "28,800 元/位",
       "contents": [
         "包含花葬基础套餐全部服务",
         "纪念花田长期养护档案",
@@ -57,7 +57,7 @@
       "serviceId": "grass",
       "tier": "basic",
       "title": "草坪葬基础安葬套餐",
-      "priceText": "1,580 元/位",
+      "priceText": "4,680 元/位",
       "contents": [
         "安葬意向咨询与办理材料确认",
         "可降解安葬容器与草坪葬安放服务",
@@ -70,7 +70,7 @@
       "serviceId": "grass",
       "tier": "upgrade",
       "title": "草坪葬纪念养护套餐",
-      "priceText": "3,580 元/位",
+      "priceText": "25,800 元/位",
       "contents": [
         "包含草坪葬基础套餐全部服务",
         "纪念区域养护档案",

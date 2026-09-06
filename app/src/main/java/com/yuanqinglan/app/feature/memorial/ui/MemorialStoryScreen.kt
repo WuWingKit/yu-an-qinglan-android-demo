@@ -114,7 +114,6 @@ fun MemorialStoryScreen(
 ) {
     val context = LocalContext.current
     val repository = remember(context) { MemorialServiceLocator.repository(context) }
-    remember(context) { AppContainer.init(context.applicationContext) }
     val viewModel: MemorialStoryViewModel = viewModel(
         factory = remember(repository, memorialId) {
             MemorialViewModelFactory { MemorialStoryViewModel(repository, memorialId) }

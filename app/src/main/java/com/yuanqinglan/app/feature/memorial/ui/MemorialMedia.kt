@@ -69,6 +69,7 @@ import kotlinx.coroutines.withContext
 @DrawableRes
 fun memorialDrawable(token: String): Int = when (token) {
     HumanPortraitToken -> R.drawable.memorial_human_portrait
+    MotherPortraitToken -> R.drawable.memorial_mother_portrait
     PetPortraitToken -> R.drawable.memorial_pet_portrait
     GalleryHumanTeaToken -> R.drawable.memorial_gallery_family_tea
     GalleryPetParkToken -> R.drawable.memorial_gallery_pet_park
@@ -77,6 +78,7 @@ fun memorialDrawable(token: String): Int = when (token) {
 }
 
 const val HumanPortraitToken = "memorial_human_portrait"
+const val MotherPortraitToken = "memorial_mother_portrait"
 const val PetPortraitToken = "memorial_pet_portrait"
 const val GalleryHumanTeaToken = "memorial_gallery_family_tea"
 const val GalleryPetParkToken = "memorial_gallery_pet_park"

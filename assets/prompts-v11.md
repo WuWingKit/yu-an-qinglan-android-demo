@@ -66,6 +66,12 @@ Vertical 4:5 fictional late-1970s Chinese portrait for an AI restoration demo. O
 
 ## 2026.09.05 迭代补充
 
+### `memorial_mother_portrait.webp`
+
+```text
+Square, crop-safe fictional portrait of an elderly Chinese mother on a softly lit Chongqing balcony with jasmine flowers. Muted teal cardigan, ivory blouse, natural silver hair, calm and dignified expression. Realistic editorial photography with subtle film warmth. No funeral context, text, logo, watermark or UI.
+```
+
 ### `home_carousel_chongqing.webp`
 
 ```text

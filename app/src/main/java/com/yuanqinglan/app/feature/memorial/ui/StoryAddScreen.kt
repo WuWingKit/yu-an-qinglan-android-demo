@@ -97,7 +97,6 @@ fun StoryAddScreen(
 ) {
     val context = LocalContext.current
     val repository = remember(context) { MemorialServiceLocator.repository(context) }
-    remember(context) { AppContainer.init(context.applicationContext) }
     val scope = rememberCoroutineScope()
 
     var title by rememberSaveable { mutableStateOf("") }

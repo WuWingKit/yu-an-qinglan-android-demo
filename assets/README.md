@@ -10,6 +10,8 @@
 | `generated/burial_lawn.webp` | 草坪葬卡片与详情头图 | 开阔草坪、低矮公共纪念墙和微型卧石 |
 | `generated/burial_pet_tree.webp` | 宠物树葬卡片与详情头图 | 独立花园中的纪念树、爪印木牌和花束 |
 | `generated/memorial_human_portrait.webp` | 人类云端纪念馆演示头像 | 虚构重庆老年男性家庭肖像 |
+| `generated/v11/memorial/memorial_mother_portrait.webp` | 母亲纪念空间头像 | 虚构重庆女性长辈肖像，专用于林静萱纪念空间 |
+| `generated/brand/app_icon_foreground.png` | Android 自适应启动图标前景 | 树、山城河流与托叶组合标志，透明背景 |
 | `generated/memorial_pet_portrait.webp` | 宠物纪念空间演示头像 | 虚构金色小型犬家庭肖像 |
 
 ## Demo v11 补充素材

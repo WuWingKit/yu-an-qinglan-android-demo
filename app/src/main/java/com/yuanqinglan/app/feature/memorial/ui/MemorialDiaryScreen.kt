@@ -205,8 +205,6 @@ private fun DiaryListContent(
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
-    remember(context) { AppContainer.init(context.applicationContext) }
-
     var creating by rememberSaveable { mutableStateOf(false) }
     var editingId by rememberSaveable { mutableStateOf<String?>(null) }
     var pendingDelete by remember { mutableStateOf<MemorialDiaryEntry?>(null) }

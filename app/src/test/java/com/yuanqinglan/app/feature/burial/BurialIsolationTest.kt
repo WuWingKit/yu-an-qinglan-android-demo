@@ -143,12 +143,17 @@ class BurialIsolationTest {
     }
 
     @Test
-    fun `人类基础套餐价格约束可被数据校验`() {
-        // 此处校验“人类基础款 ≤2000 元”的可计算口径：价格文本取数字部分
-        val prices = listOf("1,580 元", "1,680 元", "1,880 元", "1,580 元/位")
-        prices.forEach { text ->
-            val digits = text.filter { it.isDigit() }.toIntOrNull()
-            assertTrue("价格文本应为数字口径: $text", digits != null && digits <= 2000)
+    fun `人类套餐覆盖普惠基础档与园区纪念服务档`() {
+        val basicPrices = listOf("4,680 元", "4,980 元", "4,980 元/位")
+        val upgradePrices = listOf("22,800 元", "25,800 元", "28,800 元/位")
+
+        basicPrices.forEach { text ->
+            val amount = text.filter { it.isDigit() }.toIntOrNull()
+            assertTrue("普惠基础档应落在 2,000 至 5,000 元: $text", amount in 2_000..5_000)
+        }
+        upgradePrices.forEach { text ->
+            val amount = text.filter { it.isDigit() }.toIntOrNull()
+            assertTrue("园区纪念服务档应高于 20,000 元: $text", amount != null && amount >= 20_000)
         }
     }
 }
