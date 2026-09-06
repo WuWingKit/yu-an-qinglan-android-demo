@@ -2,6 +2,14 @@
 
 本文件记录 2026-09-05 使用内置 `imagegen` 生成的补充素材。所有人物和宠物均为虚构对象；图片不承担按钮、标签、标题或说明文字。
 
+## 品牌图标
+
+### `app_icon_foreground.png`
+
+```text
+Android adaptive launcher icon foreground for 渝安青澜. A centered, compact emblem combining a young tree canopy, Chongqing mountain silhouettes, two flowing river curves and a protective cupped leaf. Premium flat vector-like mark with a strong small-size silhouette, warm ivory with muted jade accents, designed for a deep pine-green background. Keep a generous transparent adaptive-icon safe zone. Symbol only; no text, letters, border, mockup, religious symbols, headstone, urn, coffin, gradient or watermark.
+```
+
 ## 首页轮播
 
 ### `home_carousel_tree.webp`
