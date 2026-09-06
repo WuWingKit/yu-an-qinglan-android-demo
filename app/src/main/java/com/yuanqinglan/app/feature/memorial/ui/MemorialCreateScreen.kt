@@ -50,6 +50,8 @@ import com.yuanqinglan.app.core.ui.SecondaryButton
 import com.yuanqinglan.app.feature.memorial.data.MemorialRepository
 import com.yuanqinglan.app.feature.memorial.data.MemorialServiceLocator
 import com.yuanqinglan.app.feature.memorial.model.HumanMemorialDraft
+import com.yuanqinglan.app.feature.memorial.model.MemorialDate
+import com.yuanqinglan.app.feature.memorial.model.MemorialDateRules
 import com.yuanqinglan.app.feature.memorial.model.MemorialFormRules
 import com.yuanqinglan.app.feature.memorial.model.MemorialTrack
 import com.yuanqinglan.app.feature.memorial.model.PetMemorialDraft
@@ -79,6 +81,12 @@ class MemorialCreateViewModel(
     private val _intro = MutableStateFlow("")
     val intro: StateFlow<String> = _intro.asStateFlow()
 
+    private val _birthDate = MutableStateFlow<MemorialDate?>(null)
+    val birthDate: StateFlow<MemorialDate?> = _birthDate.asStateFlow()
+
+    private val _deathDate = MutableStateFlow<MemorialDate?>(null)
+    val deathDate: StateFlow<MemorialDate?> = _deathDate.asStateFlow()
+
     private val _portrait = MutableStateFlow(HumanMemorialDraft.DEFAULT_PORTRAIT)
     val portrait: StateFlow<String> = _portrait.asStateFlow()
 
@@ -95,11 +103,22 @@ class MemorialCreateViewModel(
         } else {
             PetMemorialDraft.DEFAULT_PORTRAIT
         }
+        // 切换人/宠轨时清空日期，避免跨轨带入选填值。
+        _birthDate.value = null
+        _deathDate.value = null
     }
 
     fun updateName(value: String) = apply { _name.value = value }
     fun updateRelation(value: String) = apply { _relation.value = value }
     fun updateIntro(value: String) = apply { _intro.value = value }
+    fun updateBirthDate(value: MemorialDate?) {
+        _birthDate.value = value
+    }
+
+    fun updateDeathDate(value: MemorialDate?) {
+        _deathDate.value = value
+    }
+
     fun selectPortrait(token: String) {
         _portrait.value = token
     }
@@ -109,7 +128,10 @@ class MemorialCreateViewModel(
         val n = _name.value
         val r = _relation.value
         val i = _intro.value
-        if (!MemorialFormRules.canSubmit(n, r, i) || _submitting.value) return
+        val b = _birthDate.value
+        val d = _deathDate.value
+        if (!MemorialFormRules.canSubmit(n, r, i)) return
+        if (!MemorialDateRules.validate(b, d).isOk || _submitting.value) return
         _submitting.value = true
         viewModelScope.launch {
             val id = if (_track.value == AudienceTrack.HUMAN) {
@@ -119,6 +141,8 @@ class MemorialCreateViewModel(
                         relation = r,
                         intro = i,
                         portrait = _portrait.value,
+                        birthDate = b,
+                        deathDate = d,
                     ),
                 ).id
             } else {
@@ -128,6 +152,8 @@ class MemorialCreateViewModel(
                         relation = r,
                         intro = i,
                         portrait = _portrait.value,
+                        birthDate = b,
+                        deathDate = d,
                     ),
                 ).id
             }
@@ -141,6 +167,8 @@ class MemorialCreateViewModel(
         _name.value = ""
         _relation.value = ""
         _intro.value = ""
+        _birthDate.value = null
+        _deathDate.value = null
         _createdId.value = null
     }
 }
@@ -158,6 +186,8 @@ fun MemorialCreateScreen(navController: NavHostController) {
     val name by viewModel.name.collectAsStateWithLifecycle()
     val relation by viewModel.relation.collectAsStateWithLifecycle()
     val intro by viewModel.intro.collectAsStateWithLifecycle()
+    val birthDate by viewModel.birthDate.collectAsStateWithLifecycle()
+    val deathDate by viewModel.deathDate.collectAsStateWithLifecycle()
     val portrait by viewModel.portrait.collectAsStateWithLifecycle()
     val submitting by viewModel.submitting.collectAsStateWithLifecycle()
     val createdId by viewModel.createdId.collectAsStateWithLifecycle()
@@ -181,6 +211,7 @@ fun MemorialCreateScreen(navController: NavHostController) {
     val nameError = MemorialFormRules.nameError(name)
     val relationError = MemorialFormRules.relationError(relation)
     val introError = MemorialFormRules.introError(intro)
+    val dateValidation = MemorialDateRules.validate(birthDate, deathDate)
 
     AppScaffold(
         title = "新建纪念空间",
@@ -236,10 +267,34 @@ fun MemorialCreateScreen(navController: NavHostController) {
                 isError = introError != null,
                 supportingText = introError,
             )
+            Spacer(Modifier.height(14.dp))
+            Text("出生与离世日期（选填）", style = MaterialTheme.typography.titleLarge)
+            Spacer(Modifier.height(2.dp))
+            Text(
+                text = "可仅填年份，也可留空；日期仅保存在本机。",
+                style = MaterialTheme.typography.bodyMedium,
+                color = TextSecondary,
+            )
+            Spacer(Modifier.height(8.dp))
+            MemorialDateField(
+                label = "出生日期",
+                value = birthDate,
+                error = dateValidation.birthError,
+                onChange = viewModel::updateBirthDate,
+            )
+            Spacer(Modifier.height(10.dp))
+            MemorialDateField(
+                label = "离世日期",
+                value = deathDate,
+                error = dateValidation.deathError,
+                onChange = viewModel::updateDeathDate,
+            )
             Spacer(Modifier.height(20.dp))
             PrimaryButton(
                 text = "创建纪念空间",
-                enabled = !submitting && MemorialFormRules.canSubmit(name, relation, intro),
+                enabled = !submitting &&
+                    MemorialFormRules.canSubmit(name, relation, intro) &&
+                    dateValidation.isOk,
                 onClick = viewModel::submit,
             )
             Spacer(Modifier.height(8.dp))
