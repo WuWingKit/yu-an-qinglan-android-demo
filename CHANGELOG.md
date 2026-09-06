@@ -15,12 +15,13 @@
 ### 变更
 
 - 应用版本提升至 `2.0.0`（`versionCode 4`）。
+- DataStore 升级至 `1.2.1`；纯 JVM 持久化测试显式使用平台中立的 Okio 路径，避免 Windows 上 Android 模拟 SDK 走入旧文件替换分支。
 - `AppRoute` 新增 `COPYRIGHT_AUTHORIZATION("copyright-authorization")`，路由总数 45 → 46（45 个既有路由保持可达，新增版权详情路由并补充导航测试）。
 - 树洞 `TreeholePoolScreen.kt` 拆分：`ReadLetterCard` → `TreeholeLetterCard.kt`、`ResponseSection`/`KindResponseButton` → `TreeholeResponseSection.kt`（内容与动画职责分离）。
 
 ### 质量
 
-- 单测：37 套件 / 243 用例 / 0 失败 / 0 错误（基线 29/179 之上新增约 64 例，覆盖序列化兼容、双池合规、动画节流/低动态、日期规则与旧格式兼容、scrim/图例语义、版权入口）。
+- 单测：38 套件 / 246 用例 / 0 失败 / 0 错误（含 AI 成片整合后用例，覆盖序列化兼容、双池合规、动画节流/低动态、日期规则与旧格式兼容、scrim/图例语义、版权入口）。
 - `lintDebug` 通过（仅版本可用性与 portrait 锁定的有意提示）；`assembleDebug`、`assembleRelease` 通过。
 - 设备/视觉验收、`connectedDebugAndroidTest` 与 Release 发布由所有者按交付说明执行。
 

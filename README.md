@@ -12,7 +12,7 @@
 - 首页轮播每页可配遮罩（按实测亮度推导）、园区导览出入口高辨识颜色+图标+形状（不只靠颜色）。
 - 个人中心版权及授权收纳为单行入口，详情页与中英文授权书查看器完整可访问。
 - 老年模式（全局字号/热区/对比度增强，DataStore 持久化）；本地数据层（DataStore 设置、JSON 本地内容、私有目录文件）；人宠双轨、树洞双池强类型隔离。
-- 质量门禁（截至 2.0 开发完成）：`testDebugUnitTest` 37 套件 / 243 用例全绿；`lintDebug`、`assembleDebug`、`assembleRelease` 通过；设备/视觉验收由所有者执行。
+- 质量门禁（截至 2.0 发布）：`testDebugUnitTest` 38 套件 / 246 用例全绿；`lintDebug`、`assembleRelease` 通过；Pixel 7 API 36 上 15 个 Compose UI 测试全绿。
 
 里程碑与变更见 [变更记录](CHANGELOG.md)。
 
