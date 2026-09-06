@@ -2,6 +2,34 @@
 
 本文件记录渝安青澜 Android APP 的可交付里程碑。提交作者统一为 `WuWingKit <hurongjie@qianban.online>`。
 
+## [2.0.0] - 2026-09-06（M3 App 2.0 优化）
+
+### 新增
+
+- **树洞"拾一封信"内容与身份呈现**（#22）：人间池与生灵池分别扩充至 10 条原创温和留言；阅读卡新增作者头部（虚构昵称、非实名 ID、Material Icons 头像占位与写信时间）；`HumanLetter`/`PetLetter` 增加可空 `author` 字段，旧 JSON 缺字段与显式 `null` 均兼容；双池模型/JSON/ID 前缀/仓库实例保持完全隔离。
+- **点灯/叶片/花朵轻回应动画**（#17）：三种克制动画（点灯 900ms 光晕扩散、叶片 1050ms 固定种子掠过、花朵 880ms 绽放淡出），连续点击 320ms 节流并以 `key(id)` 取消前一轮；系统低动态偏好下降级为颜色/图标状态 + 确认文案；TalkBack live region 播报；不记录计数/排行/热度，动画仅存瞬时 UI 内存。
+- **人类/宠物纪念档案出生与离世日期**（#18）：`HumanMemorial`/`PetMemorial` 增加可空结构化日期 `MemorialDate(year, month?, day?)`（支持仅年份/年月/完整三档精度）；创建/编辑/详情展示日期，校验纯函数（真实历法闰年感知、未来日期拦截、出生不晚于离世、自然格式化"未知/1996年/1996年2月3日"）；旧 JSON 与旧本地快照缺字段按 null 兼容，不回退种子、不丢纪念空间；人宠 Draft 保持强类型独立。
+- **首页轮播遮罩与园区导览图例辨识**（#21）：首页轮播改为每页可配 scrim（按素材实测亮度推导起始透明度，遮罩结束位 0.55→0.42，缩小暗部面积并保留细节），加底部渐变与软阴影保障长标题/老年模式对比度；园区"出入口"改用高辨识深橙红 + Material 门形图标 + 圆角方形 + 可断言语义（不只靠颜色），图例 `FlowRow` 适配窄屏，人宠园区隔离表达未弱化。
+- **版权及授权收纳为单行入口**（#20）：个人中心底部仅保留低强调"版权及授权情况"设置行（≥48dp）；新增 `copyright-authorization` 详情路由，完整展示版权所有者、专有 License 边界、被授权人李芸凤、赛事范围、修改限制、有效性与联系邮箱（与根 `LICENSE` 一致）；中英文已签名授权书可切页/缩放/平移（复用 1.1.0 资源，未重新打包）。
+
+### 变更
+
+- 应用版本提升至 `2.0.0`（`versionCode 3`）。
+- `AppRoute` 新增 `COPYRIGHT_AUTHORIZATION("copyright-authorization")`，路由总数 45 → 46（45 个既有路由保持可达，新增版权详情路由并补充导航测试）。
+- 树洞 `TreeholePoolScreen.kt` 拆分：`ReadLetterCard` → `TreeholeLetterCard.kt`、`ResponseSection`/`KindResponseButton` → `TreeholeResponseSection.kt`（内容与动画职责分离）。
+
+### 质量
+
+- 单测：37 套件 / 243 用例 / 0 失败 / 0 错误（基线 29/179 之上新增约 64 例，覆盖序列化兼容、双池合规、动画节流/低动态、日期规则与旧格式兼容、scrim/图例语义、版权入口）。
+- `lintDebug` 通过（仅版本可用性与 portrait 锁定的有意提示）；`assembleDebug`、`assembleRelease` 通过。
+- 设备/视觉验收、`connectedDebugAndroidTest` 与 Release 发布由所有者按交付说明执行。
+
+### 已知限制
+
+- 高亮素材（花海等）上白字对比度约 2.3:1 + 软阴影兜底——严格 WCAG 4.5:1 与"缩短暗部面积"目标冲突，属设计取舍，需设备目检确认。
+- 不可达路由 `MemorialMainScreen`（MEMORIAL_MAIN）的私有编辑对话框不含日期（超范围未改）；主页人/宠详情均走 `MemorialDetailScreen`，已完整覆盖。
+- 仅年份录入限制 1900–2100（实用防护）；数据层 `isValid()` 接受 1..9999。
+
 ## [1.1.0] - 2026-09-06
 
 ### 新增
