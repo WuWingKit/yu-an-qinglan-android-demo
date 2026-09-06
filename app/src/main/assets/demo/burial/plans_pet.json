@@ -1,82 +1,67 @@
 {
   "plans": [
     {
-      "id": "plan-pet-tree-basic",
-      "serviceId": "pet-tree",
-      "tier": "basic",
-      "title": "宠物树葬基础套餐",
-      "priceText": "2,680 元/位",
-      "contents": [
-        "宠物安葬手续办理与材料确认",
-        "可降解安葬容器与树葬安放服务",
-        "纪念树认养及前三年养护",
-        "独立园区探望时段指引与档案登记"
-      ]
+      "id":"plan-pet-tree-simple","serviceId":"pet-tree","tier":"simple","title":"简·归 / 宠物树葬","priceText":"3,280 元/位","priceYuan":3280,"includedManagementYears":1,"renewalStartYear":2,"renewalAnnualYuan":200,"highlight":"纪念树基础位 + 首年养护","purchaseLimit":"每只宠物限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":800,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":1500,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":2600,"years":20}],
+      "contents":["共享纪念树基础位","宠物可降解安葬容器","基础纪念牌","简约告别仪式","电子纪念页，含 3 张照片"],
+      "addOns":[{"id":"urn","label":"升级宠物环保纪念盒","priceYuan":880},{"id":"flowers","label":"鲜花养护（1 年）","priceYuan":288},{"id":"digital","label":"电子纪念空间升级","priceYuan":1280}],
+      "excludedFees":["宠物接运及个别化清洁服务","超出套餐的仪式布置与影像制作"]
     },
     {
-      "id": "plan-pet-tree-grace",
-      "serviceId": "pet-tree",
-      "tier": "upgrade",
-      "title": "宠物树葬纪念养护套餐",
-      "priceText": "6,880 元/位",
-      "contents": [
-        "包含宠物树葬基础套餐全部服务",
-        "纪念树长期养护档案",
-        "纪念树牌与电子纪念卡",
-        "园区代为养护记录说明"
-      ]
+      "id":"plan-pet-tree-sincere","serviceId":"pet-tree","tier":"sincere","title":"诚·念 / 宠物树葬","priceText":"9,880 元/位","priceYuan":9880,"includedManagementYears":3,"renewalStartYear":4,"renewalAnnualYuan":300,"highlight":"独立纪念牌 + 3 年养护档案","purchaseLimit":"每只宠物限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":1200,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":2200,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":4000,"years":20}],
+      "contents":["景观纪念树位","宠物环保纪念盒及家用纪念罐","定制纪念牌","家庭告别仪式，不超过 30 分钟","标准电子纪念空间 2 GB","3 年养护记录"],
+      "addOns":[{"id":"flowers","label":"鲜花养护（1 年）","priceYuan":288},{"id":"digital","label":"高级电子纪念空间","priceYuan":3880},{"id":"video","label":"告别影像记录","priceYuan":1680}],
+      "excludedFees":["宠物接运及个别化清洁服务","超出套餐的仪式布置与影像制作"]
     },
     {
-      "id": "plan-pet-flower-basic",
-      "serviceId": "pet-flower",
-      "tier": "basic",
-      "title": "宠物花葬基础套餐",
-      "priceText": "2,880 元/位",
-      "contents": [
-        "宠物安葬手续办理与材料确认",
-        "可降解安葬容器与花葬安放服务",
-        "宠物花田登记与四季养护",
-        "独立园区探望时段指引与档案登记"
-      ]
+      "id":"plan-pet-tree-premium","serviceId":"pet-tree","tier":"premium","title":"至·念 / 宠物树葬","priceText":"29,800 元/位","priceYuan":29800,"includedManagementYears":10,"renewalStartYear":11,"renewalAnnualYuan":500,"highlight":"专属景观树位 + 长期纪念服务","purchaseLimit":"每只宠物限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":2000,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":3800,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":7000,"years":20}],
+      "contents":["专属景观树位","高阶环保纪念容器及家用纪念罐","设计师定制纪念牌","60 分钟专属告别及影像记录","高级电子纪念空间","每年纪念鲜花及专属顾问"],
+      "addOns":[{"id":"digital","label":"电子纪念空间终身扩容","priceYuan":6800}],
+      "excludedFees":["跨区域宠物接运","超出约定次数的个性化纪念服务"]
     },
     {
-      "id": "plan-pet-flower-grace",
-      "serviceId": "pet-flower",
-      "tier": "upgrade",
-      "title": "宠物花葬纪念养护套餐",
-      "priceText": "7,280 元/位",
-      "contents": [
-        "包含宠物花葬基础套餐全部服务",
-        "宠物花田长期养护档案",
-        "花木季节更换与纪念登记",
-        "园区代为养护记录说明"
-      ]
+      "id":"plan-pet-flower-simple","serviceId":"pet-flower","tier":"simple","title":"简·归 / 宠物花葬","priceText":"3,580 元/位","priceYuan":3580,"includedManagementYears":1,"renewalStartYear":2,"renewalAnnualYuan":200,"highlight":"共享花田基础位 + 首年养护","purchaseLimit":"每只宠物限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":800,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":1500,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":2600,"years":20}],
+      "contents":["共享纪念花田基础位","宠物可降解安葬容器","基础纪念牌","简约告别仪式","电子纪念页，含 3 张照片"],
+      "addOns":[{"id":"urn","label":"升级宠物环保纪念盒","priceYuan":880},{"id":"flowers","label":"纪念花木订阅（1 年）","priceYuan":388},{"id":"digital","label":"电子纪念空间升级","priceYuan":1280}],
+      "excludedFees":["宠物接运及个别化清洁服务","超出套餐的仪式布置与影像制作"]
     },
     {
-      "id": "plan-pet-lawn-basic",
-      "serviceId": "pet-lawn",
-      "tier": "basic",
-      "title": "宠物草坪葬基础套餐",
-      "priceText": "2,480 元/位",
-      "contents": [
-        "宠物安葬手续办理与材料确认",
-        "可降解安葬容器与草坪葬安放服务",
-        "宠物草坪统一养护与地面标记",
-        "独立园区档案登记与探望指引"
-      ]
+      "id":"plan-pet-flower-sincere","serviceId":"pet-flower","tier":"sincere","title":"诚·念 / 宠物花葬","priceText":"10,800 元/位","priceYuan":10800,"includedManagementYears":3,"renewalStartYear":4,"renewalAnnualYuan":300,"highlight":"景观花田位 + 3 年四季养护","purchaseLimit":"每只宠物限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":1200,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":2200,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":4000,"years":20}],
+      "contents":["景观花田纪念位","宠物环保纪念盒及家用纪念罐","定制纪念牌","家庭告别仪式，不超过 30 分钟","标准电子纪念空间 2 GB","3 年四季养护记录"],
+      "addOns":[{"id":"flowers","label":"纪念花木订阅（1 年）","priceYuan":388},{"id":"digital","label":"高级电子纪念空间","priceYuan":3880},{"id":"video","label":"告别影像记录","priceYuan":1680}],
+      "excludedFees":["宠物接运及个别化清洁服务","超出套餐的仪式布置与影像制作"]
     },
     {
-      "id": "plan-pet-lawn-grace",
-      "serviceId": "pet-lawn",
-      "tier": "upgrade",
-      "title": "宠物草坪葬纪念养护套餐",
-      "priceText": "6,280 元/位",
-      "contents": [
-        "包含宠物草坪葬基础套餐全部服务",
-        "纪念草坪区域养护档案",
-        "纪念标记维护说明",
-        "园区代为养护记录说明"
-      ]
+      "id":"plan-pet-flower-premium","serviceId":"pet-flower","tier":"premium","title":"至·念 / 宠物花葬","priceText":"32,800 元/位","priceYuan":32800,"includedManagementYears":10,"renewalStartYear":11,"renewalAnnualYuan":500,"highlight":"专属花田位 + 长期纪念服务","purchaseLimit":"每只宠物限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":2000,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":3800,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":7000,"years":20}],
+      "contents":["专属花田纪念位","高阶环保纪念容器及家用纪念罐","设计师定制纪念牌","60 分钟专属告别及影像记录","高级电子纪念空间","全年纪念花木及专属顾问"],
+      "addOns":[{"id":"digital","label":"电子纪念空间终身扩容","priceYuan":6800}],
+      "excludedFees":["跨区域宠物接运","超出约定次数的个性化纪念服务"]
+    },
+    {
+      "id":"plan-pet-lawn-simple","serviceId":"pet-lawn","tier":"simple","title":"简·归 / 宠物草坪葬","priceText":"2,980 元/位","priceYuan":2980,"includedManagementYears":1,"renewalStartYear":2,"renewalAnnualYuan":200,"highlight":"共享草坪基础位 + 首年养护","purchaseLimit":"每只宠物限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":800,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":1500,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":2600,"years":20}],
+      "contents":["共享纪念草坪基础位","宠物可降解安葬容器","基础纪念牌","简约告别仪式","电子纪念页，含 3 张照片"],
+      "addOns":[{"id":"urn","label":"升级宠物环保纪念盒","priceYuan":880},{"id":"flowers","label":"鲜花养护（1 年）","priceYuan":288},{"id":"digital","label":"电子纪念空间升级","priceYuan":1280}],
+      "excludedFees":["宠物接运及个别化清洁服务","超出套餐的仪式布置与影像制作"]
+    },
+    {
+      "id":"plan-pet-lawn-sincere","serviceId":"pet-lawn","tier":"sincere","title":"诚·念 / 宠物草坪葬","priceText":"8,880 元/位","priceYuan":8880,"includedManagementYears":3,"renewalStartYear":4,"renewalAnnualYuan":300,"highlight":"景观草坪位 + 3 年养护档案","purchaseLimit":"每只宠物限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":1200,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":2200,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":4000,"years":20}],
+      "contents":["景观草坪纪念位","宠物环保纪念盒及家用纪念罐","定制纪念牌","家庭告别仪式，不超过 30 分钟","标准电子纪念空间 2 GB","3 年养护记录"],
+      "addOns":[{"id":"flowers","label":"鲜花养护（1 年）","priceYuan":288},{"id":"digital","label":"高级电子纪念空间","priceYuan":3880},{"id":"video","label":"告别影像记录","priceYuan":1680}],
+      "excludedFees":["宠物接运及个别化清洁服务","超出套餐的仪式布置与影像制作"]
+    },
+    {
+      "id":"plan-pet-lawn-premium","serviceId":"pet-lawn","tier":"premium","title":"至·念 / 宠物草坪葬","priceText":"26,800 元/位","priceYuan":26800,"includedManagementYears":10,"renewalStartYear":11,"renewalAnnualYuan":500,"highlight":"专属草坪位 + 长期纪念服务","purchaseLimit":"每只宠物限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":2000,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":3800,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":7000,"years":20}],
+      "contents":["专属草坪纪念位","高阶环保纪念容器及家用纪念罐","设计师定制纪念牌","60 分钟专属告别及影像记录","高级电子纪念空间","每年纪念鲜花及专属顾问"],
+      "addOns":[{"id":"digital","label":"电子纪念空间终身扩容","priceYuan":6800}],
+      "excludedFees":["跨区域宠物接运","超出约定次数的个性化纪念服务"]
     }
   ]
 }

@@ -177,10 +177,31 @@ private fun OrderContent(
         BurialSectionTitle("费用说明")
         BurialCard {
             Column {
-                InfoRow(label = "套餐金额", value = order.amountText)
+                if (order.totalYuan != null) {
+                    InfoRow(label = "套餐金额", value = yuan(order.planPriceYuan ?: 0))
+                    InfoRow(
+                        label = "预付管理费",
+                        value = if (order.prepaidYears > 0) {
+                            "${order.prepaidYears} 年 · ${yuan(order.prepaidManagementYuan)}"
+                        } else {
+                            "暂不预付"
+                        },
+                    )
+                    order.selectedAddOns.forEach { item -> InfoRow(label = "增值服务", value = item) }
+                    InfoRow(label = "增值服务小计", value = yuan(order.addOnYuan))
+                    InfoRow(
+                        label = "重庆政府补贴",
+                        value = if (order.subsidyYuan > 0) "-${yuan(order.subsidyYuan)}" else yuan(0),
+                    )
+                    InfoRow(label = "预计实付", value = yuan(order.totalYuan ?: 0))
+                    InfoRow(label = "管理费续期年份", value = "${order.managementExpiresYear} 年")
+                    InfoRow(label = "到期后续期标准", value = "${yuan(order.renewalAnnualYuan)} / 年")
+                } else {
+                    InfoRow(label = "套餐金额", value = order.amountText)
+                }
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    text = "以上金额为所选套餐参考价，具体费用以服务机构最终公布为准。",
+                    text = "补贴资格及最终费用以民政部门与服务机构审核结果为准。",
                     style = MaterialTheme.typography.labelMedium,
                     color = TextSecondary,
                 )
