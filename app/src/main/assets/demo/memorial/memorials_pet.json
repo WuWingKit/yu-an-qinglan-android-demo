@@ -7,6 +7,8 @@
       "relation": "我的伙伴",
       "intro": "一只爱晒太阳的橘猫，陪我从出租屋搬到新家。它离开后，我把关于它的日子都留在这里。",
       "createdAtMillis": 1747000000000,
+      "birthDate": { "year": 2020, "month": 4 },
+      "deathDate": { "year": 2025, "month": 6, "day": 28 },
       "gallery": [
         {
           "id": "pm-001-photo-1",

@@ -32,6 +32,8 @@ data class HumanMemorial(
     override val letters: List<MemorialLetter> = emptyList(),
     override val diary: List<MemorialDiaryEntry> = emptyList(),
     override val jisiRecords: List<JisiVisitRecord> = emptyList(),
+    override val birthDate: MemorialDate? = null,
+    override val deathDate: MemorialDate? = null,
 ) : MemorialLike {
     companion object {
         /** 人类纪念肖像资源名（示意肖像，不作真实人物宣传）。 */
@@ -46,6 +48,8 @@ data class HumanMemorialDraft(
     val relation: String,
     val intro: String,
     val portrait: String = HumanMemorial.PORTRAIT_DEFAULT,
+    val birthDate: MemorialDate? = null,
+    val deathDate: MemorialDate? = null,
 ) {
     companion object {
         const val DEFAULT_PORTRAIT = HumanMemorial.PORTRAIT_DEFAULT
