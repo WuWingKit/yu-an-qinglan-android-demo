@@ -12,7 +12,7 @@
 - 人文及宠物树葬、花葬、草坪葬均提供「简·归 / 诚·念 / 至·念」三档套餐，支持管理费、增值服务、重庆补贴与预计实付试算。
 - 质量门禁：`testDebugUnitTest` 29 套件 / 179 用例全绿；`lintDebug`、`assembleDebug`、`assembleRelease` 通过；`connectedDebugAndroidTest` 12 个 Compose UI 测试全绿；Pixel 7 API 36（emulator-5560）安装与关键链路巡检通过。
 
-里程碑与变更见 [变更记录](CHANGELOG.md)。
+里程碑与变更见 [变更记录](CHANGELOG.md)，赛事现场流程见 [1.1.0 讲解脚本](docs/release/presentation-script-v1.1.0.md)。
 
 ## 产品基线
 
