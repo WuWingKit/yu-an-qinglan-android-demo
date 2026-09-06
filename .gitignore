@@ -32,3 +32,14 @@ Thumbs.db
 超干货总结.docx
 渝安青澜.docx
 渝安青澜——重庆花、林、江生态殡葬创新.pdf
+
+# JVM crash dumps
+hs_err_pid*.log
+replay_pid*.log
+
+# Tool byproducts dumped at repo root
+/AndroidManifest.xml
+/R.txt
+/public.txt
+/classes.jar
+/res/

@@ -1,0 +1,54 @@
+{
+  "memorials": [
+    {
+      "id": "pm-001",
+      "name": "年糕",
+      "portrait": "memorial_pet_portrait",
+      "relation": "我的伙伴",
+      "intro": "一只爱晒太阳的橘猫，陪我从出租屋搬到新家。它离开后，我把关于它的日子都留在这里。",
+      "createdAtMillis": 1747000000000,
+      "gallery": [
+        {
+          "id": "pm-001-photo-1",
+          "kind": "DRAWABLE",
+          "value": "memorial_gallery_pet_park",
+          "name": "在公园草地上打滚"
+        },
+        {
+          "id": "pm-001-photo-2",
+          "kind": "DRAWABLE",
+          "value": "memorial_gallery_pet_park",
+          "name": "午后窗台上的年糕"
+        }
+      ],
+      "messages": [
+        {
+          "id": "pm-001-msg-1",
+          "author": "我",
+          "text": "年糕，今天的阳光很好，像你最喜欢的那个午后。",
+          "createdAtMillis": 1749800000000
+        }
+      ],
+      "stories": [
+        {
+          "id": "pm-001-story-1",
+          "title": "第一次在窗台上遇见你",
+          "dateMillis": 1585756800000,
+          "dateText": "2020年4月",
+          "body": "那年春天搬进新家，你蹲在窗台上看我搬行李，像在验收这个家。后来你就留了下来，一留就是四年。",
+          "image": null
+        }
+      ],
+      "letters": [],
+      "jisiRecords": [
+        {
+          "id": "pm-001-jisi-1",
+          "dateMillis": 1751100000000,
+          "dateText": "2025年6月28日",
+          "place": "宠物生态纪念园",
+          "message": "带了你最爱的小鱼干，在纪念树下坐了一下午。"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "plans": [
+    {
+      "id": "plan-pet-tree-basic",
+      "serviceId": "pet-tree",
+      "tier": "basic",
+      "title": "宠物树葬基础套餐",
+      "priceText": "2,680 元/位",
+      "contents": [
+        "宠物安葬手续办理与材料确认",
+        "可降解安葬容器与树葬安放服务",
+        "纪念树认养及前三年养护",
+        "独立园区探望时段指引与档案登记"
+      ]
+    },
+    {
+      "id": "plan-pet-tree-grace",
+      "serviceId": "pet-tree",
+      "tier": "upgrade",
+      "title": "宠物树葬纪念养护套餐",
+      "priceText": "6,880 元/位",
+      "contents": [
+        "包含宠物树葬基础套餐全部服务",
+        "纪念树长期养护档案",
+        "纪念树牌与电子纪念卡",
+        "园区代为养护记录说明"
+      ]
+    },
+    {
+      "id": "plan-pet-flower-basic",
+      "serviceId": "pet-flower",
+      "tier": "basic",
+      "title": "宠物花葬基础套餐",
+      "priceText": "2,880 元/位",
+      "contents": [
+        "宠物安葬手续办理与材料确认",
+        "可降解安葬容器与花葬安放服务",
+        "宠物花田登记与四季养护",
+        "独立园区探望时段指引与档案登记"
+      ]
+    },
+    {
+      "id": "plan-pet-flower-grace",
+      "serviceId": "pet-flower",
+      "tier": "upgrade",
+      "title": "宠物花葬纪念养护套餐",
+      "priceText": "7,280 元/位",
+      "contents": [
+        "包含宠物花葬基础套餐全部服务",
+        "宠物花田长期养护档案",
+        "花木季节更换与纪念登记",
+        "园区代为养护记录说明"
+      ]
+    },
+    {
+      "id": "plan-pet-lawn-basic",
+      "serviceId": "pet-lawn",
+      "tier": "basic",
+      "title": "宠物草坪葬基础套餐",
+      "priceText": "2,480 元/位",
+      "contents": [
+        "宠物安葬手续办理与材料确认",
+        "可降解安葬容器与草坪葬安放服务",
+        "宠物草坪统一养护与地面标记",
+        "独立园区档案登记与探望指引"
+      ]
+    },
+    {
+      "id": "plan-pet-lawn-grace",
+      "serviceId": "pet-lawn",
+      "tier": "upgrade",
+      "title": "宠物草坪葬纪念养护套餐",
+      "priceText": "6,280 元/位",
+      "contents": [
+        "包含宠物草坪葬基础套餐全部服务",
+        "纪念草坪区域养护档案",
+        "纪念标记维护说明",
+        "园区代为养护记录说明"
+      ]
+    }
+  ]
+}

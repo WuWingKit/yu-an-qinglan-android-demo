@@ -1,0 +1,55 @@
+/*
+ * Copyright (c) 2026 西南大学24级学行科创班胡荣杰（WuWingKit）
+ * 本代码著作权归西南大学24级学行科创班胡荣杰（WuWingKit）所有，
+ * 未经书面授权禁止另做他用（包括商用和非商用）。
+ */
+
+package com.yuanqinglan.app.navigation
+
+enum class AppRoute(val route: String) {
+    SPLASH("splash"),
+    HOME("home"),
+    LIFE_EDUCATION("life-ed"),
+    ACTIVITIES("activities"),
+    MATCH("match"),
+    POLICY("policy"),
+    COUNTY_DETAIL("county-detail"),
+    POLICY_RESULT("presult"),
+    SEA_DETAIL("sea-detail"),
+    NEWS_DETAIL("news-detail"),
+    BURIAL("zangshi"),
+    TREE("tree"),
+    FLOWER("flower"),
+    GRASS("grass"),
+    PET_TREE("pet-tree"),
+    PET_PARK("pet-park"),
+    PLAN("plan"),
+    PLAN_FORM("plan-form"),
+    ORDER("order"),
+    NAVIGATE("navigate"),
+    MEMORIAL_HOME("memorial-home"),
+    MEMORIAL_CREATE("memorial-create"),
+    MEMORIAL_DETAIL("memorial-detail"),
+    MEMORIAL_MAIN("memorial-main"),
+    PET_MEMORIAL("pet-memorial"),
+    MEMORIAL_STORY("memorial-story"),
+    STORY_ADD("story-add"),
+    MEMORIAL_TIME("jisi-time"),
+    MEMORIAL_DIARY("memorial-diary"),
+    LETTER_WRITE("letter-write"),
+    LETTER_VIEW("letter-view"),
+    AI_ETHICS("ai-ethics"),
+    AI_UPLOAD("ai-upload"),
+    PROXY_MEMORIAL("daiji"),
+    COLLECTIVE_HISTORY("jiti-history"),
+    TREEHOLE_SELECT("shudong-select"),
+    TREEHOLE_HUMAN("shudong-ren"),
+    TREEHOLE_PET("shudong-sheng"),
+    PROFILE("me"),
+    ELDER_MODE("elder"),
+    PRIVACY("privacy"),
+    PASSWORD_EDIT("pwd-edit"),
+    PHONE_EDIT("phone-edit"),
+    ABOUT("about"),
+    FEEDBACK("feedback"),
+}

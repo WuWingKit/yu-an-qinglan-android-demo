@@ -1,0 +1,82 @@
+{
+  "plans": [
+    {
+      "id": "plan-human-tree-basic",
+      "serviceId": "tree",
+      "tier": "basic",
+      "title": "树葬基础安葬套餐",
+      "priceText": "4,980 元/位",
+      "contents": [
+        "安葬意向咨询与办理材料确认",
+        "可降解安葬容器与树葬安放服务",
+        "纪念树认养及前三年养护",
+        "园区祭扫开放时段指引与档案登记"
+      ]
+    },
+    {
+      "id": "plan-human-tree-grace",
+      "serviceId": "tree",
+      "tier": "upgrade",
+      "title": "树葬纪念养护套餐",
+      "priceText": "22,800 元/位",
+      "contents": [
+        "包含树葬基础套餐全部服务",
+        "纪念树长期养护档案",
+        "纪念树牌与电子纪念卡",
+        "园区代为养护记录说明"
+      ]
+    },
+    {
+      "id": "plan-human-flower-basic",
+      "serviceId": "flower",
+      "tier": "basic",
+      "title": "花葬基础安葬套餐",
+      "priceText": "4,980 元/位",
+      "contents": [
+        "安葬意向咨询与办理材料确认",
+        "可降解安葬容器与花葬安放服务",
+        "纪念花田登记与四季养护",
+        "园区祭扫开放时段指引与档案登记"
+      ]
+    },
+    {
+      "id": "plan-human-flower-grace",
+      "serviceId": "flower",
+      "tier": "upgrade",
+      "title": "花葬纪念养护套餐",
+      "priceText": "28,800 元/位",
+      "contents": [
+        "包含花葬基础套餐全部服务",
+        "纪念花田长期养护档案",
+        "节气花木更换与纪念登记",
+        "园区代为养护记录说明"
+      ]
+    },
+    {
+      "id": "plan-human-grass-basic",
+      "serviceId": "grass",
+      "tier": "basic",
+      "title": "草坪葬基础安葬套餐",
+      "priceText": "4,680 元/位",
+      "contents": [
+        "安葬意向咨询与办理材料确认",
+        "可降解安葬容器与草坪葬安放服务",
+        "草坪统一养护与地面标记",
+        "园区档案登记与祭扫指引"
+      ]
+    },
+    {
+      "id": "plan-human-grass-grace",
+      "serviceId": "grass",
+      "tier": "upgrade",
+      "title": "草坪葬纪念养护套餐",
+      "priceText": "25,800 元/位",
+      "contents": [
+        "包含草坪葬基础套餐全部服务",
+        "纪念区域养护档案",
+        "纪念标记维护说明",
+        "园区代为养护记录说明"
+      ]
+    }
+  ]
+}
