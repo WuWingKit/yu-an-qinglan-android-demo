@@ -1,0 +1,94 @@
+PROPRIETARY SOFTWARE LICENSE
+专有软件许可协议
+
+Copyright (c) 2026 西南大学24级学行科创班胡荣杰（WuWingKit）
+All Rights Reserved. 保留所有权利。
+
+1. 权利归属
+
+除本项目明确标注的第三方软件、库、字体、图标、素材及其他第三方
+内容外，本仓库中的原创源代码、目标代码、用户界面、视觉设计、文档、
+数据结构、文案及自有或依法取得权利的素材，均由西南大学24级学行
+科创班胡荣杰（WuWingKit，以下简称“权利人”）依法享有相关权利。
+
+2. 未授予许可
+
+本仓库的公开、可访问或可下载，不构成任何明示或默示许可。除适用法律
+不可排除的情形以及本协议第 4 条所述 GitHub 平台必要权限外，未经权利人
+事先明确的书面授权，任何个人或组织不得以任何目的利用本项目的全部或
+任何部分，无论该目的属于商业、非商业、营利、非营利、个人、教育、
+研究、竞赛、公益、展示或其他性质。
+
+前述禁止行为包括但不限于：运行、使用、复制、下载后使用、修改、改编、
+翻译、反编译、反汇编、逆向工程、摘编、合并、制作衍生作品、训练或评估
+模型、部署、托管、公开展示、传播、发行、再许可、出租、出售、提供服务，
+以及以本项目为基础开发、宣传或交付任何产品或成果。
+
+3. 书面授权
+
+任何授权必须由权利人以书面文件或由 hurongjie@qianban.online 发出的
+明确电子邮件作出，并具体载明获授权主体、授权内容、使用范围和期限。
+未明确授予的权利仍由权利人保留。口头陈述、Issue、Pull Request、提交、
+评论、公开展示或未答复的请求均不构成授权。
+
+4. GitHub 平台必要权限
+
+当本仓库保持公开时，GitHub 用户可依 GitHub Terms of Service，在 GitHub
+服务自身功能允许且为浏览、展示或 Fork 本仓库所必要的范围内行使相应
+平台权限。该等平台权限不构成本协议项下的额外授权，不允许用户在 GitHub
+平台必要范围之外使用、修改、部署、传播、商业化或以其他方式利用本项目。
+
+5. 第三方内容
+
+第三方软件、依赖、字体、图标、素材及其他第三方内容分别适用其原始许可
+条款。本协议不扩大、限制或取代第三方权利人的权利，也不表示权利人对
+第三方内容主张所有权。使用者有责任自行识别并遵守相关第三方许可。
+
+6. 终止与责任
+
+任何未经授权的利用均可能构成对著作权及其他权利的侵犯。权利人有权要求
+立即停止使用、删除全部副本，并依法追究责任。任何书面授权一经违反，其
+许可在不影响权利人其他救济的情况下立即终止。
+
+7. 免责声明
+
+在适用法律允许的最大范围内，本项目按“现状”提供，不附带任何明示或
+默示保证。未经书面授权而接触、复制或使用本项目所产生的风险与责任由
+行为人自行承担。
+
+-------------------------------------------------------------------------------
+
+English Notice
+
+Except for third-party components and content governed by their respective
+licenses, all original code, object code, user interfaces, visual designs,
+documentation, data structures, text, and owned or duly licensed assets in
+this repository are proprietary to Hu Rongjie (WuWingKit), Class of 2024
+Xuexing Science and Innovation Class, Southwest University.
+
+NO LICENSE IS GRANTED. Without the Rights Holder's prior express written
+authorization, no person or entity may use any part of this project for any
+purpose, whether commercial or non-commercial, for-profit or non-profit,
+personal, educational, research, competition, charitable, demonstration, or
+otherwise. Prohibited acts include, without limitation, running, using,
+copying, modifying, adapting, translating, reverse engineering, creating
+derivative works, training or evaluating models, deploying, hosting,
+displaying, distributing, sublicensing, selling, renting, providing services,
+or developing, promoting, or delivering any product or work based on it.
+
+Written authorization must expressly identify the authorized party, scope,
+purpose, and term, and must be issued in a written instrument by the Rights
+Holder or from hurongjie@qianban.online. Issues, pull requests, commits,
+comments, public availability, oral statements, and unanswered requests do
+not constitute authorization.
+
+For a public repository, GitHub users retain only those platform permissions
+that GitHub's Terms of Service necessarily provide for viewing, displaying,
+and forking content through GitHub's own functionality. Those permissions do
+not grant any additional right to use, modify, deploy, distribute,
+commercialize, or otherwise exploit the project beyond that necessary scope.
+
+Third-party components and content remain subject to their own licenses. To
+the maximum extent permitted by applicable law, this project is provided
+"AS IS", without warranties of any kind. Unauthorized exploitation may result
+in termination, demands to cease use and delete copies, and legal action.
