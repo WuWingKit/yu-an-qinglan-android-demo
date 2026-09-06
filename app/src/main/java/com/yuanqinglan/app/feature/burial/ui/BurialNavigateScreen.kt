@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -27,20 +29,27 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.DoorFront
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.yuanqinglan.app.core.designsystem.AppDimensions
@@ -52,12 +61,22 @@ import com.yuanqinglan.app.core.designsystem.TextSecondary
 import com.yuanqinglan.app.core.ui.AppScaffold
 import com.yuanqinglan.app.core.ui.ReferenceNote
 
-/** 点位类型（图例/颜色）。 */
-enum class ParkPointType(val label: String, val color: Color) {
-    ENTRY("出入口", QingLanGreenDark),
-    SERVICE("接待服务", Color(0xFF6E93A8)),
-    HUMAN_ZONE("人类安葬区", QingLanGreen),
-    PET_ZONE("宠物独立园区", Color(0xFFB08A58)),
+/**
+ * 出入口专用高辨识色（深橙红）：与人类安葬区绿、宠物区棕黄、
+ * 服务区蓝灰在普通与色弱视觉下均明显区分（色距验证见单元测试）。
+ */
+internal val ParkEntryColor = Color(0xFFD84315)
+
+/**
+ * 点位类型（图例/颜色/标识）。
+ * 除颜色外，出入口 [ENTRY] 额外携带门形图标标识（[iconKey] 非空），
+ * 地图、图例与说明语义一致，保证不单靠颜色区分。
+ */
+enum class ParkPointType(val label: String, val color: Color, val iconKey: String?) {
+    ENTRY("出入口", ParkEntryColor, "door"),
+    SERVICE("接待服务", Color(0xFF6E93A8), null),
+    HUMAN_ZONE("人类安葬区", QingLanGreen, null),
+    PET_ZONE("宠物独立园区", Color(0xFFB08A58), null),
 }
 
 /** 园区点位：坐标为底图内相对位置（0..1），便于素材落位后统一校核。 */
@@ -71,10 +90,21 @@ data class ParkPoint(
     val routeText: String,
 )
 
+/**
+ * 点位语义描述（无障碍/测试断言）：不单靠颜色——
+ * 出入口标注"图标标识"，其余点位标注编号，TalkBack 与测试均可据此区分。
+ */
+internal fun parkMarkerSemanticsLabel(point: ParkPoint, index: Int): String =
+    if (point.type.iconKey != null) {
+        "${point.name}（${point.type.label}，图标标识，第 $index 号点位）"
+    } else {
+        "${point.name}（${point.type.label}，第 $index 号点位）"
+    }
+
 /** 地图底图尺寸（素材 1537x1025，约 3:2）；点位相对坐标与此匹配。 */
 private val MAP_ASPECT_RATIO: Float = 1537f / 1025f
 
-private val PARK_POINTS: List<ParkPoint> = listOf(
+internal val PARK_POINTS: List<ParkPoint> = listOf(
     ParkPoint(
         id = "gate",
         name = "门岗",
@@ -131,7 +161,7 @@ private val PARK_POINTS: List<ParkPoint> = listOf(
     ),
 )
 
-private val PARK_LEGEND: List<ParkPointType> = ParkPointType.entries
+internal val PARK_LEGEND: List<ParkPointType> = ParkPointType.entries
 
 private val OPEN_TIME_TEXT = "园区开放时间：每日 08:30 - 17:00（节假日以园区公告为准）"
 
@@ -179,12 +209,7 @@ fun BurialNavigateScreen(navController: NavHostController) {
                 } else {
                     Column {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Box(
-                                modifier = Modifier
-                                    .size(10.dp)
-                                    .clip(CircleShape)
-                                    .background(selected.type.color),
-                            )
+                            ParkTypeSwatch(type = selected.type, size = 14.dp)
                             Spacer(Modifier.width(8.dp))
                             Text(
                                 text = selected.name,
@@ -256,44 +281,58 @@ private fun ParkMapBlock(
             val dy = maxHeight * point.y
             val index = points.indexOf(point) + 1
             val isSelected = point.id == selectedId
+            val isEntry = point.type.iconKey != null
+            // 出入口用圆角方形 + 门形图标，其余用圆形 + 编号：形状与图标均为非颜色标识。
+            val markerShape: Shape = if (isEntry) RoundedCornerShape(8.dp) else CircleShape
+            val outerSize = if (isSelected) 48.dp else 44.dp
+            val innerSize = if (isSelected) 40.dp else 36.dp
             Box(
                 modifier = Modifier
-                    .offset(x = dx - 22.dp, y = dy - 22.dp)
-                    .size(if (isSelected) 48.dp else 44.dp)
-                    .clip(CircleShape)
+                    .offset(x = dx - outerSize / 2f, y = dy - outerSize / 2f)
+                    .size(outerSize)
+                    .clip(markerShape)
                     .background(if (isSelected) Color.White else point.type.color.copy(alpha = 0.92f))
-                    .clickable { onSelect(point.id) },
+                    .clickable { onSelect(point.id) }
+                    .semantics { contentDescription = parkMarkerSemanticsLabel(point, index) },
                 contentAlignment = Alignment.Center,
             ) {
                 Box(
                     modifier = Modifier
-                        .size(if (isSelected) 40.dp else 36.dp)
-                        .clip(CircleShape)
+                        .size(innerSize)
+                        .clip(markerShape)
                         .background(point.type.color),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Text(
-                        text = "$index",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = Color.White,
-                    )
+                    if (isEntry) {
+                        Icon(
+                            imageVector = Icons.Outlined.DoorFront,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(if (isSelected) 24.dp else 22.dp),
+                        )
+                    } else {
+                        Text(
+                            text = "$index",
+                            style = MaterialTheme.typography.labelMedium,
+                            color = Color.White,
+                        )
+                    }
                 }
             }
         }
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ParkLegend() {
-    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
         PARK_LEGEND.forEach { type ->
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .clip(CircleShape)
-                        .background(type.color),
-                )
+                ParkTypeSwatch(type = type)
                 Spacer(Modifier.width(4.dp))
                 Text(
                     text = type.label,
@@ -303,6 +342,38 @@ private fun ParkLegend() {
             }
         }
     }
+}
+
+/**
+ * 类型标识色块：出入口显示门形图标并采用圆角方形，
+ * 其余类型为纯色圆点；图例、点位说明与点位列表共用，保证语义一致。
+ */
+@Composable
+private fun ParkTypeSwatch(type: ParkPointType, size: Dp = 10.dp) {
+    val icon = typeIcon(type)
+    val shape: Shape = if (icon != null) RoundedCornerShape(size / 3f) else CircleShape
+    Box(
+        modifier = Modifier
+            .size(size)
+            .clip(shape)
+            .background(type.color),
+        contentAlignment = Alignment.Center,
+    ) {
+        if (icon != null) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = Color.White,
+                modifier = Modifier.size(size * 0.72f),
+            )
+        }
+    }
+}
+
+/** 类型标识图标：仅出入口提供门形图标，其余类型为 null（以编号/颜色区分）。 */
+private fun typeIcon(type: ParkPointType): ImageVector? = when (type.iconKey) {
+    "door" -> Icons.Outlined.DoorFront
+    else -> null
 }
 
 @Composable
@@ -323,12 +394,7 @@ private fun ParkPointList(
                     .padding(horizontal = 12.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .clip(CircleShape)
-                        .background(point.type.color),
-                )
+                ParkTypeSwatch(type = point.type)
                 Spacer(Modifier.width(10.dp))
                 Text(
                     text = point.name,
