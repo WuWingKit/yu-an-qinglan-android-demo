@@ -13,6 +13,7 @@ import com.yuanqinglan.app.feature.memorial.model.HumanMemorial
 import com.yuanqinglan.app.feature.memorial.model.HumanMemorialDraft
 import com.yuanqinglan.app.feature.memorial.model.JisiVisitRecord
 import com.yuanqinglan.app.feature.memorial.model.MediaRef
+import com.yuanqinglan.app.feature.memorial.model.MemorialDate
 import com.yuanqinglan.app.feature.memorial.model.MemorialDiaryEntry
 import com.yuanqinglan.app.feature.memorial.model.MemorialLetter
 import com.yuanqinglan.app.feature.memorial.model.MemorialLike
@@ -94,14 +95,18 @@ class MemorialRepository(context: Context) {
         name: String,
         relation: String,
         intro: String,
-    ): HumanMemorial? = human.updateMeta(memorialId, name, relation, intro)
+        birthDate: MemorialDate? = null,
+        deathDate: MemorialDate? = null,
+    ): HumanMemorial? = human.updateMeta(memorialId, name, relation, intro, birthDate, deathDate)
 
     suspend fun updatePetMeta(
         memorialId: String,
         name: String,
         relation: String,
         intro: String,
-    ): PetMemorial? = pet.updateMeta(memorialId, name, relation, intro)
+        birthDate: MemorialDate? = null,
+        deathDate: MemorialDate? = null,
+    ): PetMemorial? = pet.updateMeta(memorialId, name, relation, intro, birthDate, deathDate)
 
     suspend fun deleteHuman(memorialId: String): Boolean = human.delete(memorialId)
 

@@ -14,6 +14,7 @@ import com.yuanqinglan.app.feature.treehole.model.HumanLetter
 import com.yuanqinglan.app.feature.treehole.model.PET_POOL_CATEGORIES
 import com.yuanqinglan.app.feature.treehole.model.PetLetter
 import com.yuanqinglan.app.feature.treehole.model.TreeholeAttachment
+import com.yuanqinglan.app.feature.treehole.model.TreeholeAuthor
 import com.yuanqinglan.app.feature.treehole.model.TreeholeLetterLike
 import com.yuanqinglan.app.feature.treehole.model.TreeholeLetterState
 import com.yuanqinglan.app.feature.treehole.model.TreeholePaperStyle
@@ -35,7 +36,8 @@ import kotlinx.coroutines.flow.update
  *
  * - 公共池内容（拾信候选）来自各自独立 JSON，经 [publicLetters] 流出（含加载/失败态）；
  * - 本人信件（寄信后进入待审核）存于 [mineLetters]，与公共池内容分开保存；
- * - 信纸样式、分类与附件在本池内使用，绝不跨池混用。
+ * - 信纸样式、分类与附件在本池内使用，绝不跨池混用；
+ * - 作者展示字段（[TreeholeAuthor]）随公共池 JSON 提供；本人寄信使用中性默认作者。
  */
 class TreeholePool<T : TreeholeLetterLike>(
     private val seedProvider: suspend () -> List<T>,
@@ -150,6 +152,7 @@ class TreeholeRepository(context: Context) {
                 audio = audio,
                 createdAtMillis = now,
                 state = TreeholeLetterState.REVIEWING,
+                author = TreeholeAuthor.EMPTY,
             )
         },
     )
@@ -170,6 +173,7 @@ class TreeholeRepository(context: Context) {
                 audio = audio,
                 createdAtMillis = now,
                 state = TreeholeLetterState.REVIEWING,
+                author = TreeholeAuthor.EMPTY,
             )
         },
     )

@@ -32,6 +32,8 @@ data class PetMemorial(
     override val letters: List<MemorialLetter> = emptyList(),
     override val diary: List<MemorialDiaryEntry> = emptyList(),
     override val jisiRecords: List<JisiVisitRecord> = emptyList(),
+    override val birthDate: MemorialDate? = null,
+    override val deathDate: MemorialDate? = null,
 ) : MemorialLike {
     companion object {
         /** 宠物纪念肖像资源名（示意肖像，不作真实宠物档案宣传）。 */
@@ -45,6 +47,8 @@ data class PetMemorialDraft(
     val relation: String,
     val intro: String,
     val portrait: String = PetMemorial.PORTRAIT_DEFAULT,
+    val birthDate: MemorialDate? = null,
+    val deathDate: MemorialDate? = null,
 ) {
     companion object {
         const val DEFAULT_PORTRAIT = PetMemorial.PORTRAIT_DEFAULT

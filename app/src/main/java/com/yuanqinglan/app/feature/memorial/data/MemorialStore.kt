@@ -12,6 +12,7 @@ import com.yuanqinglan.app.feature.memorial.model.HumanMemorial
 import com.yuanqinglan.app.feature.memorial.model.HumanMemorialDraft
 import com.yuanqinglan.app.feature.memorial.model.JisiVisitRecord
 import com.yuanqinglan.app.feature.memorial.model.MediaRef
+import com.yuanqinglan.app.feature.memorial.model.MemorialDate
 import com.yuanqinglan.app.feature.memorial.model.MemorialDiaryEntry
 import com.yuanqinglan.app.feature.memorial.model.MemorialFormRules
 import com.yuanqinglan.app.feature.memorial.model.MemorialLetter
@@ -70,8 +71,15 @@ abstract class MemorialTrackStore<T : MemorialLike>(
     /** 替换内容的不可变钩子（由具体轨实现 copy；本类型仅模块内可见）。 */
     internal abstract fun withParts(base: T, parts: ContentParts): T
 
-    /** 替换名称/关系/简介的不可变钩子。 */
-    protected abstract fun withMeta(base: T, name: String, relation: String, intro: String): T
+    /** 替换名称/关系/简介/出生/离世日期的不可变钩子（日期可空，默认保留原值由调用方决定）。 */
+    protected abstract fun withMeta(
+        base: T,
+        name: String,
+        relation: String,
+        intro: String,
+        birthDate: MemorialDate?,
+        deathDate: MemorialDate?,
+    ): T
 
     /** 纪念空间列表（按创建时间倒序）。收集时先触发初始化（种子/快照载入）。 */
     fun spaces(): Flow<DemoState<List<T>>> = flow {
@@ -392,8 +400,20 @@ class HumanMemorialStore(
         jisiRecords = parts.jisiRecords,
     )
 
-    override fun withMeta(base: HumanMemorial, name: String, relation: String, intro: String): HumanMemorial =
-        base.copy(name = name, relation = relation, intro = intro)
+    override fun withMeta(
+        base: HumanMemorial,
+        name: String,
+        relation: String,
+        intro: String,
+        birthDate: MemorialDate?,
+        deathDate: MemorialDate?,
+    ): HumanMemorial = base.copy(
+        name = name,
+        relation = relation,
+        intro = intro,
+        birthDate = birthDate,
+        deathDate = deathDate,
+    )
 
     /** 新建人类纪念空间；返回创建后的对象。 */
     suspend fun create(draft: HumanMemorialDraft): HumanMemorial = locked {
@@ -405,18 +425,27 @@ class HumanMemorialStore(
             intro = draft.intro.trim(),
             portrait = draft.portrait,
             createdAtMillis = now,
+            birthDate = draft.birthDate,
+            deathDate = draft.deathDate,
         )
         val map = successMap()
         commitLocked(map + (created.id to created))
         created
     }
 
-    /** 编辑基本信息；返回更新后对象或 null（不存在）。 */
-    suspend fun updateMeta(memorialId: String, name: String, relation: String, intro: String): HumanMemorial? =
+    /** 编辑基本信息（含出生/离世日期）；返回更新后对象或 null（不存在）。 */
+    suspend fun updateMeta(
+        memorialId: String,
+        name: String,
+        relation: String,
+        intro: String,
+        birthDate: MemorialDate? = null,
+        deathDate: MemorialDate? = null,
+    ): HumanMemorial? =
         locked {
             val map = successMap()
             val base = map[memorialId] ?: return@locked null
-            val updated = withMeta(base, buildDraftName(name), relation.trim(), intro.trim())
+            val updated = withMeta(base, buildDraftName(name), relation.trim(), intro.trim(), birthDate, deathDate)
             commitLocked(map + (memorialId to updated))
             updated
         }
@@ -456,8 +485,20 @@ class PetMemorialStore(
         jisiRecords = parts.jisiRecords,
     )
 
-    override fun withMeta(base: PetMemorial, name: String, relation: String, intro: String): PetMemorial =
-        base.copy(name = name, relation = relation, intro = intro)
+    override fun withMeta(
+        base: PetMemorial,
+        name: String,
+        relation: String,
+        intro: String,
+        birthDate: MemorialDate?,
+        deathDate: MemorialDate?,
+    ): PetMemorial = base.copy(
+        name = name,
+        relation = relation,
+        intro = intro,
+        birthDate = birthDate,
+        deathDate = deathDate,
+    )
 
     /** 新建宠物纪念空间；返回创建后的对象。 */
     suspend fun create(draft: PetMemorialDraft): PetMemorial = locked {
@@ -469,18 +510,27 @@ class PetMemorialStore(
             intro = draft.intro.trim(),
             portrait = draft.portrait,
             createdAtMillis = now,
+            birthDate = draft.birthDate,
+            deathDate = draft.deathDate,
         )
         val map = successMap()
         commitLocked(map + (created.id to created))
         created
     }
 
-    /** 编辑基本信息；返回更新后对象或 null（不存在）。 */
-    suspend fun updateMeta(memorialId: String, name: String, relation: String, intro: String): PetMemorial? =
+    /** 编辑基本信息（含出生/离世日期）；返回更新后对象或 null（不存在）。 */
+    suspend fun updateMeta(
+        memorialId: String,
+        name: String,
+        relation: String,
+        intro: String,
+        birthDate: MemorialDate? = null,
+        deathDate: MemorialDate? = null,
+    ): PetMemorial? =
         locked {
             val map = successMap()
             val base = map[memorialId] ?: return@locked null
-            val updated = withMeta(base, buildDraftName(name), relation.trim(), intro.trim())
+            val updated = withMeta(base, buildDraftName(name), relation.trim(), intro.trim(), birthDate, deathDate)
             commitLocked(map + (memorialId to updated))
             updated
         }

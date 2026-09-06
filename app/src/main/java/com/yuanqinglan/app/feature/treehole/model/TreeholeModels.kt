@@ -80,6 +80,66 @@ object TreeholeAttachmentLimits {
         }
 }
 
+/**
+ * 信件作者展示信息：虚构昵称、非实名 ID 与本地头像占位 token。
+ *
+ * - 各子字段可空/带默认值：旧 JSON 与本地快照缺子字段时正常反序列化，内容不丢失；
+ * - 信件上的 [TreeholeLetterLike.author] 整体可空：旧 JSON 缺 author 或显式 author:null
+ *   均兼容读取，UI 层回退到产品默认展示；
+ * - 不承载任何联系方式、地域、社交关系或可识别个人信息；
+ * - [avatar] 只接受 [TreeholeAvatarStyle] 的 token（UI 层映射为 Material Icons 占位头像），
+ *   缺失/未知 token 时展示产品默认头像。
+ */
+@Serializable
+data class TreeholeAuthor(
+    val nickname: String = "",
+    val anonId: String = "",
+    val avatar: String? = null,
+) {
+    /** 展示用昵称：缺失时回退到产品默认（本地展示，不影响序列化字段）。 */
+    val displayNickname: String
+        get() = nickname.trim().ifEmpty { DEFAULT_NICKNAME }
+
+    /** 展示用非实名 ID：缺失时回退到默认匿名标识。 */
+    val displayAnonId: String
+        get() = anonId.trim().ifEmpty { DEFAULT_ANON_ID }
+
+    companion object {
+        const val DEFAULT_NICKNAME = "匿名的你"
+        const val DEFAULT_ANON_ID = "青澜·匿名"
+
+        /** 空作者（本地寄信用；公共池内容由 JSON 提供作者）。 */
+        val EMPTY = TreeholeAuthor()
+    }
+}
+
+/**
+ * 头像占位样式 token（本地数据驱动；icon 与配色在 UI 层映射）。
+ * 素材来源：androidx.compose.material.icons（Apache-2.0，随 Compose Material 依赖内置）。
+ */
+enum class TreeholeAvatarStyle(val token: String) {
+    LEAF("leaf"),
+    FLOWER("flower"),
+    LIGHT("light"),
+    STAR("star"),
+    HEART("heart"),
+    MOON("moon"),
+    SUN("sun"),
+    PAW("paw"),
+    PARK("park"),
+    CLOUD("cloud"),
+    WATERDROP("waterdrop"),
+    SPA("spa"),
+    PERSON("person"),
+    ;
+
+    companion object {
+        /** 未知/缺失 token 回退到产品默认头像 [PERSON]。 */
+        fun fromToken(token: String?): TreeholeAvatarStyle =
+            entries.firstOrNull { it.token == token } ?: PERSON
+    }
+}
+
 /** 人间树洞信件（独立内容池；与生灵信件永不共享列表）。 */
 @Serializable
 data class HumanLetter(
@@ -92,6 +152,7 @@ data class HumanLetter(
     override val audio: TreeholeAttachment? = null,
     override val createdAtMillis: Long,
     override val state: TreeholeLetterState = TreeholeLetterState.PUBLISHED,
+    override val author: TreeholeAuthor? = null,
 ) : TreeholeLetterLike
 
 /** 生灵树洞信件（独立内容池；与人间信件永不共享列表）。 */
@@ -106,6 +167,7 @@ data class PetLetter(
     override val audio: TreeholeAttachment? = null,
     override val createdAtMillis: Long,
     override val state: TreeholeLetterState = TreeholeLetterState.PUBLISHED,
+    override val author: TreeholeAuthor? = null,
 ) : TreeholeLetterLike
 
 /** 树洞信件的只读公共形态（两种内容池各自实现；池实例强类型区分）。 */
@@ -119,6 +181,7 @@ interface TreeholeLetterLike {
     val audio: TreeholeAttachment?
     val createdAtMillis: Long
     val state: TreeholeLetterState
+    val author: TreeholeAuthor?
 }
 
 /** 人间池分类（可写信选择；不跨池）。 */

@@ -52,4 +52,6 @@ enum class AppRoute(val route: String) {
     PHONE_EDIT("phone-edit"),
     ABOUT("about"),
     FEEDBACK("feedback"),
+    // App 2.0（M3，Issue #20）：版权及授权详情页（个人中心单行入口进入）。
+    COPYRIGHT_AUTHORIZATION("copyright-authorization"),
 }

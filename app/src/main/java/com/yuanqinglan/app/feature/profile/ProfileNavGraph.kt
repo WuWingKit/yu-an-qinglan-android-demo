@@ -11,6 +11,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.yuanqinglan.app.feature.profile.ui.AboutScreen
+import com.yuanqinglan.app.feature.profile.ui.CopyrightAuthorizationScreen
 import com.yuanqinglan.app.feature.profile.ui.ElderModeScreen
 import com.yuanqinglan.app.feature.profile.ui.FeedbackScreen
 import com.yuanqinglan.app.feature.profile.ui.MeScreen
@@ -21,7 +22,8 @@ import com.yuanqinglan.app.navigation.AppRoute
 
 /**
  * 个人中心 NavGraph 扩展（供主 Agent 在顶层 NavHost 调用）。
- * 注册 profile 的 7 个冻结路由：me、elder、privacy、pwd-edit、phone-edit、about、feedback。
+ * 注册 profile 的 8 个路由：me、elder、privacy、pwd-edit、phone-edit、about、feedback、
+ * copyright-authorization。
  *
  * me 为 5 Tab 之一（PROFILE 键）；业务子视图（我的订单/素材管理）在 me 目的地内切换，
  * 不额外新增路由键。跨模块跳转（追忆/安葬 Tab）只使用冻结路由字符串与 Tab 语义。
@@ -47,6 +49,7 @@ fun NavGraphBuilder.profileNavGraph(navController: NavHostController) {
             onOpenPhone = { navController.navigate(AppRoute.PHONE_EDIT.route) },
             onOpenAbout = { navController.navigate(AppRoute.ABOUT.route) },
             onOpenFeedback = { navController.navigate(AppRoute.FEEDBACK.route) },
+            onOpenCopyrightAuthorization = { navController.navigate(AppRoute.COPYRIGHT_AUTHORIZATION.route) },
         )
     }
 
@@ -72,5 +75,9 @@ fun NavGraphBuilder.profileNavGraph(navController: NavHostController) {
 
     composable(AppRoute.FEEDBACK.route) {
         FeedbackScreen(onBack = { navController.popBackStack() })
+    }
+
+    composable(AppRoute.COPYRIGHT_AUTHORIZATION.route) {
+        CopyrightAuthorizationScreen(onBack = { navController.popBackStack() })
     }
 }

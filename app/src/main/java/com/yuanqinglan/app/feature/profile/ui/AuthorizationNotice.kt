@@ -9,7 +9,7 @@ package com.yuanqinglan.app.feature.profile.ui
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +17,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -25,19 +25,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.OpenInFull
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material.icons.outlined.Copyright
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -56,96 +54,69 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.yuanqinglan.app.R
-import com.yuanqinglan.app.core.designsystem.OutlineWarm
 import com.yuanqinglan.app.core.designsystem.TextSecondary
+import com.yuanqinglan.app.core.designsystem.currentTouchTargetSize
 
-private val authorizationPages = intArrayOf(
+/**
+ * 已签名软件使用授权书页面（中/英两页，1.1.0 打包的 drawable 资源，不重新打包）。
+ * 图片仅随 APK 内置、在本机内存中展示：不写日志、不参与分析事件、不落外部存储。
+ */
+internal val authorizationPages = intArrayOf(
     R.drawable.authorization_li_yunfeng_zh,
     R.drawable.authorization_li_yunfeng_en,
 )
 
-/** 个人中心页底的低强调版权与当前有效授权说明。 */
+/**
+ * “我的”页底部单行低强调入口：版权及授权情况。
+ * 整行可点击热区不小于 [currentTouchTargetSize]（普通 48dp / 老年 52dp）。
+ * 版权长文、被授权人信息与证书缩略图已移入详情页，首页不再重复展示。
+ */
 @Composable
-fun AuthorizationCopyrightFooter(modifier: Modifier = Modifier) {
-    var showAuthorization by rememberSaveable { mutableStateOf(false) }
-
-    Column(
+fun CopyrightAuthorizationRow(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val touchTarget = currentTouchTargetSize()
+    Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+            .defaultMinSize(minHeight = touchTarget)
+            .clickable(onClick = onClick)
+            .padding(horizontal = 6.dp, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        HorizontalDivider(color = OutlineWarm.copy(alpha = 0.65f))
-        Spacer(Modifier.size(14.dp))
-        Text(
-            text = "Copyright © 2026 西南大学24级学行科创班胡荣杰（WuWingKit）",
-            style = MaterialTheme.typography.labelSmall,
-            color = TextSecondary.copy(alpha = 0.78f),
-            textAlign = TextAlign.Center,
+        Icon(
+            imageVector = Icons.Outlined.Copyright,
+            contentDescription = null,
+            tint = TextSecondary,
+            modifier = Modifier.size(18.dp),
         )
+        Spacer(Modifier.width(10.dp))
         Text(
-            text = "保留所有权利 · 依据 GitHub 仓库专有 License",
-            style = MaterialTheme.typography.labelSmall,
-            color = TextSecondary.copy(alpha = 0.72f),
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 3.dp),
-        )
-
-        Surface(
-            onClick = { showAuthorization = true },
-            modifier = Modifier
-                .padding(top = 12.dp)
-                .width(104.dp)
-                .aspectRatio(210f / 297f)
-                .border(0.5.dp, OutlineWarm, RoundedCornerShape(4.dp)),
-            shape = RoundedCornerShape(4.dp),
-            color = Color.White,
-        ) {
-            Image(
-                painter = painterResource(R.drawable.authorization_li_yunfeng_zh),
-                contentDescription = "打开李芸凤软件使用授权书",
-                contentScale = ContentScale.Fit,
-                modifier = Modifier.fillMaxSize(),
-            )
-        }
-
-        Text(
-            text = "已授权给西南大学经济管理学院李芸凤",
-            style = MaterialTheme.typography.labelMedium,
+            text = "版权及授权情况",
+            style = MaterialTheme.typography.bodyMedium,
             color = TextSecondary,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 8.dp),
+            modifier = Modifier.weight(1f),
         )
-        Text(
-            text = "仅限 2026年重庆市大学生新文科实践创新大赛非商业用途",
-            style = MaterialTheme.typography.labelSmall,
-            color = TextSecondary.copy(alpha = 0.82f),
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 2.dp),
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            contentDescription = null,
+            tint = TextSecondary.copy(alpha = 0.72f),
+            modifier = Modifier.size(18.dp),
         )
-        TextButton(onClick = { showAuthorization = true }) {
-            Icon(
-                imageVector = Icons.Outlined.OpenInFull,
-                contentDescription = null,
-                modifier = Modifier.size(17.dp),
-            )
-            Spacer(Modifier.width(6.dp))
-            Text("查看软件使用授权书")
-        }
-    }
-
-    if (showAuthorization) {
-        AuthorizationViewerDialog(onDismiss = { showAuthorization = false })
     }
 }
 
+/**
+ * 全屏证书查看器：中/英两页已签名授权书，支持切页、缩放（1x–4x）与平移。
+ * 顶部语言标签、底部页码与上一页/下一页操作均可被 TalkBack 朗读。
+ */
 @Composable
-private fun AuthorizationViewerDialog(onDismiss: () -> Unit) {
+internal fun AuthorizationViewerDialog(onDismiss: () -> Unit) {
     var pageIndex by rememberSaveable { mutableIntStateOf(0) }
     Dialog(
         onDismissRequest = onDismiss,
@@ -236,8 +207,12 @@ private fun AuthorizationViewerDialog(onDismiss: () -> Unit) {
     }
 }
 
+/**
+ * 授权书单页：内置 drawable 适配显示，支持单指缩放（1x–4x）与平移。
+ * 图片为本机内存内展示，不写日志、不参与分析、不落外部存储。
+ */
 @Composable
-private fun ZoomableAuthorizationPage(
+internal fun ZoomableAuthorizationPage(
     @DrawableRes resId: Int,
     description: String,
     modifier: Modifier = Modifier,

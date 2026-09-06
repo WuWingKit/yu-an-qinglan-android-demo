@@ -24,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.test.assertHeightIsAtLeast
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasText
@@ -141,13 +142,18 @@ class ProfileTabShellUiTest {
         composeRule.onNodeWithText("意见反馈").assertIsDisplayed()
         composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("恢复默认设置"))
         composeRule.onNodeWithText("恢复默认设置").assertIsDisplayed()
-        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("查看软件使用授权书"))
-        composeRule.onNodeWithText("已授权给西南大学经济管理学院李芸凤").assertIsDisplayed()
+        // 底部单行低强调入口：版权及授权情况 → 详情页 → 证书查看器 → 返回我的根
+        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("版权及授权情况"))
+        composeRule.onNodeWithText("版权及授权情况").assertHeightIsAtLeast(48.dp)
+        composeRule.onNodeWithText("版权及授权情况").performClick()
+        composeRule.onNodeWithText("被授权对象").assertIsDisplayed()
         composeRule.onNodeWithText("查看软件使用授权书").performClick()
         composeRule.onNodeWithText("授权书 1 / 2").assertIsDisplayed()
         composeRule.onNodeWithContentDescription("下一页").performClick()
         composeRule.onNodeWithText("授权书 2 / 2").assertIsDisplayed()
         composeRule.onNodeWithContentDescription("关闭授权书").performClick()
+        composeRule.onNodeWithContentDescription("返回").performClick()
+        composeRule.onNodeWithText("老年模式").assertIsDisplayed()
     }
 
     @Test

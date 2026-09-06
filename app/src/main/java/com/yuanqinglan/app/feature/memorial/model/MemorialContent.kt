@@ -41,6 +41,23 @@ data class MediaRef(
     val isDrawable: Boolean get() = kind == MediaKind.DRAWABLE
 }
 
+/**
+ * 纪念对象日期（出生/离世），支持三种精度：
+ * - 仅年份：`year`，如 `MemorialDate(1996)`，展示为「1996年」；
+ * - 年月：`year + month`，如 `MemorialDate(1996, 2)`，展示为「1996年2月」；
+ * - 完整日期：`year + month + day`，如 `MemorialDate(1996, 2, 3)`，展示为「1996年2月3日」。
+ *
+ * 序列化为结构化 JSON（`{"year":1996,"month":2,"day":3}`）；缺省维度不写字段。
+ * 聚合（HumanMemorial/PetMemorial）以 `MemorialDate? = null` 持有本值，「未知」即 null。
+ * 本类型为纯值对象，合法性校验/自然格式化等规则集中在 `MemorialDateRules`。
+ */
+@Serializable
+data class MemorialDate(
+    val year: Int,
+    val month: Int? = null,
+    val day: Int? = null,
+)
+
 /** 纪念空间留言（寄语）：本地新增，默认以“我”的身份发布。 */
 @Serializable
 data class MemorialMessage(
@@ -116,6 +133,8 @@ interface MemorialLike {
     val relation: String
     val intro: String
     val createdAtMillis: Long
+    val birthDate: MemorialDate?
+    val deathDate: MemorialDate?
     val gallery: List<MediaRef>
     val messages: List<MemorialMessage>
     val stories: List<MemorialStory>

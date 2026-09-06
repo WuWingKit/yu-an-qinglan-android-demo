@@ -15,8 +15,11 @@ class AppRouteTest {
     fun routeKeysMatchAuditedDemo() {
         val routes = AppRoute.entries.map(AppRoute::route)
 
-        assertEquals(45, routes.size)
+        // 45 个 v11 路由（Issue 1 冻结）+ App 2.0 新增版权及授权详情路由
+        // （Issue #20：copyright-authorization）。
+        assertEquals(46, routes.size)
         assertEquals(routes.size, routes.toSet().size)
+        assertTrue("copyright-authorization" in routes)
     }
 
     @Test

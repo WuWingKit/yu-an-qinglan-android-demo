@@ -7,8 +7,10 @@
 package com.yuanqinglan.app.data.local
 
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.okio.OkioStorage
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.PreferencesSerializer
 import java.io.File
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +18,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import okio.Path.Companion.toPath
+import okio.FileSystem
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -41,7 +45,14 @@ class DataStoreSettingsRepositoryTest {
         // DataStore 要求文件尚不存在（由自身创建）。
         testFile.delete()
         scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        dataStore = PreferenceDataStoreFactory.create(scope = scope) { testFile }
+        dataStore = PreferenceDataStoreFactory.create(
+            storage = OkioStorage(
+                fileSystem = FileSystem.SYSTEM,
+                serializer = PreferencesSerializer,
+                producePath = { testFile.absolutePath.toPath() },
+            ),
+            scope = scope,
+        )
         repository = DataStoreSettingsRepository(dataStore, delayMillis = 0L)
     }
 

@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -72,6 +73,8 @@ import com.yuanqinglan.app.feature.memorial.data.MemorialServiceLocator
 import com.yuanqinglan.app.feature.memorial.model.AlbumSelect
 import com.yuanqinglan.app.feature.memorial.model.MediaKind
 import com.yuanqinglan.app.feature.memorial.model.MediaRef
+import com.yuanqinglan.app.feature.memorial.model.MemorialDate
+import com.yuanqinglan.app.feature.memorial.model.MemorialDateRules
 import com.yuanqinglan.app.feature.memorial.model.MemorialFormRules
 import com.yuanqinglan.app.feature.memorial.model.MemorialIds
 import com.yuanqinglan.app.feature.memorial.model.MemorialLike
@@ -157,11 +160,17 @@ class MemorialDetailViewModel(
         }
     }
 
-    fun updateMeta(name: String, relation: String, intro: String) {
+    fun updateMeta(
+        name: String,
+        relation: String,
+        intro: String,
+        birthDate: MemorialDate?,
+        deathDate: MemorialDate?,
+    ) {
         viewModelScope.launch {
             when (MemorialTrack.ofId(memorialId)) {
-                MemorialTrack.HUMAN -> repository.updateHumanMeta(memorialId, name, relation, intro)
-                MemorialTrack.PET -> repository.updatePetMeta(memorialId, name, relation, intro)
+                MemorialTrack.HUMAN -> repository.updateHumanMeta(memorialId, name, relation, intro, birthDate, deathDate)
+                MemorialTrack.PET -> repository.updatePetMeta(memorialId, name, relation, intro, birthDate, deathDate)
             }
         }
     }
@@ -277,7 +286,7 @@ private fun MemorialDetailContent(
                 MetaEditDialog(
                     space = space,
                     vocab = vocab,
-                    onSave = { n, r, i -> viewModel.updateMeta(n, r, i); showEdit = false },
+                    onSave = { n, r, i, b, d -> viewModel.updateMeta(n, r, i, b, d); showEdit = false },
                     onDismiss = { showEdit = false },
                 )
             }
@@ -350,6 +359,23 @@ private fun HomeTabContent(
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(top = 2.dp),
                 )
+            }
+        }
+        item {
+            if (space.birthDate != null || space.deathDate != null) {
+                Column(modifier = Modifier.padding(top = 4.dp)) {
+                    Text(
+                        "出生日期：${MemorialDateRules.formatMemorialDate(space.birthDate)}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = com.yuanqinglan.app.core.designsystem.TextSecondary,
+                    )
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        "离世日期：${MemorialDateRules.formatMemorialDate(space.deathDate)}",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = com.yuanqinglan.app.core.designsystem.TextSecondary,
+                    )
+                }
             }
         }
         item {
@@ -640,36 +666,57 @@ private fun VisitTabContent(
     }
 }
 
-/** 编辑基本信息对话框。 */
+/** 编辑基本信息对话框（含出生/离世日期；内容可滚动，老年模式不裁切）。 */
 @Composable
 private fun MetaEditDialog(
     space: MemorialLike,
     vocab: com.yuanqinglan.app.feature.memorial.ui.MemorialVocabText,
-    onSave: (String, String, String) -> Unit,
+    onSave: (String, String, String, MemorialDate?, MemorialDate?) -> Unit,
     onDismiss: () -> Unit,
 ) {
     var name by remember(space.id) { mutableStateOf(space.name) }
     var relation by remember(space.id) { mutableStateOf(space.relation) }
     var intro by remember(space.id) { mutableStateOf(space.intro) }
+    var birthDate by remember(space.id) { mutableStateOf(space.birthDate) }
+    var deathDate by remember(space.id) { mutableStateOf(space.deathDate) }
     val nameError = MemorialFormRules.nameError(name)
     val relationError = MemorialFormRules.relationError(relation)
     val introError = MemorialFormRules.introError(intro)
-    val canSave = nameError == null && relationError == null && introError == null
+    val dateValidation = MemorialDateRules.validate(birthDate, deathDate)
+    val canSave = nameError == null && relationError == null && introError == null && dateValidation.isOk
 
     androidx.compose.material3.AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text("编辑纪念空间", style = MaterialTheme.typography.titleLarge) },
         text = {
-            Column {
+            Column(
+                modifier = Modifier
+                    .heightIn(max = 520.dp)
+                    .verticalScroll(rememberScrollState()),
+            ) {
                 FormTextField(label = "名称 *", value = name, onValueChange = { name = it }, isError = nameError != null, supportingText = nameError)
                 Spacer(Modifier.height(4.dp))
                 FormTextField(label = "${vocab.relationLabel} *", value = relation, onValueChange = { relation = it }, isError = relationError != null, supportingText = relationError)
                 Spacer(Modifier.height(4.dp))
                 FormTextField(label = "简介（选填）", value = intro, onValueChange = { intro = it }, isError = introError != null, supportingText = introError)
+                Spacer(Modifier.height(12.dp))
+                MemorialDateField(
+                    label = "出生日期",
+                    value = birthDate,
+                    error = dateValidation.birthError,
+                    onChange = { birthDate = it },
+                )
+                Spacer(Modifier.height(10.dp))
+                MemorialDateField(
+                    label = "离世日期",
+                    value = deathDate,
+                    error = dateValidation.deathError,
+                    onChange = { deathDate = it },
+                )
             }
         },
         confirmButton = {
-            androidx.compose.material3.TextButton(enabled = canSave, onClick = { onSave(name, relation, intro) }) { Text("保存") }
+            androidx.compose.material3.TextButton(enabled = canSave, onClick = { onSave(name, relation, intro, birthDate, deathDate) }) { Text("保存") }
         },
         dismissButton = {
             androidx.compose.material3.TextButton(onClick = onDismiss) { Text("取消") }

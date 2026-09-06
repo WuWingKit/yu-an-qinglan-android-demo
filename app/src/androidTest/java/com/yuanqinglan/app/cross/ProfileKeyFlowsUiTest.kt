@@ -112,6 +112,7 @@ class ProfileKeyFlowsUiTest {
                     onOpenPhone = {},
                     onOpenAbout = {},
                     onOpenFeedback = {},
+                    onOpenCopyrightAuthorization = {},
                     vm = vm,
                 )
             }
@@ -157,6 +158,7 @@ class ProfileKeyFlowsUiTest {
                     onOpenPhone = {},
                     onOpenAbout = {},
                     onOpenFeedback = {},
+                    onOpenCopyrightAuthorization = {},
                     vm = vm,
                 )
             }

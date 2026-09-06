@@ -7,6 +7,8 @@
       "relation": "外公",
       "intro": "一辈子与土地打交道的老人，院子里的四季花一年年开。他走后，我们把想念收进这座空间。",
       "createdAtMillis": 1735689600000,
+      "birthDate": { "year": 1935, "month": 3, "day": 12 },
+      "deathDate": { "year": 2024, "month": 4, "day": 4 },
       "gallery": [
         {
           "id": "hm-001-photo-1",
@@ -80,6 +82,8 @@
       "relation": "母亲",
       "intro": "爱听戏、爱种茉莉的妈妈。她总说生活要慢慢来，花开了，人也就回来了。",
       "createdAtMillis": 1746000000000,
+      "birthDate": { "year": 1965, "month": 7, "day": 8 },
+      "deathDate": { "year": 2025, "month": 5, "day": 3 },
       "gallery": [
         {
           "id": "hm-002-photo-1",
