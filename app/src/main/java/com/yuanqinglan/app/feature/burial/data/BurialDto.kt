@@ -12,6 +12,7 @@ import com.yuanqinglan.app.feature.burial.model.BurialPlan
 import com.yuanqinglan.app.feature.burial.model.HumanBurialService
 import com.yuanqinglan.app.feature.burial.model.PetBurialService
 import com.yuanqinglan.app.feature.burial.model.PlanTier
+import com.yuanqinglan.app.feature.burial.model.PlanPriceOption
 import com.yuanqinglan.app.feature.burial.model.modeOfServiceId
 import kotlinx.serialization.Serializable
 
@@ -69,7 +70,28 @@ internal data class BurialPlanDto(
     val title: String,
     val priceText: String,
     val contents: List<String> = emptyList(),
+    val priceYuan: Int? = null,
+    val includedManagementYears: Int = 0,
+    val renewalStartYear: Int = 0,
+    val renewalAnnualYuan: Int = 0,
+    val highlight: String = "",
+    val subsidyYuan: Int = 0,
+    val subsidyNote: String = "",
+    val managementPrepay: List<PlanPriceOptionDto> = emptyList(),
+    val addOns: List<PlanPriceOptionDto> = emptyList(),
+    val excludedFees: List<String> = emptyList(),
+    val purchaseLimit: String = "",
 )
+
+@Serializable
+internal data class PlanPriceOptionDto(
+    val id: String,
+    val label: String,
+    val priceYuan: Int,
+    val years: Int = 0,
+) {
+    fun toDomain(): PlanPriceOption = PlanPriceOption(id, label, priceYuan, years)
+}
 
 // ---------------- DTO -> 领域模型（纯映射，轨道由调用侧显式传入） ----------------
 
@@ -114,6 +136,17 @@ internal fun BurialPlanDto.toDomain(audience: AudienceTrack): BurialPlan {
         title = title,
         priceText = priceText,
         contents = contents,
+        priceYuan = priceYuan,
+        includedManagementYears = includedManagementYears,
+        renewalStartYear = renewalStartYear,
+        renewalAnnualYuan = renewalAnnualYuan,
+        highlight = highlight,
+        subsidyYuan = subsidyYuan,
+        subsidyNote = subsidyNote,
+        managementPrepay = managementPrepay.map { it.toDomain() },
+        addOns = addOns.map { it.toDomain() },
+        excludedFees = excludedFees,
+        purchaseLimit = purchaseLimit,
     )
 }
 

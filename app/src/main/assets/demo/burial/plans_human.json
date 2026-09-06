@@ -1,82 +1,67 @@
 {
   "plans": [
     {
-      "id": "plan-human-tree-basic",
-      "serviceId": "tree",
-      "tier": "basic",
-      "title": "树葬基础安葬套餐",
-      "priceText": "4,980 元/位",
-      "contents": [
-        "安葬意向咨询与办理材料确认",
-        "可降解安葬容器与树葬安放服务",
-        "纪念树认养及前三年养护",
-        "园区祭扫开放时段指引与档案登记"
-      ]
+      "id":"plan-human-tree-simple","serviceId":"tree","tier":"simple","title":"简·归 / 树葬","priceText":"4,980 元/位","priceYuan":4980,"includedManagementYears":1,"renewalStartYear":2,"renewalAnnualYuan":300,"highlight":"公共纪念区基础位 + 首年代祭扫","subsidyYuan":3000,"subsidyNote":"重庆户籍且提供火化证明，最高减 3,000 元；部分片区为 1,500 元。","purchaseLimit":"每位逝者限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":1200,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":2400,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":4000,"years":20}],
+      "contents":["公共纪念区基础位","可降解骨灰盒","铜或木质铭牌，刻字不超过 30 字","集体安葬仪式","基础电子纪念馆，含 1 张照片","首年代祭扫 1 次"],
+      "addOns":[{"id":"urn","label":"升级可降解骨灰盒","priceYuan":1980},{"id":"flowers","label":"鲜花订阅（1 年）","priceYuan":288},{"id":"proxy","label":"代祭扫高频包（5 次）","priceYuan":998},{"id":"digital-standard","label":"数字纪念馆标准版","priceYuan":1980},{"id":"digital-premium","label":"数字纪念馆高级版","priceYuan":12800},{"id":"contract","label":"生前契约","priceYuan":9800}],
+      "excludedFees":["殡仪馆遗体接运、化妆、告别及火化等基础服务","超出套餐次数的代祭扫，单次 288 至 698 元","定制仪式追加项目，单项 800 至 3,800 元"]
     },
     {
-      "id": "plan-human-tree-grace",
-      "serviceId": "tree",
-      "tier": "upgrade",
-      "title": "树葬纪念养护套餐",
-      "priceText": "22,800 元/位",
-      "contents": [
-        "包含树葬基础套餐全部服务",
-        "纪念树长期养护档案",
-        "纪念树牌与电子纪念卡",
-        "园区代为养护记录说明"
-      ]
+      "id":"plan-human-tree-sincere","serviceId":"tree","tier":"sincere","title":"诚·念 / 树葬","priceText":"19,800 元/位","priceYuan":19800,"includedManagementYears":5,"renewalStartYear":6,"renewalAnnualYuan":500,"highlight":"双骨灰盒 + 5 年代祭扫","subsidyYuan":3000,"subsidyNote":"重庆户籍且提供火化证明，最高减 3,000 元；部分片区为 1,500 元。","purchaseLimit":"每位逝者限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":2000,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":4000,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":7000,"years":20}],
+      "contents":["中等景观位","可降解骨灰盒及备用陶瓷盒","铭牌不超过 80 字，含生平","家庭专属仪式，不超过 30 分钟","标准电子纪念馆 5 GB","5 年内每年 2 次代祭扫","1 次一对一管家顾问"],
+      "addOns":[{"id":"urn","label":"家用备用骨灰盒","priceYuan":2800},{"id":"flowers","label":"鲜花订阅（1 年）","priceYuan":288},{"id":"digital-premium","label":"数字纪念馆高级版","priceYuan":8800},{"id":"contract","label":"生前契约","priceYuan":9800}],
+      "excludedFees":["殡仪馆遗体接运、化妆、告别及火化等基础服务","超出套餐次数的代祭扫，单次 288 至 698 元","定制仪式追加项目，单项 800 至 3,800 元"]
     },
     {
-      "id": "plan-human-flower-basic",
-      "serviceId": "flower",
-      "tier": "basic",
-      "title": "花葬基础安葬套餐",
-      "priceText": "4,980 元/位",
-      "contents": [
-        "安葬意向咨询与办理材料确认",
-        "可降解安葬容器与花葬安放服务",
-        "纪念花田登记与四季养护",
-        "园区祭扫开放时段指引与档案登记"
-      ]
+      "id":"plan-human-tree-premium","serviceId":"tree","tier":"premium","title":"至·念 / 树葬","priceText":"79,800 元/位","priceYuan":79800,"includedManagementYears":20,"renewalStartYear":21,"renewalAnnualYuan":800,"highlight":"独立景观树苗 + 终身管家顾问","subsidyYuan":3000,"subsidyNote":"重庆户籍且提供火化证明，最高减 3,000 元；部分片区为 1,500 元。","purchaseLimit":"每位逝者限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":3500,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":6500,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":13000,"years":20}],
+      "contents":["核心观赏区或独立景观树苗","进口环保骨灰容器及可叠晶石","设计师肖像、浮雕或生平码铭牌","60 分钟专属仪式及摄影摄像","独立域名、VR 与 AI 高级纪念馆","终身每年 5 次代祭扫","终身一对一管家顾问","全年鲜花、每年 1 次专车、族谱数字化及生前契约"],
+      "addOns":[{"id":"digital-ultimate","label":"数字纪念馆顶级版","priceYuan":12800}],
+      "excludedFees":["殡仪馆遗体接运、化妆、告别及火化等基础服务","超出套餐次数的代祭扫，单次 288 至 698 元","定制仪式追加项目，单项 800 至 3,800 元"]
     },
     {
-      "id": "plan-human-flower-grace",
-      "serviceId": "flower",
-      "tier": "upgrade",
-      "title": "花葬纪念养护套餐",
-      "priceText": "28,800 元/位",
-      "contents": [
-        "包含花葬基础套餐全部服务",
-        "纪念花田长期养护档案",
-        "节气花木更换与纪念登记",
-        "园区代为养护记录说明"
-      ]
+      "id":"plan-human-grass-simple","serviceId":"grass","tier":"simple","title":"简·归 / 草坪葬","priceText":"4,580 元/位","priceYuan":4580,"includedManagementYears":1,"renewalStartYear":2,"renewalAnnualYuan":300,"highlight":"公共草坪基础位 + 首年代祭扫","subsidyYuan":3000,"subsidyNote":"重庆户籍且提供火化证明，最高减 3,000 元；部分片区为 1,500 元。","purchaseLimit":"每位逝者限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":1200,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":2400,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":4000,"years":20}],
+      "contents":["公共草坪基础位","可降解骨灰盒","铜或木质铭牌，刻字不超过 30 字","集体安葬仪式","基础电子纪念馆，含 1 张照片","首年代祭扫 1 次"],
+      "addOns":[{"id":"urn","label":"升级可降解骨灰盒","priceYuan":1980},{"id":"flowers","label":"鲜花订阅（1 年）","priceYuan":288},{"id":"proxy","label":"代祭扫高频包（5 次）","priceYuan":998},{"id":"digital-standard","label":"数字纪念馆标准版","priceYuan":1980},{"id":"digital-premium","label":"数字纪念馆高级版","priceYuan":12800},{"id":"contract","label":"生前契约","priceYuan":9800}],
+      "excludedFees":["殡仪馆遗体接运、化妆、告别及火化等基础服务","超出套餐次数的代祭扫，单次 288 至 698 元","定制仪式追加项目，单项 800 至 3,800 元"]
     },
     {
-      "id": "plan-human-grass-basic",
-      "serviceId": "grass",
-      "tier": "basic",
-      "title": "草坪葬基础安葬套餐",
-      "priceText": "4,680 元/位",
-      "contents": [
-        "安葬意向咨询与办理材料确认",
-        "可降解安葬容器与草坪葬安放服务",
-        "草坪统一养护与地面标记",
-        "园区档案登记与祭扫指引"
-      ]
+      "id":"plan-human-grass-sincere","serviceId":"grass","tier":"sincere","title":"诚·念 / 草坪葬","priceText":"18,800 元/位","priceYuan":18800,"includedManagementYears":5,"renewalStartYear":6,"renewalAnnualYuan":500,"highlight":"双骨灰盒 + 5 年代祭扫","subsidyYuan":3000,"subsidyNote":"重庆户籍且提供火化证明，最高减 3,000 元；部分片区为 1,500 元。","purchaseLimit":"每位逝者限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":2000,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":4000,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":7000,"years":20}],
+      "contents":["中等景观草坪位","可降解骨灰盒及备用陶瓷盒","铭牌不超过 80 字，含生平","家庭专属仪式，不超过 30 分钟","标准电子纪念馆 5 GB","5 年内每年 2 次代祭扫","1 次一对一管家顾问"],
+      "addOns":[{"id":"urn","label":"家用备用骨灰盒","priceYuan":2800},{"id":"flowers","label":"鲜花订阅（1 年）","priceYuan":288},{"id":"digital-premium","label":"数字纪念馆高级版","priceYuan":8800},{"id":"contract","label":"生前契约","priceYuan":9800}],
+      "excludedFees":["殡仪馆遗体接运、化妆、告别及火化等基础服务","超出套餐次数的代祭扫，单次 288 至 698 元","定制仪式追加项目，单项 800 至 3,800 元"]
     },
     {
-      "id": "plan-human-grass-grace",
-      "serviceId": "grass",
-      "tier": "upgrade",
-      "title": "草坪葬纪念养护套餐",
-      "priceText": "25,800 元/位",
-      "contents": [
-        "包含草坪葬基础套餐全部服务",
-        "纪念区域养护档案",
-        "纪念标记维护说明",
-        "园区代为养护记录说明"
-      ]
+      "id":"plan-human-grass-premium","serviceId":"grass","tier":"premium","title":"至·念 / 草坪葬","priceText":"76,800 元/位","priceYuan":76800,"includedManagementYears":20,"renewalStartYear":21,"renewalAnnualYuan":800,"highlight":"核心景观位 + 终身管家顾问","subsidyYuan":3000,"subsidyNote":"重庆户籍且提供火化证明，最高减 3,000 元；部分片区为 1,500 元。","purchaseLimit":"每位逝者限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":3500,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":6500,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":13000,"years":20}],
+      "contents":["核心草坪景观位","进口环保骨灰容器及可叠晶石","设计师肖像、浮雕或生平码铭牌","60 分钟专属仪式及摄影摄像","独立域名、VR 与 AI 高级纪念馆","终身每年 5 次代祭扫","终身一对一管家顾问","全年鲜花、每年 1 次专车、族谱数字化及生前契约"],
+      "addOns":[{"id":"digital-ultimate","label":"数字纪念馆顶级版","priceYuan":12800}],
+      "excludedFees":["殡仪馆遗体接运、化妆、告别及火化等基础服务","超出套餐次数的代祭扫，单次 288 至 698 元","定制仪式追加项目，单项 800 至 3,800 元"]
+    },
+    {
+      "id":"plan-human-flower-simple","serviceId":"flower","tier":"simple","title":"简·归 / 花坛葬","priceText":"5,280 元/位","priceYuan":5280,"includedManagementYears":1,"renewalStartYear":2,"renewalAnnualYuan":300,"highlight":"公共花坛基础位 + 首年代祭扫","subsidyYuan":3000,"subsidyNote":"重庆户籍且提供火化证明，最高减 3,000 元；部分片区为 1,500 元。","purchaseLimit":"每位逝者限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":1200,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":2400,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":4000,"years":20}],
+      "contents":["公共花坛基础位","可降解骨灰盒","铜或木质铭牌，刻字不超过 30 字","集体安葬仪式","基础电子纪念馆，含 1 张照片","首年代祭扫 1 次"],
+      "addOns":[{"id":"urn","label":"升级可降解骨灰盒","priceYuan":1980},{"id":"flowers","label":"鲜花订阅（1 年）","priceYuan":288},{"id":"proxy","label":"代祭扫高频包（5 次）","priceYuan":998},{"id":"digital-standard","label":"数字纪念馆标准版","priceYuan":1980},{"id":"digital-premium","label":"数字纪念馆高级版","priceYuan":12800},{"id":"contract","label":"生前契约","priceYuan":9800}],
+      "excludedFees":["殡仪馆遗体接运、化妆、告别及火化等基础服务","超出套餐次数的代祭扫，单次 288 至 698 元","定制仪式追加项目，单项 800 至 3,800 元"]
+    },
+    {
+      "id":"plan-human-flower-sincere","serviceId":"flower","tier":"sincere","title":"诚·念 / 花坛葬","priceText":"21,800 元/位","priceYuan":21800,"includedManagementYears":5,"renewalStartYear":6,"renewalAnnualYuan":500,"highlight":"双骨灰盒 + 5 年代祭扫","subsidyYuan":3000,"subsidyNote":"重庆户籍且提供火化证明，最高减 3,000 元；部分片区为 1,500 元。","purchaseLimit":"每位逝者限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":2000,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":4000,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":7000,"years":20}],
+      "contents":["中等景观花坛位","可降解骨灰盒及备用陶瓷盒","铭牌不超过 80 字，含生平","家庭专属仪式，不超过 30 分钟","标准电子纪念馆 5 GB","5 年内每年 2 次代祭扫","1 次一对一管家顾问"],
+      "addOns":[{"id":"urn","label":"家用备用骨灰盒","priceYuan":2800},{"id":"flowers","label":"鲜花订阅（1 年）","priceYuan":288},{"id":"digital-premium","label":"数字纪念馆高级版","priceYuan":8800},{"id":"contract","label":"生前契约","priceYuan":9800}],
+      "excludedFees":["殡仪馆遗体接运、化妆、告别及火化等基础服务","超出套餐次数的代祭扫，单次 288 至 698 元","定制仪式追加项目，单项 800 至 3,800 元"]
+    },
+    {
+      "id":"plan-human-flower-premium","serviceId":"flower","tier":"premium","title":"至·念 / 花坛葬","priceText":"85,800 元/位","priceYuan":85800,"includedManagementYears":20,"renewalStartYear":21,"renewalAnnualYuan":800,"highlight":"专属花坛位 + 终身管家顾问","subsidyYuan":3000,"subsidyNote":"重庆户籍且提供火化证明，最高减 3,000 元；部分片区为 1,500 元。","purchaseLimit":"每位逝者限购 1 份",
+      "managementPrepay":[{"id":"management-5","label":"预付 5 年","priceYuan":3500,"years":5},{"id":"management-10","label":"预付 10 年","priceYuan":6500,"years":10},{"id":"management-20","label":"预付 20 年","priceYuan":13000,"years":20}],
+      "contents":["专属花坛位","进口环保骨灰容器及可叠晶石","设计师肖像、浮雕或生平码铭牌","60 分钟专属仪式及摄影摄像","独立域名、VR 与 AI 高级纪念馆","终身每年 5 次代祭扫","终身一对一管家顾问","全年鲜花、每年 1 次专车、族谱数字化及生前契约"],
+      "addOns":[{"id":"digital-ultimate","label":"数字纪念馆顶级版","priceYuan":12800}],
+      "excludedFees":["殡仪馆遗体接运、化妆、告别及火化等基础服务","超出套餐次数的代祭扫，单次 288 至 698 元","定制仪式追加项目，单项 800 至 3,800 元"]
     }
   ]
 }

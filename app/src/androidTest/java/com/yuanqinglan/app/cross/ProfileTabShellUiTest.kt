@@ -141,6 +141,13 @@ class ProfileTabShellUiTest {
         composeRule.onNodeWithText("意见反馈").assertIsDisplayed()
         composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("恢复默认设置"))
         composeRule.onNodeWithText("恢复默认设置").assertIsDisplayed()
+        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("查看软件使用授权书"))
+        composeRule.onNodeWithText("已授权给西南大学经济管理学院李芸凤").assertIsDisplayed()
+        composeRule.onNodeWithText("查看软件使用授权书").performClick()
+        composeRule.onNodeWithText("授权书 1 / 2").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("下一页").performClick()
+        composeRule.onNodeWithText("授权书 2 / 2").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("关闭授权书").performClick()
     }
 
     @Test
