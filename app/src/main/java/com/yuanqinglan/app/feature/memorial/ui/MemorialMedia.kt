@@ -84,6 +84,10 @@ const val GalleryHumanTeaToken = "memorial_gallery_family_tea"
 const val GalleryPetParkToken = "memorial_gallery_pet_park"
 const val AiRestoreSampleToken = "ai_restore_sample_faded"
 
+/** AI 影像修复按纪念空间轨道选取素材，避免宠物空间误用人物肖像。 */
+internal fun aiRestorePreviewToken(memorialId: String): String =
+    if (memorialId.startsWith("pm-")) PetPortraitToken else AiRestoreSampleToken
+
 /** 头像/肖像圆形示意语义（不带“演示”字样）。 */
 const val HUMAN_PORTRAIT_DESCRIPTION = "纪念人物示意肖像"
 const val PET_PORTRAIT_DESCRIPTION = "纪念宠物示意肖像"

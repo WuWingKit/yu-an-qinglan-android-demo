@@ -15,7 +15,7 @@ import org.junit.Test
 
 /**
  * 版权与授权静态内容一致性测试：与仓库根 LICENSE 及授权公告对齐，防文案回归。
- * 关键字段（权利人 / 被授权对象 / 赛事范围 / 联系邮箱）与中英双页授权书资源顺序。
+ * 关键字段（权利人 / 被授权对象 / 联系邮箱）与中英双页授权书资源顺序。
  */
 class CopyrightLicenseTest {
 
@@ -24,7 +24,10 @@ class CopyrightLicenseTest {
         assertTrue(CopyrightLicense.Owner.contains("胡荣杰"))
         assertTrue(CopyrightLicense.Owner.contains("WuWingKit"))
         assertEquals("西南大学经济管理学院李芸凤", CopyrightLicense.Licensee)
-        assertTrue(CopyrightLicense.Competition.contains("2026"))
+        assertEquals(
+            "本软件使用权已经授权给西南大学经济管理学院李芸凤。",
+            CopyrightLicense.AuthorizationSummary,
+        )
         assertEquals("hurongjie@qianban.online", CopyrightLicense.ContactEmail)
     }
 
