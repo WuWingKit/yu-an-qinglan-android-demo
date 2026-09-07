@@ -91,20 +91,17 @@ class ProfileCopyrightAuthUiTest {
 
         openDetailFromMeRoot()
 
-        // 顶部小节（版权所有者 / 许可边界 / 被授权对象）
+        // 顶部完整版权小节
         composeRule.onNodeWithText("版权所有者").assertIsDisplayed()
         composeRule.onNodeWithText("许可边界").assertIsDisplayed()
-        composeRule.onNodeWithText("被授权对象").assertIsDisplayed()
-        composeRule.onNodeWithText("西南大学经济管理学院李芸凤").assertIsDisplayed()
 
-        // 滚动依次确认下部小节与联系邮箱
-        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("授权用途"))
-        composeRule.onNodeWithText("授权用途").assertIsDisplayed()
-        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("修改限制"))
-        composeRule.onNodeWithText("修改限制").assertIsDisplayed()
-        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("有效性与联系"))
-        composeRule.onNodeWithText("有效性与联系").assertIsDisplayed()
+        // 下部只简述获授权人并保留授权书入口
+        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("书面授权与平台权限"))
+        composeRule.onNodeWithText("书面授权与平台权限").assertIsDisplayed()
         composeRule.onNodeWithText("hurongjie@qianban.online", substring = true).assertIsDisplayed()
+        composeRule.onNode(hasScrollAction()).performScrollToNode(hasText("授权情况"))
+        composeRule.onNodeWithText("授权情况").assertIsDisplayed()
+        composeRule.onAllNodesWithText("2026年重庆市大学生新文科实践创新大赛", substring = true).assertCountEquals(0)
 
         // 详情导航返回：回到我的根
         composeRule.onNodeWithContentDescription("返回").performClick()

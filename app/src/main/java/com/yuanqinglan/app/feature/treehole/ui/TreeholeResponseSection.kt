@@ -11,6 +11,8 @@ import android.provider.Settings
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -220,8 +222,21 @@ internal fun KindResponseButton(
     modifier: Modifier = Modifier,
 ) {
     val touchTarget = currentTouchTargetSize()
-    val containerColor = if (highlighted) QingLanGreenSoft else SurfaceCard
-    val tint = if (highlighted) QingLanGreenDark else MaterialTheme.colorScheme.primary
+    val containerColor by animateColorAsState(
+        targetValue = if (highlighted) QingLanGreenSoft else SurfaceCard,
+        animationSpec = tween(durationMillis = BUTTON_COLOR_ANIMATION_MILLIS),
+        label = "轻回应按钮底色",
+    )
+    val tint by animateColorAsState(
+        targetValue = if (highlighted) QingLanGreenDark else MaterialTheme.colorScheme.primary,
+        animationSpec = tween(durationMillis = BUTTON_COLOR_ANIMATION_MILLIS),
+        label = "轻回应图标颜色",
+    )
+    val iconScale by animateFloatAsState(
+        targetValue = if (highlighted) 1.12f else 1f,
+        animationSpec = tween(durationMillis = BUTTON_ICON_ANIMATION_MILLIS, easing = FastOutSlowInEasing),
+        label = "轻回应图标缩放",
+    )
     Column(
         modifier = modifier
             .defaultMinSize(minHeight = touchTarget)
@@ -235,7 +250,12 @@ internal fun KindResponseButton(
             imageVector = icon,
             contentDescription = kind.label,
             tint = tint,
-            modifier = Modifier.size(22.dp),
+            modifier = Modifier
+                .size(22.dp)
+                .graphicsLayer {
+                    scaleX = iconScale
+                    scaleY = iconScale
+                },
         )
         Spacer(Modifier.height(4.dp))
         Text(
@@ -362,6 +382,8 @@ private fun LeafParticle(
                 translationX = x
                 translationY = y
                 rotationZ = spec.rotationDegrees * progress
+                scaleX = leafScale(progress)
+                scaleY = leafScale(progress)
                 this.alpha = alpha
             }
             .size(spec.sizeDp.dp),
@@ -379,19 +401,40 @@ private fun FlowerBloomAnimation(modifier: Modifier = Modifier) {
         )
     }
     val p = progress.value
-    Icon(
-        imageVector = Icons.Outlined.LocalFlorist,
-        contentDescription = null,
-        tint = QingLanGreen.copy(alpha = bloomAlpha(p)),
+    Box(
         modifier = modifier
-            .size(FLOWER_BLOOM_SIZE)
-            .graphicsLayer {
-                scaleX = bloomScale(p)
-                scaleY = bloomScale(p)
-                rotationZ = bloomRotation(p)
-                this.alpha = bloomAlpha(p)
-            },
-    )
+            .size(FLOWER_HALO_SIZE),
+        contentAlignment = Alignment.Center,
+    ) {
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .graphicsLayer {
+                    scaleX = bloomScale(p)
+                    scaleY = bloomScale(p)
+                    this.alpha = bloomAlpha(p) * 0.55f
+                }
+                .background(
+                    brush = Brush.radialGradient(
+                        listOf(QingLanGreenSoft, Color.Transparent),
+                    ),
+                    shape = CircleShape,
+                ),
+        )
+        Icon(
+            imageVector = Icons.Outlined.LocalFlorist,
+            contentDescription = null,
+            tint = QingLanGreen.copy(alpha = bloomAlpha(p)),
+            modifier = Modifier
+                .size(FLOWER_BLOOM_SIZE)
+                .graphicsLayer {
+                    scaleX = bloomScale(p)
+                    scaleY = bloomScale(p)
+                    rotationZ = bloomRotation(p)
+                    this.alpha = bloomAlpha(p)
+                },
+        )
+    }
 }
 
 /** 读取系统 animator_duration_scale：0 表示关闭动画，由 [responseAnimationEnabled] 降级。 */
@@ -409,6 +452,8 @@ private fun rememberAnimatorDurationScale(): Float {
 
 private const val DEFAULT_ANIMATOR_DURATION_SCALE = 1f
 private const val BUTTON_HIGHLIGHT_MILLIS = 480L
+private const val BUTTON_COLOR_ANIMATION_MILLIS = 220
+private const val BUTTON_ICON_ANIMATION_MILLIS = 180
 private const val OVERLAY_LINGER_MARGIN_MILLIS = 150L
 private val maxAnimationMillis = maxOf(LAMP_ANIMATION_MILLIS, LEAF_ANIMATION_MILLIS, FLOWER_ANIMATION_MILLIS)
 
@@ -418,3 +463,4 @@ private const val FLOWER_ANCHOR_FRACTION = 5f / 6f
 
 private val LAMP_GLOW_SIZE = 56.dp
 private val FLOWER_BLOOM_SIZE = 36.dp
+private val FLOWER_HALO_SIZE = 52.dp

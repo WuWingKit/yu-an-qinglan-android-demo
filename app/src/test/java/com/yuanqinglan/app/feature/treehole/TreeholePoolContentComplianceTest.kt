@@ -46,15 +46,9 @@ class TreeholePoolContentComplianceTest {
     // ---------- 内容量 ----------
 
     @Test
-    fun eachPoolHasAtLeastEightRotatableLetters() {
-        assertTrue(
-            "人间池应不少于 8 条可轮换内容，实际 ${humanLetters.size}",
-            humanLetters.size >= 8,
-        )
-        assertTrue(
-            "生灵池应不少于 8 条可轮换内容，实际 ${petLetters.size}",
-            petLetters.size >= 8,
-        )
+    fun eachPoolHasFifteenRotatableLetters() {
+        assertEquals("人间池文案数量", 15, humanLetters.size)
+        assertEquals("生灵池文案数量", 15, petLetters.size)
     }
 
     // ---------- 必需展示字段 ----------
