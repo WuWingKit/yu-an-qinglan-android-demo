@@ -45,7 +45,7 @@ class MemorialTreeholeAssetJsonTest {
         val text = read("memorial/memorials_human.json")
         assertClean(text, "memorials_human.json")
         val file = AppJson.decodeFromString(HumanMemorialsFile.serializer(), text)
-        assertEquals(2, file.memorials.size)
+        assertEquals(3, file.memorials.size)
         file.memorials.forEach { m ->
             assertTrue(m.id.startsWith(MemorialTrack.PREFIX_HUMAN))
             assertTrue(m.name.isNotBlank())
@@ -61,6 +61,7 @@ class MemorialTreeholeAssetJsonTest {
         assertClean(petText, "memorials_pet.json")
         val humans = AppJson.decodeFromString(HumanMemorialsFile.serializer(), humanText).memorials
         val pets = AppJson.decodeFromString(PetMemorialsFile.serializer(), petText).memorials
+        assertEquals(2, pets.size)
         pets.forEach { m ->
             assertTrue(m.id.startsWith(MemorialTrack.PREFIX_PET))
             assertTrue(humans.none { it.id == m.id })

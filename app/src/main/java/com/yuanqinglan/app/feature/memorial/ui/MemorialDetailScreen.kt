@@ -628,7 +628,7 @@ private fun AiTabContent(
             },
         )
         Text(
-            "生成能力为本地流程展示：不调用外部 AI 服务，素材与结果都不离开本机。",
+            "生成过程在本机完成，不调用外部 AI 服务，素材与结果都不离开本机。",
             style = MaterialTheme.typography.labelMedium,
             color = com.yuanqinglan.app.core.designsystem.TextSecondary,
         )

@@ -15,7 +15,7 @@ import kotlinx.serialization.Serializable
  * 并经独立的 [PetMemorial 仓库入口] 管理，标识以 `pm-` 开头。宠物纪念与人类纪念
  * 数据永不共享同一列表或同一集合。
  *
- * [portrait] 为 drawable 资源名（宠物肖像 memorial_pet_portrait）。宠物纪念内容
+ * [portrait] 为 drawable 资源名（如 memorial_pet_portrait、memorial_dog_portrait）。宠物纪念内容
  * （相册/寄语/故事/信件/日记/祭扫记录）与人类纪念完全同构但不互通。
  */
 @Serializable
@@ -38,6 +38,7 @@ data class PetMemorial(
     companion object {
         /** 宠物纪念肖像资源名（示意肖像，不作真实宠物档案宣传）。 */
         const val PORTRAIT_DEFAULT = "memorial_pet_portrait"
+        const val PORTRAIT_DOG = "memorial_dog_portrait"
     }
 }
 
