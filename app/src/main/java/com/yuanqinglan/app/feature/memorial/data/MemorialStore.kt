@@ -60,6 +60,7 @@ abstract class MemorialTrackStore<T : MemorialLike>(
     private val snapshotName: String,
     private val listSerializer: KSerializer<List<T>>,
     private val normalizeLoaded: (T) -> T = { it },
+    private val requiredSeedIds: Set<String> = emptySet(),
 ) {
 
     private val mutex = Mutex()
@@ -342,16 +343,27 @@ abstract class MemorialTrackStore<T : MemorialLike>(
         initialized = true
         _state.value = try {
             val snapshotText = snapshotIo?.read(snapshotName)
+            var migrated = false
             val items: List<T> = if (snapshotText != null) {
                 try {
-                    AppJson.decodeFromString(listSerializer, snapshotText)
+                    val restored = AppJson.decodeFromString(listSerializer, snapshotText)
+                    val restoredIds = restored.mapTo(mutableSetOf()) { it.id }
+                    val additions = if (requiredSeedIds.isEmpty()) {
+                        emptyList()
+                    } else {
+                        seedProvider().filter { it.id in requiredSeedIds && it.id !in restoredIds }
+                    }
+                    migrated = additions.isNotEmpty()
+                    restored + additions
                 } catch (_: Exception) {
                     seedProvider()
                 }
             } else {
                 seedProvider()
             }
-            DemoState.Success(items.map(normalizeLoaded).associateBy { it.id })
+            val loaded = items.map(normalizeLoaded).associateBy { it.id }
+            if (migrated) persistLocked(loaded)
+            DemoState.Success(loaded)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
@@ -383,12 +395,19 @@ class HumanMemorialStore(
     snapshotName = snapshotName,
     listSerializer = ListSerializer(HumanMemorial.serializer()),
     normalizeLoaded = { memorial ->
-        if (memorial.id == MOTHER_MEMORIAL_ID && memorial.portrait == HumanMemorial.PORTRAIT_DEFAULT) {
-            memorial.copy(portrait = HumanMemorial.PORTRAIT_MOTHER)
-        } else {
-            memorial
+        when {
+            memorial.id == GRANDFATHER_MEMORIAL_ID &&
+                memorial.portrait == HumanMemorial.PORTRAIT_DEFAULT -> {
+                memorial.copy(portrait = HumanMemorial.PORTRAIT_GRANDFATHER)
+            }
+            memorial.id == MOTHER_MEMORIAL_ID &&
+                memorial.portrait == HumanMemorial.PORTRAIT_DEFAULT -> {
+                memorial.copy(portrait = HumanMemorial.PORTRAIT_MOTHER)
+            }
+            else -> memorial
         }
     },
+    requiredSeedIds = setOf(WOMAN_MEMORIAL_ID),
 ) {
 
     internal override fun withParts(base: HumanMemorial, parts: ContentParts): HumanMemorial = base.copy(
@@ -460,7 +479,9 @@ class HumanMemorialStore(
 
     private companion object {
         const val SNAPSHOT_HUMAN = "human_memorials.json"
+        const val GRANDFATHER_MEMORIAL_ID = "hm-001"
         const val MOTHER_MEMORIAL_ID = "hm-002"
+        const val WOMAN_MEMORIAL_ID = "hm-003"
     }
 }
 
@@ -474,6 +495,7 @@ class PetMemorialStore(
     snapshotIo = snapshotIo,
     snapshotName = snapshotName,
     listSerializer = ListSerializer(PetMemorial.serializer()),
+    requiredSeedIds = setOf(DOG_MEMORIAL_ID),
 ) {
 
     internal override fun withParts(base: PetMemorial, parts: ContentParts): PetMemorial = base.copy(
@@ -545,6 +567,7 @@ class PetMemorialStore(
 
     private companion object {
         const val SNAPSHOT_PET = "pet_memorials.json"
+        const val DOG_MEMORIAL_ID = "pm-002"
     }
 }
 

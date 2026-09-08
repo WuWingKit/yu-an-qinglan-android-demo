@@ -38,7 +38,9 @@ data class HumanMemorial(
     companion object {
         /** 人类纪念肖像资源名（示意肖像，不作真实人物宣传）。 */
         const val PORTRAIT_DEFAULT = "memorial_human_portrait"
+        const val PORTRAIT_GRANDFATHER = "memorial_grandfather_portrait"
         const val PORTRAIT_MOTHER = "memorial_mother_portrait"
+        const val PORTRAIT_WOMAN = "memorial_woman_portrait"
     }
 }
 

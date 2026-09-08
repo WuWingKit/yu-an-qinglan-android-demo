@@ -51,6 +51,52 @@
           "message": "带了你最爱的小鱼干，在纪念树下坐了一下午。"
         }
       ]
+    },
+    {
+      "id": "pm-002",
+      "name": "小满",
+      "portrait": "memorial_dog_portrait",
+      "relation": "我的伙伴",
+      "intro": "喜欢在江边草地晒太阳的狗狗。它带来的陪伴与快乐，被好好珍藏在这座纪念空间里。",
+      "createdAtMillis": 1756684800000,
+      "birthDate": { "year": 2016, "month": 5 },
+      "deathDate": { "year": 2025, "month": 8, "day": 19 },
+      "gallery": [
+        {
+          "id": "pm-002-photo-1",
+          "kind": "DRAWABLE",
+          "value": "memorial_dog_portrait",
+          "name": "江边草地上的小满"
+        }
+      ],
+      "messages": [
+        {
+          "id": "pm-002-msg-1",
+          "author": "我",
+          "text": "再经过那片草地时，还是会想起你迎着风跑来的样子。",
+          "createdAtMillis": 1757289600000
+        }
+      ],
+      "stories": [
+        {
+          "id": "pm-002-story-1",
+          "title": "江边的第一个春天",
+          "dateMillis": 1462032000000,
+          "dateText": "2016年5月",
+          "body": "第一次带小满去江边，它在草地上跑了很久，最后安静地靠在身边看水面。后来那里成了我们常去的地方。",
+          "image": null
+        }
+      ],
+      "letters": [],
+      "jisiRecords": [
+        {
+          "id": "pm-002-jisi-1",
+          "dateMillis": 1756684800000,
+          "dateText": "2025年9月1日",
+          "place": "江边公园",
+          "message": "沿着熟悉的小路走了一遍，风还是和从前一样。"
+        }
+      ]
     }
   ]
 }

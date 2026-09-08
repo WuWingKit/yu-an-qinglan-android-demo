@@ -69,8 +69,11 @@ import kotlinx.coroutines.withContext
 @DrawableRes
 fun memorialDrawable(token: String): Int = when (token) {
     HumanPortraitToken -> R.drawable.memorial_human_portrait
+    GrandfatherPortraitToken -> R.drawable.memorial_grandfather_portrait
     MotherPortraitToken -> R.drawable.memorial_mother_portrait
+    WomanPortraitToken -> R.drawable.memorial_woman_portrait
     PetPortraitToken -> R.drawable.memorial_pet_portrait
+    DogPortraitToken -> R.drawable.memorial_dog_portrait
     GalleryHumanTeaToken -> R.drawable.memorial_gallery_family_tea
     GalleryPetParkToken -> R.drawable.memorial_gallery_pet_park
     AiRestoreSampleToken -> R.drawable.ai_restore_sample_faded
@@ -78,15 +81,22 @@ fun memorialDrawable(token: String): Int = when (token) {
 }
 
 const val HumanPortraitToken = "memorial_human_portrait"
+const val GrandfatherPortraitToken = "memorial_grandfather_portrait"
 const val MotherPortraitToken = "memorial_mother_portrait"
+const val WomanPortraitToken = "memorial_woman_portrait"
 const val PetPortraitToken = "memorial_pet_portrait"
+const val DogPortraitToken = "memorial_dog_portrait"
 const val GalleryHumanTeaToken = "memorial_gallery_family_tea"
 const val GalleryPetParkToken = "memorial_gallery_pet_park"
 const val AiRestoreSampleToken = "ai_restore_sample_faded"
 
 /** AI 影像修复按纪念空间轨道选取素材，避免宠物空间误用人物肖像。 */
 internal fun aiRestorePreviewToken(memorialId: String): String =
-    if (memorialId.startsWith("pm-")) PetPortraitToken else AiRestoreSampleToken
+    when {
+        memorialId == "pm-002" -> DogPortraitToken
+        memorialId.startsWith("pm-") -> PetPortraitToken
+        else -> AiRestoreSampleToken
+    }
 
 /** 头像/肖像圆形示意语义（不带“演示”字样）。 */
 const val HUMAN_PORTRAIT_DESCRIPTION = "纪念人物示意肖像"
